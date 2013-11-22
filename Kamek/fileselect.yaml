@@ -1,0 +1,154 @@
+---
+source_files: [../src/fileselect.S]
+hooks:
+  - name: FSDisBrlan1 # inMulti
+    type: add_func_pointer
+    src_addr_pal: 0x80943A74
+    target_func: 'FSDummyBrlanName'
+  - name: FSDisBrlan2 # on
+    type: add_func_pointer
+    src_addr_pal: 0x80943AB4
+    target_func: 'FSDummyBrlanName'
+  - name: FSDisBrlan3 # idle
+    type: add_func_pointer
+    src_addr_pal: 0x80943AB8
+    target_func: 'FSDummyBrlanName'
+  - name: FSDisBrlan4 # hit
+    type: add_func_pointer
+    src_addr_pal: 0x80943ABC
+    target_func: 'FSDummyBrlanName'
+  - name: FSDisBrlan5 # off
+    type: add_func_pointer
+    src_addr_pal: 0x80943AC0
+    target_func: 'FSDummyBrlanName'
+  - name: FSDisBrlan6 # out
+    type: add_func_pointer
+    src_addr_pal: 0x80943AC4
+    target_func: 'FSDummyBrlanName'
+
+  - name: FSDisGroup1a # inMulti
+    type: add_func_pointer
+    src_addr_pal: 0x80943B88
+    target_func: 'FSDummyGroup'
+  - name: FSDisGroup1b # inMulti
+    type: add_func_pointer
+    src_addr_pal: 0x80943B8C
+    target_func: 'FSDummyGroup'
+  - name: FSDisGroup2a # onMulti
+    type: add_func_pointer
+    src_addr_pal: 0x80943BDC
+    target_func: 'FSDummyGroup'
+  - name: FSDisGroup2b # onMulti
+    type: add_func_pointer
+    src_addr_pal: 0x80943BE0
+    target_func: 'FSDummyGroup'
+  - name: FSDisGroup3a # idleMulti
+    type: add_func_pointer
+    src_addr_pal: 0x80943BE4
+    target_func: 'FSDummyGroup'
+  - name: FSDisGroup3b # idleMulti
+    type: add_func_pointer
+    src_addr_pal: 0x80943BE8
+    target_func: 'FSDummyGroup'
+  - name: FSDisGroup4a # hitMulti
+    type: add_func_pointer
+    src_addr_pal: 0x80943BEC
+    target_func: 'FSDummyGroup'
+  - name: FSDisGroup4b # hitMulti
+    type: add_func_pointer
+    src_addr_pal: 0x80943BF0
+    target_func: 'FSDummyGroup'
+  - name: FSDisGroup5a # offMulti
+    type: add_func_pointer
+    src_addr_pal: 0x80943BF4
+    target_func: 'FSDummyGroup'
+  - name: FSDisGroup5b # offMulti
+    type: add_func_pointer
+    src_addr_pal: 0x80943BF8
+    target_func: 'FSDummyGroup'
+#  - name: FSDisGroup6a # outMulti
+#    type: add_func_pointer
+#    src_addr_pal: 0x80943BFC
+#    target_func: 'FSDummyGroup'
+#  - name: FSDisGroup6b # outMulti
+#    type: add_func_pointer
+#    src_addr_pal: 0x80943C00
+#    target_func: 'FSDummyGroup'
+
+
+  - name: FSDummyPane1 # N_back
+    type: add_func_pointer
+    src_addr_pal: 0x80943C5C
+    target_func: 'FSDummyPane'
+
+
+  - name: FSCutOffSomeBmgs
+    type: patch
+    addr_pal: 0x80782F38
+    data: '38E00007'
+
+  - name: FSCutOffSomeTexts
+    type: patch
+    addr_pal: 0x80782F4C
+    data: '38C00002'
+
+  - name: FSNoBackBmg
+    type: nop_insn
+    area_pal: 0x80782F70
+
+  - name: FSNoWindows
+    type: nop_insn
+    area_pal: 0x80782F98
+
+  - {name: FSShowOrHideNBackNop1, type: nop_insn, area_pal: 0x80783428}
+  - {name: FSShowOrHideNBackNop2, type: nop_insn, area_pal: 0x80783440}
+  - {name: FSShowOrHideNBackNop3, type: nop_insn, area_pal: 0x80783458}
+  - {name: FSShowOrHideNBackNop4, type: nop_insn, area_pal: 0x8078346C}
+
+  - {name: FSDontMoveDown, type: patch, addr_pal: 0x80783D04, data: '4800001C'}
+  - {name: FSMoveLeftToUp, type: patch, addr_pal: 0x80783D20, data: '548007BD'}
+  - {name: FSMoveRightToDown, type: patch, addr_pal: 0x80783D3C, data: '548007FF'}
+
+  - {name: FS2MoveLeftToUp, type: patch, addr_pal: 0x8078456C, data: '540007BD'}
+  - {name: FS2MoveRightToDown, type: patch, addr_pal: 0x80784598, data: '540007FF'}
+
+  - {name: FS3MoveLeftToUp, type: patch, addr_pal: 0x80784B08, data: '540007BD'}
+  - {name: FS3MoveRightToDown, type: patch, addr_pal: 0x80784B40, data: '540007FF'}
+
+# needed because I replace A00_window with a couple of pointers LOL
+  - {name: FSFixWindowName, type: add_func_pointer, src_addr_pal: 0x80943B54, target_func: 'A00_window'}
+  - {name: FSShowRlan, type: add_func_pointer, src_addr_pal: 0x80943ACC, target_func: 'ShowEraseCopy'}
+  - {name: FSHideRlan, type: add_func_pointer, src_addr_pal: 0x80943AD0, target_func: 'HideEraseCopy'}
+  - {name: FSInitExtraRlans, type: patch, addr_pal: 0x80782EE4, data: '38A0001F'}
+#  - {name: FSFixPosFile, type: add_func_pointer, src_addr_pal: 0x80943C4C, target_func: 'N_posFile1_00'}
+#  - {name: FSCDHolderGrpA, type: add_func_pointer, src_addr_pal: 0x80943C08, target_func: 'CDHolderGroup'}
+#  - {name: FSCDHolderGrpB, type: add_func_pointer, src_addr_pal: 0x80943C0C, target_func: 'CDHolderGroup'}
+#  - {name: FSInitExtraGrps, type: patch, addr_pal: 0x80782EF8, data: '38C0002F'}
+  - {name: FSCDHolderGrpA, type: add_func_pointer, src_addr_pal: 0x80943BFC, target_func: 'CDHolderGroup'}
+  - {name: FSCDHolderGrpB, type: add_func_pointer, src_addr_pal: 0x80943C00, target_func: 'CDHolderGroup'}
+  - {name: FSRlanIdx, type: patch, addr_pal: 0x8093422C, data: '0000001D0000001E'}
+
+# disable the multi out anims
+  - {name: FSDisMulti1, type: nop_insn, area_pal: 0x80784220}
+  - {name: FSDisMulti2, type: nop_insn, area_pal: 0x80784230}
+
+  - {name: FSResetAnim, type: patch, addr_pal: 0x80783610, data: '3880002A'}
+#  - {name: FSShowCD, type: branch_insn, branch_type: b, src_addr_pal: 0x80783BFC, target_func: 'FSShowCD'}
+#  - {name: FSHideCD, type: branch_insn, branch_type: b, src_addr_pal: 0x80783F80, target_func: 'FSHideCD'}
+  - {name: FSShowCDa, type: branch_insn, branch_type: b, src_addr_pal: 0x80783810, target_func: 'FSShowCD_OpenWait'}
+#  - {name: FSHideCDa, type: branch_insn, branch_type: b, src_addr_pal: 0x80784304, target_func: 'FSHideCD_IWOSAEW'}
+# Show it on MultiButtnOnStageAnimeEndWait
+  - {name: FSShowCDOverrideA, type: patch, addr_pal: 0x80783954, data: '3880002A'}
+  - {name: FSShowCDOverrideB, type: patch, addr_pal: 0x807839AC, data: '3880002A'}
+# Hide it on MultiButtonExitAnimeEndWait
+  - {name: FSHideCD, type: branch_insn, branch_type: b, src_addr_pal: 0x80784200, target_func: 'FSHideCD'}
+
+
+  - {name: DFNiceTitle, type: branch_insn, branch_type: bl, src_addr_pal: 0x8077D044, target_func: 'DFNiceTitle'}
+  - {name: DFNiceWorldName, type: branch_insn, branch_type: bl, src_addr_pal: 0x8077DA10, target_func: 'DFNiceWorldName'}
+
+  - {name: DefaultSavefileInfo, type: branch_insn, branch_type: b, src_addr_pal: 0x800CE100, target_func: 'DefaultSavefileInfo'}
+  - {name: FixUpExistingSavefile, type: branch_insn, branch_type: b, src_addr_pal: 0x800CF900, target_func: 'FixUpExistingSavefile'}
+#  - {name: FSDebugStates, type: add_func_pointer, src_addr_pal: 0x80943E38, target_func: 'FSDebugStates'}
+
+

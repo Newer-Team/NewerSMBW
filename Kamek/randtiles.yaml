@@ -1,0 +1,31 @@
+---
+source_files: [../src/randtiles.cpp]
+hooks:
+  - name: ModifyTilemapClassSize
+    type: patch
+    addr_pal: 0x80083598
+    data: '3860 0C3C'
+
+  - name: LoadRandTiles
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x8015BCD0
+    target_func: 'RandTileLoadHook'
+
+  - name: HookIdentifyTilesets
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x800838AC
+    target_func: 'IdentifyTilesets'
+
+  - name: HookTilePlacer
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80086B48
+    target_func: 'TryAndRandomise'
+
+  - name: AHackOfGiganticProportions
+    type: patch
+    addr_pal: 0x80086B4C
+    data: '4800 0120'
+

@@ -1,0 +1,10 @@
+---
+# Replaces DUMMY_DOOR_PARENT
+
+source_files: [../src/firelaser.cpp]
+hooks:
+  - name: BuildFireLaser
+    type: add_func_pointer
+    src_addr_pal: 0x80958D68
+    target_func: 'daFireLaser_c::build()'
+

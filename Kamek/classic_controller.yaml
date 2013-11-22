@@ -1,0 +1,29 @@
+---
+source_files: [../src/classic_controller.S]
+hooks:
+    - name: AddClassicController
+      type: branch_insn
+      branch_type: b
+      src_addr_pal: 0x801eb6f8
+      target_func: '_switch_buttons'
+
+    - name: WiimoteWaggleAdjust
+      type: branch_insn
+      branch_type: b
+      src_addr_pal: 0x801EAF74
+      target_func: 'waggleAdjust'
+
+    - name: PatchExtensionScall
+      type: patch
+      addr_pal: 0x80019EE0
+      data: '38000000'
+
+    - name: DisableWarningMgrOne
+      type: patch
+      addr_pal: 0x800B3B30
+      data: '38000000'
+
+    - name: DisableWarningMgrTwo
+      type: patch
+      addr_pal: 0x8076DBa8
+      data: '38000000'

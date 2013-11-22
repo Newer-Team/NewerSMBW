@@ -1,0 +1,18 @@
+---
+source_files: [../src/msgbox.S, ../src/msgbox.cpp]
+hooks:
+  - name: QueryGlobal5758
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x800B3B50
+    target_func: 'Query5758Replacement'
+
+  - name: BuildMsgManager
+    type: add_func_pointer
+    src_addr_pal: 0x80AF96F8
+    target_func: 'dMsgBoxManager_c::build()'
+
+  - name: BuildMsgBlock
+    type: add_func_pointer
+    src_addr_pal: 0x80ADD890
+    target_func: 'daEnMsgBlock_c::build()'

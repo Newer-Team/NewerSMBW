@@ -1,0 +1,34 @@
+---
+source_files: [../src/pregame.S, ../src/pregame.cpp]
+hooks:
+  - name: PGLH_loadLevelNumber
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x80B6BDD0
+    target_func: 'PregameLytHandler::hijack_loadLevelNumber()'
+
+  - {name: CRSIN_makeLonger,type: patch,addr_pal: 0x8091F144,data: '380000B4'}
+
+  - {name: PGLH_dis1,type: patch,addr_pal: 0x80b6c1cc,data: '48000238'}
+  - {name: PGLH_dis2,type: patch,addr_pal: 0x80b6c404,data: '7F83E378'}
+
+  - {name: PGLH_tbGetFix0, type: add_func_pointer, src_addr_pal: 0x80B88658, target_func: 'T_x_00'}
+  - {name: PGLH_tbGetFix1, type: add_func_pointer, src_addr_pal: 0x80B8865C, target_func: 'T_x_00'}
+  - {name: PGLH_tbGetFix2, type: add_func_pointer, src_addr_pal: 0x80B88660, target_func: 'T_x_00'}
+  - {name: PGLH_tbGetFix3, type: add_func_pointer, src_addr_pal: 0x80B88664, target_func: 'T_x_00'}
+  - {name: PGLH_tbGetFix4, type: add_func_pointer, src_addr_pal: 0x80B88668, target_func: 'T_x_00'}
+  - {name: PGLH_tbGetFix5, type: add_func_pointer, src_addr_pal: 0x80B886BC, target_func: 'T_x_00'}
+
+  - {name: PGLH_picGetFix0, type: add_func_pointer, src_addr_pal: 0x80B88850, target_func: 'P_bat_00'}
+  - {name: PGLH_picGetFix1, type: add_func_pointer, src_addr_pal: 0x80B88854, target_func: 'P_bat_00'}
+  - {name: PGLH_picGetFix2, type: add_func_pointer, src_addr_pal: 0x80B88858, target_func: 'P_bat_00'}
+  - {name: PGLH_picGetFix3, type: add_func_pointer, src_addr_pal: 0x80B8885C, target_func: 'P_bat_00'}
+  - {name: PGLH_picGetFix4, type: add_func_pointer, src_addr_pal: 0x80B88860, target_func: 'P_bat_00'}
+  - {name: PGLH_picGetFix5, type: add_func_pointer, src_addr_pal: 0x80B88864, target_func: 'P_bat_00'}
+  - {name: PGLH_picGetFix6, type: add_func_pointer, src_addr_pal: 0x80B88868, target_func: 'P_bat_00'}
+  - {name: PGLH_picGetFix7, type: add_func_pointer, src_addr_pal: 0x80B8886C, target_func: 'P_bat_00'}
+  - {name: PGLH_picGetFix8, type: add_func_pointer, src_addr_pal: 0x80B88870, target_func: 'P_bat_00'}
+  - {name: PGLH_picGetFix9, type: add_func_pointer, src_addr_pal: 0x80B88874, target_func: 'P_bat_00'}
+  - {name: PGLH_picGetFix10, type: add_func_pointer, src_addr_pal: 0x80B88878, target_func: 'P_bat_00'}
+  - {name: PGLH_picGetFix11, type: add_func_pointer, src_addr_pal: 0x80B888D4, target_func: 'P_bat_00'}
+

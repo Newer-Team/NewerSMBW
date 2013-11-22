@@ -1,0 +1,380 @@
+---
+# This has kind of turned into the "random stuff that we don't want to make a yaml for"
+# yaml, hasn't it...
+source_files: [../src/randomcrap.S, ../src/music.cpp, ../src/fix38.S, ../src/nullsub.S, ../src/newer.cpp]#, ../src/anmconstruct.S]
+hooks:
+  - name: TryAndFixScoreGlitch
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x8010D014
+    target_func: 'TryAndFixScoreGlitch'
+
+  - name: ReplaceExceptionOccurred
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80234CE0
+    target_func: 'ReplaceExceptionOccurred'
+  - {name: DeleteMainInfo, type: patch, addr_pal: 0x8034D410, data: '00000000'}
+  - {name: DeleteTrace, type: patch, addr_pal: 0x8034D590, data: '00000000'}
+  - {name: DeleteTraceHeadings, type: patch, addr_pal: 0x8034D5B8, data: '00000000'}
+  - {name: DeleteContextExc, type: patch, addr_pal: 0x8034D614, data: '00000000'}
+  - {name: DeleteContext, type: patch, addr_pal: 0x8034D634, data: '00000000'}
+  - {name: DeleteDsisrDar, type: patch, addr_pal: 0x8034D770, data: '00000000'}
+
+  - name: RedRingEventControl
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x80A93038
+    target_func: 'RedRingEventControl'
+
+  - name: HigherBobombTileExplosionRadius
+    type: patch
+    addr_pal: 0x809CB118
+    data: '2C1C0003'
+  - name: DisableTerrainShading
+    type: patch
+    addr_pal: 0x8008E6F8
+    data: '38600000'
+
+  - name: TitleScreenFucker
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x8010191C
+    target_func: 'TitleScreenFucker'
+  - name: AnotherTSThing
+    type: patch
+    addr_pal: 0x8015D850
+    data: '38600000'
+
+  - name: TitleReplayLevels
+    type: patch
+    addr_pal: 0x802F4CD0
+    data: '0402 0002 0101 0104 0202 0002 0301 0306 0400 0402 0501 0503 0104 0900 0900'
+
+  - name: NoTitleScreenMovie
+    type: nop_insn
+    area_pal: 0x80781FB8
+
+#  - name: MPPauseFix1
+#    type: branch_insn
+#    branch_type: bl
+#    target_func: 'mpPauseFix1'
+#    src_addr_pal: 0x801410C4
+#This one disables the player freezing and doing the grow animation
+#skawo didn't like it
+#  - name: MPPauseFix2
+#    type: branch_insn
+#    branch_type: bl
+#    target_func: 'mpPauseFix2'
+#    src_addr_pal: 0x801410DC
+#  - name: MPPauseFix3
+#    type: branch_insn
+#    branch_type: b
+#    target_func: 'mpPauseFix3'
+#    src_addr_pal: 0x801412A0
+#  - name: MPPauseFix4
+#    type: branch_insn
+#    branch_type: bl
+#    target_func: 'mpPauseFix4'
+#    src_addr_pal: 0x8014169C
+
+  - name: MPDeathPauseFix
+    type: nop_insn
+    area_pal: 0x8013DA70
+
+  - name: FixMemoryLeaks
+    type: patch
+    addr_pal: 0x800E53E0
+    data: '4E800020'
+
+  - name: ClimbSounds
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80132EFC
+    target_func: 'newClimbSounds'
+
+  - name: ClimbSoundsJumpS
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80133120
+    target_func: 'newClimbSoundsJumpS'
+  - name: ClimbSoundsJumpSS
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80133134
+    target_func: 'newClimbSoundsJumpSS'
+  - name: ClimbSoundsJump
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80133148
+    target_func: 'newClimbSoundsJump'
+
+  - name: ClimbSoundsLand
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80132AE8
+    target_func: 'newClimbSoundsLand'
+
+  - name: ClimbSoundsAttack
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x801334E4
+    target_func: 'newClimbSoundsAttack'
+
+  - name: MusicHax
+    type: branch_insn
+    src_addr_pal: 0x8008E5E4
+    branch_type: b
+    target_func: 'after_course_getMusicForZone'
+
+  # IDs to nuke: 1, 2, 4, 10
+  - name: MusicNukeBahpsNormal1
+    type: patch
+    addr_pal: 0x802F6BC8
+    data: '00000000 00000000 00000000 00000000'
+  - name: MusicNukeBahpsNormal2
+    type: patch
+    addr_pal: 0x802F6BE0
+    data: '00000000 00000000'
+  - name: MusicNukeBahpsNormal3
+    type: patch
+    addr_pal: 0x802F6C10
+    data: '00000000 00000000'
+
+  - name: MusicNukeBahpsFast1
+    type: patch
+    addr_pal: 0x802F6CB0
+    data: '00000000 00000000 00000000 00000000'
+  - name: MusicNukeBahpsFast2
+    type: patch
+    addr_pal: 0x802F6CC8
+    data: '00000000 00000000'
+  - name: MusicNukeBahpsFast3
+    type: patch
+    addr_pal: 0x802F6CF8
+    data: '00000000 00000000'
+
+  - name: Fix38WithJumpCoin
+    src_addr_pal: 0x807EBC5C
+    type: branch_insn
+    branch_type: b
+    target_func: 'fix38WithJumpCoin'
+
+  - name: 1-1 BG Fix
+    type: patch
+    addr_ntsc: 0x80117F6C
+    addr_pal: 0x801180AC
+    data: '38000003'
+    
+  - name: PipeFix_NodeCalc
+    type: patch
+    addr_ntsc: 0x800508F8
+    addr_pal: 0x800508F8
+    data: 'A01E0010540007FF41820014A0E300043807FFFEB01F042C4800000C38000001B01F042CA0A30002A89F042C80C6003C7C052214540020367CA60214A8850002'
+    
+  - name: PipeFix_ExitPatch1
+    type: patch
+    addr_ntsc: 0x80050A5C
+    addr_pal: 0x80050A5C
+    data: '88030013'
+    
+  - name: PipeFix_ExitPatch2
+    type: patch
+    addr_ntsc: 0x80050A60
+    addr_pal: 0x80050A60
+    data: '2C000000'
+    
+  - name: PipeFix_ExitPatch3
+    type: patch
+    addr_ntsc: 0x80050A68
+    addr_pal: 0x80050A68
+    data: '2C000001'
+    
+  - name: PipeFix_ExitPatch4
+    type: patch
+    addr_ntsc: 0x80050A70
+    addr_pal: 0x80050A70
+    data: '2C000002'
+    
+  - name: PipeFix_ExitPatch5
+    type: patch
+    addr_ntsc: 0x80050A78
+    addr_pal: 0x80050A78
+    data: '2C000003'
+    
+  - name: PipeFix_ExitPatch6
+    type: patch
+    addr_ntsc: 0x80050A88
+    addr_pal: 0x80050A88
+    data: '389F065C'
+    
+  - name: ChestnutGoombaForTargets # sprite 10
+    type: patch
+    addr_ntsc: 0x8030A1D0
+    addr_pal: 0x8030A4D0
+    data: '00C8 0000 00000008 FFFFFFF0 00000000 00000000 0000000A 0000000A 0000 0000 0000 0000 0002 0000'
+    
+  - name: TileGodLayerFix
+    type: patch
+    addr_ntsc: 0xdeadbeef
+    addr_pal: 0x807E16D0
+    data: '88D2038F'
+    
+  - name: EN_BIGPILEFix
+    type: patch
+    addr_pal: 0x8001F93C
+    data: '48000014'
+
+  - name: RockyWrenchFix
+    type: patch
+    addr_pal: 0x808A9448
+    data: '60000000'
+
+#  - name: HeapChangeAttempt
+#    type: branch_insn
+#    branch_type: bl
+#    src_addr_ntsc: 0xdeadbeef
+#    src_addr_pal: 0x80081E34
+#    target_func: 'HeapChangeAttempt'
+    
+  - name: StarsDontKillSpikesUD
+    type: add_func_pointer
+    src_addr_pal: 0x80AFF4D8
+    target_func: 'ReturnNone'
+
+  - name: StarsDontKillSpikesD
+    type: add_func_pointer
+    src_addr_pal: 0x80AFF784
+    target_func: 'ReturnNone'
+
+  - name: StarsDontKillSpikesU
+    type: add_func_pointer
+    src_addr_pal: 0x80AFFA30
+    target_func: 'ReturnNone'
+
+  - name: StarsDontKillSpikesLR
+    type: add_func_pointer
+    src_addr_pal: 0x80AFFCDC
+    target_func: 'ReturnNone'
+
+  - name: StarsDontKillSpikesR
+    type: add_func_pointer
+    src_addr_pal: 0x80AFFF88
+    target_func: 'ReturnNone'
+
+  - name: StarsDontKillSpikesL
+    type: add_func_pointer
+    src_addr_pal: 0x80B00234
+    target_func: 'ReturnNone'
+
+  - name: DisableBowserPow
+    type: add_func_pointer
+    src_addr_pal: 0x80B7E854
+    target_func: 'ReturnNone'
+
+  - {name: PowEvent1, type: branch_insn, branch_type: b, src_addr_pal: 0x80892DFC, target_func: 'PowEvent'}
+  - {name: PowEvent2, type: branch_insn, branch_type: b, src_addr_pal: 0x80893044, target_func: 'PowEvent'}
+
+  - {name: AlwaysDrawPictureFontWhite, type: branch_insn, branch_type: b, src_addr_pal: 0x800E596C, target_func: 'TextWriterCrap'}
+  - {name: DebugSCM, type: branch_insn, branch_type: b, src_addr_pal: 0x8006A6C4, target_func: 'EndSCM'}
+
+  - {name: FrontCrow, type: patch, addr_pal: 0x80ACF6A0, data: '45ABE000'} # 5500.0f
+
+  - name: DisableBigMetPenguinSlideIgnoring
+    type: patch
+    addr_pal: 0x809B6EF0
+    data: '38600000'
+
+  - name: DisableBigMetFireballIgnoring
+    type: patch
+    addr_pal: 0x809B6EC0
+    data: '38600000'
+
+  - name: DisableBigMetIceballIgnoring
+    type: patch
+    addr_pal: 0x809B6EB0
+    data: '38600000'
+
+  - name: GiganticBackgrounds
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x8011857C
+    target_func: 'GiganticBackgrounds'
+
+  - name: FixFireballSensorSetup
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x8011A82C
+    target_func: 'FixFireballSensorSetup'
+
+  - name: BigMetSlidingFix
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x809B6F60
+    target_func: 'BigMetSlidingFix'
+
+  - name: FuckLineLiftWithARake
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x808399D4
+    target_func: 'FuckLineLiftWithARake'
+  - name: AlsoFuckTheLineLiftActivation
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x80839B00
+    target_func: 'AlsoFuckTheLineLiftActivation'
+
+  - name: ThwompNewAutoDestruction
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x809F5E44
+    target_func: 'ThwompNewAutoDestruction'
+
+  - name: ThwompNeverDieOutOfZone
+    type: nop_insn
+    area_pal: 0x809F5E40
+
+  - name: FixRunAnimTypo
+    type: add_func_pointer
+    src_addr_pal: 0x802F2A4C
+    target_func: 'Rrun'
+
+  # - name: FuckUpYoshi
+  #   type: branch_insn
+  #   branch_type: b
+  #   src_addr_pal: 0x809FEFBC
+  #   target_func: 'FuckUpYoshi'
+  # - name: FuckUpYoshi2
+  #   type: branch_insn
+  #   branch_type: b
+  #   src_addr_pal: 0x800A7638
+  #   target_func: 'FuckUpYoshi2'
+  # - name: YoshiStartAnimWrapper
+  #   type: add_func_pointer
+  #   src_addr_pal: 0x8031C5F4
+  #   target_func: 'YoshiStartAnimWrapper'
+  # - name: YoshiStateWrapper
+  #   type: add_func_pointer
+  #   src_addr_pal: 0x80326D70
+  #   target_func: 'YoshiStateWrapper'
+  # - name: AnmChrConstructWrapper
+  #   type: branch_insn
+  #   branch_type: b
+  #   src_addr_pal: 0x80248AD0
+  #   target_func: 'AnmChrConstructWrapper'
+
+  - name: BroozerCrashAvoidance2
+    type: patch
+    addr_pal: 0x809EB284
+    data: '60000000'
+
+  - name: BroozerCrashAvoidance3
+    type: patch
+    addr_pal: 0x809EC5B4
+    data: '38600001'
+
+  - name: JrFloorFireHax
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80816370
+    target_func: 'JrFloorFireHax'

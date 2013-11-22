@@ -1,0 +1,63 @@
+---
+# SingAlong = WM_KILLERBULLET (0x276)
+# SongBlock = WM_KILLER       (0x275)
+# SongPrize = WM_SINKSHIP     (0x277)
+
+source_files: [../src/bonusRoom.cpp]
+
+hooks:
+
+  ################################################
+  # HOOKS FOR Sing Along
+  ################################################
+  - name: SingAlongBuild
+    type: add_func_pointer
+    src_addr_pal: 0x8098369C
+    target_func: 'dSingAlong::build()'
+
+  - name: UpdateSingAlongSpriteInfo
+    type: patch
+    addr_pal: 0x8030A598
+    data: '0276 0000 00000010 00000010  00000000 00000000 00000200 00000200  0000 0000 0200 0200 0000 0000'
+    # 0x8030A340 + sprite num * 0x28 == offset
+
+  - name: SingAlongSpriteFileInfo
+    type: add_func_pointer
+    src_addr_pal: 0x8031AB88
+    target_func: 'SAarcNameList'
+
+    # 0x8031AB4C + sprite num * 0x4 == offset
+    # That offset stores a pointer to a table of pointers to strings, followed by four bytes of padding
+    # Each string is an arcname to load
+
+
+  ################################################
+  # HOOKS FOR Song Block
+  ################################################
+  - name: SongBlockBuild
+    type: add_func_pointer
+    src_addr_pal: 0x809834F0
+    target_func: 'dSongBlock::build()'
+
+  - name: UpdateSingAlongSpriteInfo
+    type: patch
+    addr_pal: 0x8030A5E8
+    data: '0275 0000 00000010 00000010  00000000 00000000 00000040 00000040  0000 0000 0040 0040 0000 0000'
+    # 0x8030A340 + sprite num * 0x28 == offset
+
+  - name: SingAlongSpriteFileInfo
+    type: add_func_pointer
+    src_addr_pal: 0x8031AB90
+    target_func: 'SAarcNameList'
+
+    # 0x8031AB4C + sprite num * 0x4 == offset
+    # That offset stores a pointer to a table of pointers to strings, followed by four bytes of padding
+    # Each string is an arcname to load
+
+  ################################################
+  # HOOKS FOR Song Prize
+  ################################################
+  - name: SongPrizeBuild
+    type: add_func_pointer
+    src_addr_pal: 0x80985434
+    target_func: 'dSongPrize::build()'

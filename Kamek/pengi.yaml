@@ -1,0 +1,10 @@
+---
+# Replaces TARZAN_ROPE
+
+source_files: [../src/penguin.cpp]
+hooks:
+  - name: PengiBuild
+    type: add_func_pointer
+    src_addr_pal: 0x8097CFC8
+    target_func: 'daPengi::build()'
+

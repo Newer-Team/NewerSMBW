@@ -1,0 +1,21 @@
+---
+# Replaces WM_PUKU
+
+source_files: [../src/bossSamurshai.cpp]
+hooks:
+  - name: SamurshaiBuild
+    type: add_func_pointer
+    src_addr_pal: 0x809894B4
+    target_func: 'daSamurshai::build()'
+
+  - name: SamurshaiSpriteFileInfo
+    type: add_func_pointer
+    src_addr_pal: 0x8031AB98
+    target_func: 'SSarcNameList'
+    # 0x8031AB4C + sprite num * 0x4 == offset
+
+  - name: UpdateSamurshaiSpriteInfo
+    type: patch
+    addr_pal: 0x8030A638
+    data: '0290 0000 00000010 00000010  00000000 00000000 00000040 00000040  0000 0000 0040 0040 0000 0000'
+    # 0x8030A340 + sprite num * 0x28 == offset

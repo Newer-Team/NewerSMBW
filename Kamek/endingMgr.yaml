@@ -1,0 +1,16 @@
+---
+source_files: [../src/endingMgr.cpp]
+hooks:
+  - name: BuildEndingMgr
+    type: add_func_pointer
+    src_addr_pal: 0x8095D018
+    target_func: 'dEndingMgr_c::build()'
+
+  - name: DisablePeachThankMP
+    type: nop_insn
+    area_pal: 0x80B4A020
+
+  - name: DisablePeachDmEscort
+    type: nop_insn
+    area_pal: 0x80B49E80
+

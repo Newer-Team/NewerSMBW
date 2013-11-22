@@ -1,0 +1,9 @@
+---
+source_files: [../src/apDebug.cpp]
+hooks:
+  - name: DrawAPhysics
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x80830BD8
+    target_func: 'APDebugDraw()'
+

@@ -1,0 +1,10 @@
+---
+# Replaces LIFT_TORIDE_ROLL
+
+source_files: [../src/effectvideo.cpp]
+hooks:
+  - name: EffectVideoAdd
+    type: add_func_pointer
+    src_addr_pal: 0x80969E78
+    target_func: 'EffectVideo::build()'
+

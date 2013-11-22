@@ -1,0 +1,24 @@
+---
+# Replaces [637] WM_KINOKO_STAR
+
+
+source_files: [../src/pumpkinGoomba.cpp]
+hooks:
+  - name: BuildGoombaPie
+    type: add_func_pointer
+    src_addr_pal: 0x80983E3C
+    target_func: 'dGoombaPie::build()'
+
+  - name: UpdateGoombaPieSpriteInfo
+    type: patch
+    # 0x8030A340 + sprite num * 0x28 == offset
+    addr_pal: 0x8030A6B0
+    #      -ID- ----  -X Offs- -Y Offs-  -RectX1- -RectY1- -RectX2- -RectY2-  -1C- -1E- -20- -22-  Flag ----
+    # Orig 01FC 0000  00000008 00000000  00000000 FFFFFFC0 00000010 00000040  0030 0030 0000 0000  0008 0000
+    data: '027D 0000  00000008 00000010  00000000 FFFFFFF8 00000008 00000008  0000 0000 0000 0000  0000 0000'
+
+  - name: GoombaPieSpriteFileInfo
+    type: add_func_pointer
+    src_addr_pal: 0x8031ABA4
+    target_func: 'GParcNameList'
+    # 0x8031AB4C + sprite num * 0x4 == offset

@@ -1,0 +1,16 @@
+---
+# replaces WM_BOSS_IGGY
+source_files: [../src/bonepiece.cpp]
+hooks:
+  - name: BuildBonePiece
+    type: add_func_pointer
+    src_addr_pal: 0x80986B48
+    target_func: 'daBonePiece_c::build()'
+
+  - name: UpdateBonePieceSpriteInfo
+    type: patch
+    addr_pal: 0x8030A610
+    #      -ID- ----  -X Offs- -Y Offs-  -RectX1- -RectY1- -RectX2- -RectY2-  -1C- -1E- -20- -22-  Flag ----
+    # Orig 02EB 0000  00000000 00000000  00000000 00000000 00000000 00000000  0000 0000 0000 0000  0000 0000
+    data: '0289 0000  00000000 00000000  00000000 00000000 00000100 00000100  0000 0000 0000 0000  0002 0000'
+

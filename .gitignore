@@ -1,0 +1,12 @@
+Kamek/processed
+Kamek/AnotherASM
+Kamek/NewerASM
+Kamek/kamek_pal.x
+Kamek/kamek_pal2.x
+Kamek/kamek_ntsc.x
+Kamek/kamek_ntsc2.x
+Kamek/kamek_jpn.x
+Kamek/kamek_jpn2.x
+Kamek/tools/*.pyc
+Kamek/*.pyc
+Kamek/.DS_Store

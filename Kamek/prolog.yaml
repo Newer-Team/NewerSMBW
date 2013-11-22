@@ -1,0 +1,9 @@
+---
+source_files: [../src/prolog.S]
+hooks:
+  - name: Prolog
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x8015BC70
+    target_func: 'Prolog'
+

@@ -1,0 +1,20 @@
+---
+source_files: [../src/tilegod.S, ../src/tilegod.cpp]
+hooks:
+#  - name: TileGodHack
+#    type: branch_insn
+#    branch_type: b
+#    src_addr_pal: 0x807E1668
+#    target_func: 'TileGodHack'
+
+  - name: TileGodHack
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x807E15D0
+    target_func: 'daChengeBlock_c::doStuff(daChengeBlock_c::Action, bool)'
+
+  - name: GetTileFromTileTableHack
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x80083490
+    target_func: 'NEW_GetTileFromTileTable'

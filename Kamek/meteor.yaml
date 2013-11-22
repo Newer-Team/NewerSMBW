@@ -1,0 +1,23 @@
+---
+# Replaces EN_TARZANROPE
+
+source_files: [../src/meteor.cpp]
+hooks:
+  - name: BuildMeteor
+    type: add_func_pointer
+    src_addr_pal: 0x80B0A940
+    target_func: 'dMeteor::build()'
+
+  - name: UpdateMeteorSpriteInfo
+    type: patch
+    # 0x8030A340 + sprite num * 0x28 == offset
+    addr_pal: 0x8030BFD8
+    #      -ID- ----  -X Offs- -Y Offs-  -RectX1- -RectY1- -RectX2- -RectY2-  -1C- -1E- -20- -22-  Flag ----
+    # Orig 01FC 0000  00000008 00000000  00000000 FFFFFFC0 00000010 00000040  0030 0030 0000 0000  0008 0000
+    data: '01FC 0000  00000008 00000000  00000008 00000000 00000200 00000200  0030 0030 0000 0000  0008 0000'
+
+  - name: MeteorSpriteFileInfo
+    type: add_func_pointer
+    src_addr_pal: 0x8031AE28
+    target_func: 'MEarcNameList'
+    # 0x8031AB4C + sprite num * 0x4 == offset

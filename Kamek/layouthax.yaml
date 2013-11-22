@@ -1,0 +1,10 @@
+---
+source_files: [../src/layouthax.cpp]
+hooks:
+  - name: InsertPauseWindowText
+    src_addr_pal: 0x8015AC60
+    type: branch_insn
+    branch_type: b
+    target_func: 'InsertPauseWindowText'
+
+

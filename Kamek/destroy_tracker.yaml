@@ -1,0 +1,9 @@
+---
+source_files: [../src/destroy_tracker.cpp]
+hooks:
+  - name: CallDestroyTracker
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x801626C0
+    target_func: 'trackDestroy(int)'
+

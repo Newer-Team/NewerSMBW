@@ -1,0 +1,50 @@
+---
+source_files: [../src/switchblock.S, ../src/palaceDude.cpp]
+hooks:
+  - name: PrepareReplay_SwitchPatch
+    type: patch
+    addr_pal: 0x8091F800
+    data: '60000000 60000000 60000000 98830380'
+
+  - name: MoveInfoFromWorldDataToStructArray_SwitchPatch
+    type: patch
+    addr_pal: 0x80102C28
+    data: '60000000 3B800001 60000000 3BC0002A 60000000 98830380'
+
+  - name: BG_GM_InitRedSwitchFlag_SwitchPatch
+    type: branch_insn
+    src_addr_pal: 0x800784D0
+    branch_type: b
+    target_func: 'BG_GM_InitRedSwitchFlag_Patch'
+
+  - name: ProcessTileNum_EndPatch
+    type: branch_insn
+    src_addr_pal: 0x80081B54
+    branch_type: b
+    target_func: 'ProcessTileNum_EndPatch'
+
+  - name: CheckBehaviourOverride_EndPatch
+    type: branch_insn
+    src_addr_pal: 0x80081A4C
+    branch_type: b
+    target_func: 'CheckBehaviourOverride_EndPatch'
+
+
+
+  - name: BuildPalaceDude
+    type: add_func_pointer
+    src_addr_pal: 0x809838E4
+    target_func: 'dPalaceDude_c::build()'
+
+  - name: PalaceDudeSpriteInfo
+    type: patch
+    addr_pal: 0x8030CDE8
+    # Orig 02EB 0000 00000000 00000000  00000000 00000000 00000100 00000100  0000 0000 0000 0000 0800 0000'
+    data: '02A7 0000 00000010 00000010  00000000 00000000 00000200 00000200  0000 0000 0200 0200 0000 0000'
+    # 0x8030A340 + sprite num * 0x28 == offset
+
+  - name: PalaceDudeSpriteFileInfo
+    type: add_func_pointer
+    src_addr_pal: 0x8031AF90
+    target_func: 'PalaceDudeFileList'
+    # 0x8031AB4C + sprite num * 0x4 == offset

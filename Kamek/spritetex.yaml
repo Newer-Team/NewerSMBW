@@ -1,0 +1,892 @@
+---
+source_files: [../src/spritetex.S]
+hooks:
+  - name: BigBlockSound1
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x809B8EBC
+    target_func: 'BigBlockSound'
+  - name: BigBlockSound2
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x809B9040
+    target_func: 'BigBlockSound'
+  - name: BigBlockLeapingItem
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x809B91A4
+    target_func: 'BigBlockLeapingItem'
+
+  # - name: BlackClouds
+  #   type: patch
+  #   data: '000000000000000000000000'
+  #   addr_pal: 0x8042B3A8
+
+#  - name: TEX_WoodBox
+#    type: branch_insn
+#    branch_type: bl
+#    NOTES: 'fix ntsc addr later'
+#    src_addr_ntsc: 0x80ACBFB0
+#    src_addr_pal: 0x80ACBFB0
+#    target_func: 'TEX_WoodBox'
+
+  - name: TEX_Bush
+    type: branch_insn
+    branch_type: bl
+    src_addr_ntsc: 0x80875BB4
+    src_addr_pal: 0x80875BB4
+    target_func: 'TEX_Bush'
+
+  - name: TEX_RollingHills
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x807EF26C
+    target_func: 'TEX_RollingHills'
+
+
+
+# The below was added by Tempus
+
+
+  - name: TEX_Goomba
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80031384
+    target_func: 'TEX_Goomba'
+
+
+  - name: TEX_BigGoomba
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80033350
+    target_func: 'TEX_BigGoomba'
+
+
+  - name: TEX_Barrel
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x809AB3B4
+    target_func: 'TEX_Barrel'
+
+
+#  - name: TEX_Blooper
+#    type: branch_insn
+#    branch_type: bl
+#    src_addr_pal: 0x80A0451C
+#    target_func: 'TEX_Blooper'
+
+
+#  - name: TEX_BigBlock
+#    type: branch_insn
+#    branch_type: bl
+#    src_addr_pal: 0x809B8DB8
+#    target_func: 'TEX_BigBlock'
+
+
+  - name: TEX_Thwomp
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x809F63F4
+    target_func: 'TEX_Thwomp'
+
+
+  - name: TEX_GiantBuzzy
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x809B6B44
+    target_func: 'TEX_GiantBuzzy'
+
+  - name: BigMetPowFix
+    type: add_func_pointer
+    src_addr_pal: 0x80AD8A64
+    target_func: 'BigMetPowFix'
+
+  - name: TEX_Buzzy
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A67834
+    target_func: 'TEX_Buzzy'
+
+
+  - name: TEX_BuzzyShell
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A67540
+    target_func: 'TEX_BuzzyShell'
+
+
+  - name: TEX_SpikeTop
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80AB2C34
+    target_func: 'TEX_SpikeTop'
+
+  - name: TogeMetPowFix
+    type: add_func_pointer
+    src_addr_pal: 0x80B0B9DC
+    target_func: 'TogeMetPowFix'
+
+  - name: TogeMetHammerFix
+    type: add_func_pointer
+    src_addr_pal: 0x80B0B9D0
+    target_func: 'TogeMetHammerFix'
+
+  - name: TogeMetIceFix
+    type: add_func_pointer
+    src_addr_pal: 0x80B0B9CC
+    target_func: 'TogeMetIceFix'
+
+
+  - name: TEX_SpinyShell
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x8003DBF8
+    target_func: 'TEX_SpinyShell'
+
+
+  - name: TEX_Spiny
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x8003DD0C
+    target_func: 'TEX_Spiny'
+
+
+  - name: TEX_SpringBlock
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80AC8640
+    target_func: 'TEX_SpringBlock'
+
+
+  - name: TEX_Coaster
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80859714
+    target_func: 'TEX_Coaster'
+
+
+  - name: TEX_Koopa
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A72904
+    target_func: 'TEX_Koopa'
+
+
+  - name: TEX_KoopaShell
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A72644
+    target_func: 'TEX_Koopa'
+
+
+  - name: TEX_Gabon
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A00290
+    target_func: 'TEX_Gabon'
+
+
+  - name: TEX_Gabon_Spike
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A00984
+    target_func: 'TEX_Gabon_Spike'
+
+
+  - name: TEX_GabonRock
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x807F8CD4
+    target_func: 'TEX_GabonRock'
+
+
+  - name: TEX_Podoboo
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x809D0CC0
+    target_func: 'TEX_Podoboo'
+
+
+  - name: TEX_Switch
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A19ED4
+    target_func: 'TEX_Switch'
+
+
+  - name: TEX_WiggleShroom
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x800BC9D8
+    target_func: 'TEX_WiggleShroom'
+
+
+  - name: TEX_Bramball
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A1C844
+    target_func: 'TEX_Bramball'
+
+
+  - name: TEX_Monty
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x809D8DB4
+    target_func: 'TEX_Monty'
+
+
+#  - name: TEX_ChainChomp
+#    type: branch_insn
+#    branch_type: bl
+#    src_addr_pal: 0x80ABF934
+#    target_func: 'TEX_ChainChomp'
+
+
+  - name: TEX_Manta
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x8085DAA8
+    target_func: 'TEX_Manta'
+
+
+#  - name: TEX_MantaInherit
+#    type: branch_insn
+#    branch_type: bl
+#    src_addr_pal: 0x8085F6D4
+#    target_func: 'TEX_MantaInherit'
+
+
+  - name: TEX_Parabeetle
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A83260
+    target_func: 'TEX_Parabeetle'
+
+
+  - name: TEX_Bomb
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x809C90A4
+    target_func: 'TEX_Bomb'
+
+
+  - name: TEX_ParaBomb
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A7EEF8
+    target_func: 'TEX_ParaBomb'
+
+
+#  - name: TEX_CheepA
+#    type: branch_insn
+#    branch_type: bl
+#    src_addr_pal: 0x80A3B8F8
+#    target_func: 'TEX_CheepA'
+
+
+#  - name: TEX_CheepB
+#    type: branch_insn
+#    branch_type: bl
+#    src_addr_pal: 0x80AB2288
+#    target_func: 'TEX_CheepB'
+
+
+#  - name: TEX_CheepC
+#    type: branch_insn
+#    branch_type: bl
+#    src_addr_pal: 0x80A8A008
+#    target_func: 'TEX_CheepC'
+
+
+#  - name: TEX_CheepChomp
+#    type: branch_insn
+#    branch_type: bl
+#    src_addr_pal: 0x809A67F4
+#    target_func: 'TEX_CheepChomp'
+
+
+#  - name: TEX_BigBoo
+#     type: branch_insn
+#     branch_type: bl
+#     src_addr_pal: 0x80AAF5E0
+#     target_func: 'TEX_BigBoo'
+#
+#
+#  - name: TEX_Boo
+#     type: branch_insn
+#     branch_type: bl
+#     src_addr_pal: 0x808F0628
+#     target_func: 'TEX_Boo'
+
+
+  - name: TEX_Midway
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x807E22C4
+    target_func: 'TEX_Midway'
+
+
+  - name: TEX_Goal
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A0A0E8
+    target_func: 'TEX_Goal'
+
+
+  # - name: TEX_ColorBlock
+  #   type: branch_insn
+  #   branch_type: bl
+  #   src_addr_pal: 0x800BEA90
+  #   target_func: 'TEX_ColorBlock'
+
+
+#  - name: TEX_StretchMush
+#    type: branch_insn
+#    branch_type: bl
+#    src_addr_pal: 0x8084AD10
+#    target_func: 'TEX_StretchMush'
+
+
+  - name: TEX_BlockSlide
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x807E54AC
+    target_func: 'TEX_BlockSlide'
+
+  - name: TEX_BigIcicle
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x809B4BC8
+    target_func: 'TEX_BigIcicle'
+
+#  - name: TEX_Spinner
+#    type: branch_insn
+#    branch_type: bl
+#    src_addr_pal: 0x8084F9E0
+#    target_func: 'TEX_Spinner'
+
+
+#  - name: TEX_Platforms
+#    type: branch_insn
+#    branch_type: bl
+#    src_addr_pal: 0x800C03A0
+#    target_func: 'TEX_Platforms'
+
+
+#  - name: TEX_Platform_ShifterH
+#    type: branch_insn
+#    branch_type: bl
+#    src_addr_pal: 0x80841CBC
+#    target_func: 'TEX_Platform_ShifterH'
+
+#  - name: TEX_Platform_ShifterF
+#    type: branch_insn
+#    branch_type: bl
+#    src_addr_pal: 0x808374FC
+#    target_func: 'TEX_Platform_ShifterF'
+#
+#  - name: TEX_Platform_ShifterL
+#    type: branch_insn
+#    branch_type: bl
+#    src_addr_pal: 0x80839810
+#    target_func: 'TEX_Platform_ShifterL'
+#
+#  - name: TEX_Platform_ShifterV
+#    type: branch_insn
+#    branch_type: bl
+#    src_addr_pal: 0x80844D68
+#    target_func: 'TEX_Platform_ShifterF'
+#
+#  - name: TEX_Platform_ShifterR
+#    type: branch_insn
+#    branch_type: bl
+#    src_addr_pal: 0x80845B08
+#    target_func: 'TEX_Platform_ShifterR'
+#
+#  - name: TEX_Platform_ShifterS
+#    type: branch_insn
+#    branch_type: bl
+#    src_addr_pal: 0x80848A64
+#    target_func: 'TEX_Platform_ShifterS'
+#
+#  - name: TEX_Platform_ShifterK
+#    type: branch_insn
+#    branch_type: bl
+#    src_addr_pal: 0x8084A778
+#    target_func: 'TEX_Platform_ShifterK'
+#
+#  - name: TEX_Platform_ShifterW
+#    type: branch_insn
+#    branch_type: bl
+#    src_addr_pal: 0x8084F344
+#    target_func: 'TEX_Platform_ShifterW'
+#
+#  - name: TEX_Platform_ShifterSL
+#    type: branch_insn
+#    branch_type: bl
+#    src_addr_pal: 0x80858870
+#    target_func: 'TEX_Platform_ShifterSL'
+#
+#  - name: TEX_Platform_ShifterWL
+#    type: branch_insn
+#    branch_type: bl
+#    src_addr_pal: 0x808BF040
+#    target_func: 'TEX_Platform_ShifterW'
+#
+
+
+  - name: TEX_PokeyA
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80AA1DB0
+    target_func: 'TEX_PokeyA'
+
+
+  - name: TEX_PokeyB
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A9F834
+    target_func: 'TEX_PokeyB'
+
+
+  - name: TEX_PokeyC
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A9D028
+    target_func: 'TEX_PokeyC'
+
+
+  # - name: TEX_PokeyNoSand
+  #   type: branch_insn
+  #   branch_type: bl
+  #   src_addr_pal: 0x80A9E7A8
+  #   target_func: 'TEX_PokeyNoSand'
+
+
+ # - name: TEX_PokeySnowmanPos
+ #   type: branch_insn
+ #   branch_type: bl
+ #   src_addr_pal: 0x80A9F7C0
+ #   target_func: 'TEX_PokeySnowmanPos'
+
+
+  - name: TEX_SnowmanSandToSnow
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A9E7D0
+    target_func: 'TEX_SnowmanSandToSnow'
+
+  - name: TEX_SnowmanSandToSnowB
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A9EA00
+    target_func: 'TEX_SnowmanSandToSnowB'
+
+
+#  - name: TEX_PokeySnowmanPosZ
+#    type: patch
+#    data: '60000000'
+#    addr_pal: 0x80A9D054
+
+  - name: TEX_PokeySnowmanRotA
+    type: patch
+    data: '60000000'
+    addr_pal: 0x80A9F740
+
+  - name: TEX_PokeySnowmanRotB
+    type: patch
+    data: '60000000'
+    addr_pal: 0x80A9F768
+
+  - name: TEX_PokeySnowmanRotate
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80AA0690
+    target_func: 'TEX_PokeySnowmanRotate'
+
+  - name: TEX_PokeySnowmanImmuneToIce
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A9D940
+    target_func: 'TEX_PokeySnowmanImmuneToIce'
+
+
+  - name: TEX_PokeySnowman
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A9F714
+    target_func: 'TEX_PokeySnowman'
+
+
+  - name: TEX_CloudBounce
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A5C900
+    target_func: 'TEX_CloudBounce'
+
+
+  - name: TEX_SpikeBall
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x809B7620
+    target_func: 'TEX_SpikeBall'
+
+
+  - name: TEX_SpikeBallSmall
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80AB6054
+    target_func: 'TEX_SpikeBall'
+
+
+  - name: TEX_Huckit
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A3F004
+    target_func: 'TEX_Huckit'
+
+
+  - name: TEX_HuckitBalls
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A40B70
+    target_func: 'TEX_HuckitBalls'
+
+
+  - name: TEX_HuckitBallsInherit
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A3F1A0
+    target_func: 'TEX_HuckitBallsInherit'
+
+
+  - name: BomheiForceFacingDirection
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x809C9020
+    target_func: 'BomheiForceFacingDirection'
+  - name: BomheiCollisionCallback
+    type: add_func_pointer
+    src_addr_pal: 0x80ACE5D0
+    target_func: 'BomheiCollisionCallback'
+
+  - name: HammerTime
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A123F0
+    target_func: 'HammerTime'
+  - name: LiftHammerTime
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A5BCB0
+    target_func: 'HammerTime'
+
+  - name: HammerLaunch
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A11ED8
+    target_func: 'HammerLaunch'
+  - name: LiftHammerLaunch
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A5BA68
+    target_func: 'HammerLaunch'
+
+  - name: HammerLeft
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A11F14
+    target_func: 'HammerLeft'
+  - name: LiftHammerLeft
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A5BAA4
+    target_func: 'HammerLeft'
+
+  - name: HammerDontTrashEn450
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A120D8
+    target_func: 'HammerDontTrashEn450'
+  - name: LiftHammerDontTrashEn450
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A5BC68
+    target_func: 'HammerDontTrashEn450'
+
+  - name: HammerDontTrashEn420
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A12024
+    target_func: 'HammerDontTrashEn420'
+  - name: LiftHammerDontTrashEn420
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A5BBB4
+    target_func: 'HammerDontTrashEn420'
+
+  - name: HammerIgnoreEn420
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A12074
+    target_func: 'HammerIgnoreEn420'
+  - name: LiftHammerIgnoreEn420
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A5BC04
+    target_func: 'HammerIgnoreEn420'
+
+  - name: HammerSpin
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A11F00
+    target_func: 'HammerSpin'
+  - name: LiftHammerSpin
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A5BA90
+    target_func: 'HammerSpin'
+
+  - name: JustOneBomb
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x80A123A8
+    target_func: 'JustOneBomb'
+
+  - name: HammerColour
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80023FBC
+    target_func: 'HammerColour'
+
+
+  - {name: BombMouseHole1, data: '00000200', addr_pal: 0x80ACE51C, type: patch}
+  - {name: BombMouseHole2, data: '00000201', addr_pal: 0x80ACE528, type: patch}
+  - {name: BombMouseHole3, data: '00000200', addr_pal: 0x80ACE538, type: patch}
+  - {name: BombMouseHole4, data: '00040200', addr_pal: 0x80ACE544, type: patch}
+  - {name: BombMouseHole5, data: '00040200', addr_pal: 0x80ACE550, type: patch}
+  - {name: BombMouseHole6, data: '00040200', addr_pal: 0x80ACE55C, type: patch}
+
+
+  - name: TEX_YoshiEggSetColour
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80911050
+    target_func: 'TEX_YoshiEggSetColour'
+
+  - name: TEX_YoshiEggSetBrres
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x809113D0
+    target_func: 'TEX_YoshiEggSetBrres'
+
+  - name: TEX_YoshiEggSetFrame
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x809114B4
+    target_func: 'TEX_YoshiEggSetFrame'
+
+  - name: TEX_YoshiEggEffect
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80911658
+    target_func: 'TEX_YoshiEggEffect'
+
+  - name: TEX_YoshiSetColour
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x8005E9C8
+    target_func: 'TEX_YoshiSetColour'
+
+  - name: TEX_YoshiHack
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x800FE58C
+    target_func: 'TEX_YoshiHack'
+
+  - name: TEX_YoshiColourOrderA
+    type: patch
+    data: '3F8000004000000040400000'
+    addr_pal: 0x8093DAB4
+
+  - name: TEX_YoshiColourOrderB
+    type: patch
+    data: '00000003000000010000000200000000'
+    addr_pal: 0x8093DAD8
+
+  - name: TEX_AirshipGear
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x808A2430
+    target_func: 'TEX_AirshipGear'
+
+  - name: TEX_BigShell
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x807BE520
+    target_func: 'TEX_BigShell'
+
+
+  - name: TEX_MushroomPlatform
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x8087F640
+    target_func: 'TEX_MushroomPlatform'
+
+
+
+
+
+  - name: TEX_Flakes
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80887AC8
+    target_func: 'TEX_Flakes'
+
+  - name: TEX_BlackFlakes
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x808882E0
+    target_func: 'TEX_BlackFlakes'
+
+  - name: TEX_FlakeArcs
+    type: add_func_pointer
+    src_addr_pal: 0x8031B124
+    target_func: 'TEX_FlakeArcs'
+
+
+
+  - name: TEX_CrabBallBurst
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A40C38
+    target_func: 'TEX_CrabBallBurst'
+
+  - name: TEX_CrabBallSmoke
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A40C88
+    target_func: 'TEX_CrabBallSmoke'
+
+
+
+  - name: ChangeWindyColour
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80887FB4
+    target_func: 'ChangeWindyColour'
+
+
+  - name: TobiPukuBypass
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x808BB34C
+    target_func: 'TobiPukuBypass'
+
+  - name: TEX_TobiPuku
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80AB2288
+    target_func: 'TEX_TobiPuku'
+
+  - name: TobiPukuSoundChangeB
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80AB2648
+    target_func: 'TobiPukuSoundChange'
+
+  - name: TobiPukuSoundChange
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80AB2690
+    target_func: 'TobiPukuSoundChange'
+
+  - name: TobiPukuEffectChange
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80AB2618
+    target_func: 'TobiPukuEffectChange'
+
+
+  - name: IgaPukuBypass
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80ABC0C0
+    target_func: 'IgaPukuBypass'
+
+#  - name: TEX_IgaPuku
+#    type: branch_insn
+#    branch_type: bl
+#    src_addr_pal: 0x80A24CF4
+#    target_func: 'TEX_IgaPuku'
+
+
+#  - name: IgaPukuNoEffect1
+#    type: branch_insn
+#    branch_type: bl
+#    src_addr_pal: 0x80A251BC
+#    target_func: 'IgaPukuNoEffect1'
+#
+#  - name: IgaPukuChangeEffect2
+#    type: branch_insn
+#    branch_type: bl
+#    src_addr_pal: 0x80A251E8
+#    target_func: 'IgaPukuChangeEffect2'
+#
+#
+#  - name: IgaPukuSoundChange
+#    type: branch_insn
+#    branch_type: bl
+#    src_addr_pal: 0x80A25238
+#    target_func: 'IgaPukuSoundChange'
+
+
+  - name: TEX_LightBlock
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80855804
+    target_func: 'TEX_LightBlock'
+
+#  - name: GLOW_LightBlock
+#    type: branch_insn
+#    branch_type: b
+#    src_addr_pal: 0x807E3B40
+#    target_func: 'GLOW_LightBlock'
+
+
+
+  - name: TEX_CloudLT_A
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x809DFBF0
+    target_func: 'TEX_CloudLT_A'
+
+  - name: TEX_CloudLT_B
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x809DFC00
+    target_func: 'TEX_CloudLT_B'
+
+  - name: TEX_CloudLT_C
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x809DFC10
+    target_func: 'TEX_CloudLT_C'
+
+  # - name: CloudLT_Execute
+  #   type: branch_insn
+  #   branch_type: bl
+  #   src_addr_pal: 0x809E07F0
+  #   target_func: 'CloudLT_Execute'
+
+  - name: CloudLT_Execute
+    type: add_func_pointer
+    src_addr_pal: 0x80AE1868
+    target_func: 'CloudLT_Execute'
+
+  - name: BooZOrder
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80AAE8E0
+    target_func: 'BooZOrder'
+

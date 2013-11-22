@@ -1,0 +1,21 @@
+---
+# Replaces WM_TREASURESHIP
+
+source_files: [../src/shyguyGiants.cpp]
+hooks:
+  - name: ShyGuyGiantBuild
+    type: add_func_pointer
+    src_addr_pal: 0x8098640C
+    target_func: 'daShyGuyGiant::build()'
+
+  - name: UpdateShyGuyGiantSpriteInfo
+    type: patch
+    addr_pal: 0x8030BD58
+    #      [204] (  16,  48) (   0, -24   16:  24)   64?   64?    0?    0? | [8:Environment?]
+    data: '0297 0000  00000010 00000030  00000000 FFFFFFC0 00000010 00000040  0040 0040 0000 0000  0000 0000'
+
+  - name: ShyGuyGiantSpriteFileInfo
+    type: add_func_pointer
+    src_addr_pal: 0x8031ADE8
+    target_func: 'SGGarcNameList'
+    # 0x8031AB4C + sprite num * 0x4 == offset

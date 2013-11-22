@@ -1,0 +1,62 @@
+output_dir: "NewerASM"
+code_address: 0x808D9000
+modules:
+  - processed/prolog.yaml
+#  - processed/layoutDebug.yaml
+  - processed/fileselect.yaml
+  - processed/magicplatform.yaml
+  - processed/cutScene.yaml
+  - processed/bonepiece.yaml
+  - processed/bugfixes.yaml
+  - processed/worldmap.yaml
+  # - processed/koopatlas.yaml
+  - processed/levelnames.yaml
+  - processed/animtiles.yaml
+  - processed/soundPlayer.yaml
+  - processed/levelspecial.yaml
+  - processed/mrsun.yaml
+  - processed/firelaser.yaml
+  - processed/spritetex.yaml
+#  - processed/gakenoko.yaml
+  - processed/poweruphax.yaml
+#  - processed/heapbar.yaml
+  - processed/randtiles.yaml
+  - processed/objkinoko.yaml
+  - processed/tilegod.yaml
+  - processed/linegod.yaml
+  - processed/tilesetfixer.yaml
+  - processed/switchblock.yaml
+  - processed/eventblock.yaml
+  - processed/msgbox.yaml
+#  - processed/replay.yaml
+  - processed/growup.yaml
+  - processed/eventlooper.yaml
+  - processed/spritespawner.yaml
+  - processed/spriteswapper.yaml
+  - processed/compression.yaml
+#  - processed/crowdclapper.yaml
+  - processed/blocksnake.yaml
+#  - processed/classic_controller.yaml
+  - processed/topman.yaml
+  - processed/bossMegaGoomba.yaml
+  - processed/bossFuzzyBear.yaml
+  - processed/bossThwompaDomp.yaml
+  - processed/bossRamboo.yaml
+  - processed/bossBalboaWrench.yaml
+  - processed/bossWrenchThrow.yaml
+  - processed/bossSamurshai.yaml
+  - processed/bossPodouble.yaml
+  - processed/bossTopman.yaml
+  - processed/bossCaptainBowser.yaml
+  - processed/bossBridgeBowser.yaml
+  - processed/effectVideo.yaml
+  - processed/fakeStarCoin.yaml
+  - processed/shyguy.yaml
+  - processed/meteor.yaml
+  - processed/electricLine.yaml
+  - processed/makeYourOwn.yaml
+  - processed/challengeStar.yaml
+  - processed/singAlong.yaml
+  - processed/pumpkinGoomba.yaml
+  # - processed/pengi.yaml
+#  - processed/actorlog.yaml

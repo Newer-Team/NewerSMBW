@@ -1,0 +1,17 @@
+---
+# Replaces WM_Kuribo
+
+source_files: [../src/challengeStar.cpp]
+hooks:
+  - name: ChallengeStarBuild
+    type: add_func_pointer
+    src_addr_pal: 0x8098872C
+    target_func: 'dChallengeStar::build()'
+
+  - name: UpdateModelSpriteInfo
+    type: patch
+    # 0x8030A340 + sprite num * 0x28 == offset
+    addr_pal: 0x8030A520
+    #      -ID- ----  -X Offs- -Y Offs-  -RectX1- -RectY1- -RectX2- -RectY2-  -1C- -1E- -20- -22-  Flag ----
+    # Orig 01FC 0000  00000008 00000000  00000000 FFFFFFC0 00000010 00000040  0030 0030 0000 0000  0008 0000
+    data: '028F 0000  00000000 00000000  00000000 00000000 00000040 00000010  0000 0000 0000 0000  0000 0000'

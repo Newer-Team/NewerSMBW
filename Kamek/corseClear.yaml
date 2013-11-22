@@ -1,0 +1,8 @@
+---
+source_files: [../src/corseClear.S]
+hooks:
+  - name: GenericCorseClear
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80779A28
+    target_func: 'GenericCorseClear'

@@ -1,0 +1,36 @@
+output_dir: "NewerASM"
+code_address: 0x808D9000
+modules:
+  - processed/prolog.yaml
+  - processed/bugfixes.yaml
+  - processed/worldmap.yaml
+  - processed/levelnames.yaml
+  - processed/animtiles.yaml
+  - processed/soundPlayer.yaml
+  - processed/levelspecial.yaml
+  - processed/mrsun.yaml
+  - processed/firelaser.yaml
+  - processed/bossFuzzyBear.yaml
+  - processed/bossThwompaDomp.yaml
+  - processed/spritetex.yaml
+#  - processed/gakenoko.yaml
+  - processed/poweruphax.yaml
+#  - processed/heapbar.yaml
+  - processed/randtiles.yaml
+  - processed/tilegod.yaml
+  - processed/linegod.yaml
+  - processed/tilesetfixer.yaml
+  - processed/switchblock.yaml
+  - processed/eventblock.yaml
+#  - processed/msgbox.yaml
+#  - processed/replay.yaml
+  - processed/growup.yaml
+  - processed/eventlooper.yaml
+  - processed/spritespawner.yaml
+  - processed/spriteswapper.yaml
+  - processed/compression.yaml
+#  - processed/crowdclapper.yaml
+  - processed/blocksnake.yaml
+#  - processed/classic_controller.yaml
+  - processed/bossMegaGoomba.yaml
+  - processed/codehandler.yaml

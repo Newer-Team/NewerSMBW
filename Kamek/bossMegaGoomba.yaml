@@ -1,0 +1,16 @@
+---
+# Replaces AC_BLOCK_GROUP
+
+source_files: [../src/bossMegaGoomba.cpp]
+hooks:
+  - name: MegaGoombaBuild
+    type: add_func_pointer
+    src_addr_pal: 0x80952e10
+    target_func: 'daMegaGoomba_c::build()'
+
+  - name: MegaGoombaSpriteFileInfo
+    type: add_func_pointer
+    src_addr_pal: 0x8031B1B4
+    target_func: 'MGarcNameList'
+    # 0x8031AB4C + sprite num * 0x4 == offset
+

@@ -1,0 +1,185 @@
+---
+# Captain Bowser Replaces Branch
+#
+# KoopaThrow = WM_ANCHOR
+# FlameThrower = WM_ANTLION
+
+source_files: [../src/bossPlayerClown.cpp, ../src/bossPlayerClown.S, ../src/bossCaptainBowser.cpp, ../src/bossKoopaThrow.cpp, ../src/bossFlameThrower.cpp]
+
+hooks:
+
+  ################################################
+  # HOOKS FOR CAPTAIN BOWSER
+  ################################################
+  - name: BossCaptainBoswerBuild
+    type: add_func_pointer
+    src_addr_pal: 0x80955978
+    target_func: 'daCaptainBowser::build()'
+
+  - name: UpdateaptainBoswerSpriteInfo
+    type: patch
+    addr_pal: 0x8030C48C
+    #      [010] (  16,  16) (   0, 0   32:  32)   64?   64?    0?    0? | [0:No Flags]
+    data: '00000010 00000010  00000000 00000000 00000200 00000200  0000 0000 0200 0200 0002 0000'
+    # 0x8030A340 + sprite num * 0x28 == offset (+24 in this case)
+
+  - name: CaptainBowserSpriteFileInfo
+    type: add_func_pointer
+    src_addr_pal: 0x8031AEA0
+    target_func: 'CBarcNameList'
+
+    # 0x8031AB4C + sprite num * 0x4 == offset
+    # That offset stores a pointer to a table of pointers to strings, followed by four bytes of padding
+    # Each string is an arcname to load
+
+  - name: NeverLetCarDismountPlayerIfItTouchesTheGround
+    type: patch
+    addr_pal: 0x80812C84
+    data: '38600000'
+
+  ################################################
+  # HOOKS FOR KOOPA THROW
+  ################################################
+  - name: KoopaThrowBuild
+    type: add_func_pointer
+    src_addr_pal: 0x80981960
+    target_func: 'daKoopaThrow::build()'
+
+  - name: UpdateKoopaThrowSpriteInfo
+    type: patch
+    addr_pal: 0x8030A4D0
+    #      [010] (  16,  16) (   0, 0   32:  32)   64?   64?    0?    0? | [0:No Flags]
+    data: '029F 0000  00000010 00000010  00000000 00000000 00000020 00000020  0040 0040 0000 0000  0000 0000'
+    # 0x8030A340 + sprite num * 0x28 == offset
+
+  - name: KoopaThrowSpriteFileInfo
+    type: add_func_pointer
+    src_addr_pal: 0x8031AB74
+    target_func: 'KPTarcNameList'
+    # 0x8031AB4C + sprite num * 0x4 == offset
+
+
+  ################################################
+  # HOOKS FOR KOOPA FLAME THROWER
+  ################################################
+  - name: KFlameThrowerBuild
+    type: add_func_pointer
+    src_addr_pal: 0x80981A3C
+    target_func: 'daKoopaBreath::build()'
+
+  - name: UpdateKoopaThrowSpriteInfo
+    type: patch
+    addr_pal: 0x8030A570
+    #      [011] (  16,  16) (   0, 0   32:  32)   64?   64?    0?    0? | [0:No Flags]
+    data: '0271 0000  00000010 00000010  00000000 00000000 00000020 00000020  0040 0040 0000 0000  0000 0000'
+    # 0x8030A340 + sprite num * 0x28 == offset
+
+
+  ################################################
+  # HOOKS FOR CLOWN CAR
+  ################################################
+  - name: ClownCarFloor
+    type: patch
+    addr_pal: 0x80810A40
+    data: '60000000'
+
+  - name: ClownCarWalls
+    type: patch
+    addr_pal: 0x80937A60
+    data: '471C4000'
+
+  - name: ClownCarAllocation
+    type: patch
+    addr_pal: 0x8080F918
+    data: '386017D0' # Replace 0x0FD0 which how much space I want to allocate
+
+
+  - name: UpdateClownCarSpriteInfo
+    type: patch
+    addr_pal: 0x8030A548
+    data: '012B 0000'
+    # 0x8030A340 + sprite num * 0x28 == offset
+
+
+
+  - name: ClownCarSpriteFileInfo
+    type: add_func_pointer
+    src_addr_pal: 0x8031AB80
+    target_func: 'PCCarcNameList'
+    # 0x8031AB4C + sprite num * 0x4 == offset
+
+
+  # Official Funcs
+  - name: ClownCarCtor
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x8080F92C
+    target_func: 'newClownCtor(dEn_c*)'
+
+  - name: ClownCarDtor
+    type: add_func_pointer
+    src_addr_pal: 0x8095FF30
+    target_func: 'newClownDtor(dEn_c*, unsigned int)'
+
+
+  # My overrides
+  - name: ClownCarMoveExecute
+    type: add_func_pointer
+    src_addr_pal: 0x80960184
+    target_func: 'CConExecuteMove(dEn_c*)'
+
+  - name: ClownCarAfterCreate
+    type: add_func_pointer
+    src_addr_pal: 0x8095FEF8
+    target_func: 'CCafterCreate(dEn_c*, unsigned int)'
+
+  - name: ClownCarOnExecute
+    type: add_func_pointer
+    src_addr_pal: 0x8095FF08
+    target_func: 'CConExecute(dEn_c*)'
+
+  - name: ClownCarOnDraw
+    type: add_func_pointer
+    src_addr_pal: 0x8095FF14
+    target_func: 'CConDraw(dEn_c*)'
+
+  # - name: ClownCarSpriteCollision
+  #   type: add_func_pointer
+  #   src_addr_pal: 0x8095FFDC
+  #   target_func: 'CCSpriteCollision(dEn_c*, ActivePhysics*, ActivePhysics*)'
+
+  - name: ClownCarDetectAdjacents
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x80812100
+    target_func: 'ClownCarDetectAdjacents'
+
+  - name: ClownCarPlayAccelSound
+    type: add_func_pointer
+    src_addr_pal: 0x80960298
+    target_func: 'JrClownForPlayer_playAccelSound'
+
+
+
+
+  # Clown Shot - Replaces WM_PAKKUN
+  - name: ClownShotBuild
+    type: add_func_pointer
+    src_addr_pal: 0x80988934
+    target_func: 'daClownShot::build()'
+
+  - name: ClownShotKillAmp
+    type: add_func_pointer
+    src_addr_pal: 0x80ADA69C
+    target_func: 'Amp_NewPreSpriteCollision'
+
+  - name: ClownShotKillLineAmp
+    type: add_func_pointer
+    src_addr_pal: 0x80AFA4FC
+    target_func: 'Amp_NewPreSpriteCollision'
+
+  - name: ClownShotKillKazanRock
+    type: add_func_pointer
+    src_addr_pal: 0x80937FA8
+    target_func: 'KazanRock_CollisionCallback'
+

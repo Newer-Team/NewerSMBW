@@ -1,0 +1,9 @@
+---
+source_files: [../src/gakenoko.S]
+hooks:
+  - name: gakenoko_create
+    type: branch_insn
+    branch_type: b
+    src_addr_ntsc: 0xdeadbeef
+    src_addr_pal: 0x80A025A0
+    target_func: 'gakenoko_create'

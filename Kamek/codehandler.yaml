@@ -1,0 +1,8 @@
+source_files: [../src/codehandler.S]
+hooks:
+  - name: CodeHandlerHook
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x801bdf78
+    target_func: '_codehandler_start'
+

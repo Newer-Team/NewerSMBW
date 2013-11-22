@@ -1,0 +1,28 @@
+---
+source_files:
+  - ../src/worldmap.cpp
+  - ../src/fileload.cpp
+  - ../src/levelinfo_old.cpp
+  - ../src/layoutlib.S
+  - ../src/scene.S
+  - ../src/boss.cpp
+
+hooks:
+  - name: BuildWorldMap
+    type: add_func_pointer
+    src_addr_pal: 0x8098DCF0
+    target_func: 'dScNewerWorldMap_c::build()'
+
+# fix the STOCK_ITEM references
+  - name: StockItemFix
+    type: patch
+    addr_ntsc: 0x80101110
+    addr_pal: 0x80101220
+    data: '4E800020'
+
+# this isn't used!
+  - name: WMDrawFuncFix
+    type: patch
+    addr_pal: 0x80926800
+    data: '60000000'
+

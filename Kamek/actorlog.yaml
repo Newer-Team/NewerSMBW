@@ -1,0 +1,9 @@
+---
+source_files: [../src/actorlog.S]
+hooks:
+  - name: ActorLogHook
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80162BC0
+    target_func: 'ActorLogHook'
+

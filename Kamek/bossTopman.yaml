@@ -1,0 +1,15 @@
+---
+# Replaces Slow_Quick_Tag
+
+source_files: [../src/bossTopman.cpp]
+hooks:
+  - name: BossTopmanBuild
+    type: add_func_pointer
+    src_addr_pal: 0x8097BCC0
+    target_func: 'daDreidel::build()'
+
+  - name: BossTopmanSpriteFileInfo
+    type: add_func_pointer
+    src_addr_pal: 0x8031AF38
+    target_func: 'TMarcNameList'
+    # 0x8031AB4C + sprite num * 0x4 == offset

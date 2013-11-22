@@ -1,0 +1,10 @@
+---
+# Replaces WALLINSECT_MGR
+
+source_files: [../src/bossFuzzyBear.cpp]
+hooks:
+  - name: FuzzyBearBuild
+    type: add_func_pointer
+    src_addr_pal: 0x8097F730
+    target_func: 'daFuzzyBear_c::build()'
+

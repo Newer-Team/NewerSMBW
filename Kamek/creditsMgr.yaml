@@ -1,0 +1,90 @@
+---
+source_files: [../src/creditsMgr.cpp, ../src/creditsMgr.S]
+hooks:
+  - name: BuildCreditsMgr
+    type: add_func_pointer
+    src_addr_pal: 0x8098A360
+    target_func: 'dCreditsMgr_c::build()'
+
+  - name: StaffCreditsAddAllCoins
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x80060250
+    target_func: 'StaffCreditsAddAllCoins'
+
+  - name: StaffCreditsNoScore
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x800B3540
+    target_func: 'StaffCreditsNoScore'
+
+  - {name: CreditsUseHighScore0, type: patch, addr_pal: 0x800CE230, data: '38600000'}
+  - {name: CreditsDontSaveHighScore, type: nop_insn, area_pal: 0x807AE888}
+
+  - {name: DisableCreditsCrap1, type: patch, addr_pal: 0x80049608, data: '38000000'}
+#  - {name: DisableCreditsCrap2, type: patch, addr_pal: 0x80053144, data: '38000000'}
+    # Related to entrances
+  - {name: DisableCreditsCrap3, type: patch, addr_pal: 0x8005F000, data: '38000000'}
+  - {name: DisableCreditsCrap4, type: patch, addr_pal: 0x801291AC, data: '38000000'}
+    # Related to the ending_wait player anim
+  - {name: DisableCreditsCrap5, type: patch, addr_pal: 0x8012C394, data: '38000000'}
+    # Disable existing coinjump crap
+  - {name: DisableCreditsCrap6, type: patch, addr_pal: 0x80A2AC58, data: '38000000'}
+
+  - name: NoFukidashi
+    type: patch
+    addr_pal: 0x80157210
+    data: '4E800020'
+
+  - name: LoadDanceValues
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x8006A1B4
+    target_func: 'LoadDanceValues()'
+
+#  - name: EFBMagic
+#    type: branch_insn
+#    branch_type: b
+#    src_addr_pal: 0x80924220
+#    target_func: 'EFBMagic()'
+
+
+
+#  - name: EFBMagic
+#    type: branch_insn
+#    branch_type: b
+#    src_addr_pal: 0x801C63C8
+#    target_func: 'EFBMagic2()'
+
+
+  - name: EFBMagic
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x802BC6B0
+    target_func: 'EFB_Crap'
+
+  - name: CreditsSpriteFileInfo
+    type: add_func_pointer
+    src_addr_pal: 0x8031B29C
+    target_func: 'CreditsFileList'
+
+  - name: AutoScrollInjector
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x8007A694
+    target_func: 'AutoScrollInjector'
+  - name: PlayerRotInjector
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x8014572C
+    target_func: 'PlayerRotInjector'
+  - name: PlayerRotInjector2
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80150D38
+    target_func: 'PlayerRotInjector2'
+  - name: PlayerRotInjector3
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80145A90
+    target_func: 'PlayerRotInjector3'

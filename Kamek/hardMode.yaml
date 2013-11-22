@@ -1,0 +1,28 @@
+---
+source_files: [../src/hardMode.S]
+hooks:
+
+
+  - name: OneHitKill
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x801465DC
+    target_func: 'OneHitKill'
+
+  - name: TimerAdjustments
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x800E3AB8
+    target_func: 'TimerAdjustments'
+
+
+  # - name: OneHitKill
+  #   type: patch
+  #   addr_pal: 0x801465E0
+  #   data: '4800000C'
+  #   # data: '60000000'
+
+  # - name: TimerAdjustments
+  #   type: patch
+  #   addr_pal: 0x800E3AB8
+  #   data: '3403FF38'

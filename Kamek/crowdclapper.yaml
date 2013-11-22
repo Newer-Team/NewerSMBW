@@ -1,0 +1,9 @@
+#---
+#source_files: [../src/crowdclapper.S]
+#hooks:
+#
+#  - name: CrowdClapperEventActivate
+#    type: branch_insn
+#    branch_type: bl
+#    src_addr_pal: 0x80872778
+#    target_func: 'CrowdClapperEventActivate'

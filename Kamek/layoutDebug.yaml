@@ -1,0 +1,14 @@
+---
+source_files: [../src/layoutDebug.S]
+hooks:
+  - name: RlanLoadDebugHook
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x800C9118
+    target_func: 'RlanLoadDebugHook'
+  - name: AnmLoadDebugHook
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x800C9268
+    target_func: 'AnmLoadDebugHook'
+

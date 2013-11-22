@@ -1,0 +1,10 @@
+---
+# Replaces AC_LIFT_SEESAW
+
+source_files: [../src/fakeStarCoin.cpp]
+hooks:
+  - name: FakeStarCoinAdd
+    type: add_func_pointer
+    src_addr_pal: 0x80969438
+    target_func: 'daFakeStarCoin::build()'
+

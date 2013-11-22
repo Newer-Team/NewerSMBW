@@ -1,0 +1,17 @@
+---
+# Replaces WM_KoopaCastle
+
+source_files: [../src/makeYourOwnModelSprite.cpp]
+hooks:
+  - name: BuildYourOwnModel
+    type: add_func_pointer
+    src_addr_pal: 0x80988574
+    target_func: 'dMakeYourOwn::build()'
+
+  - name: UpdateModelSpriteInfo
+    type: patch
+    # 0x8030A340 + sprite num * 0x28 == offset
+    addr_pal: 0x8030A4F8
+    #      -ID- ----  -X Offs- -Y Offs-  -RectX1- -RectY1- -RectX2- -RectY2-  -1C- -1E- -20- -22-  Flag ----
+    # Orig 01FC 0000  00000008 00000000  00000000 FFFFFFC0 00000010 00000040  0030 0030 0000 0000  0008 0000
+    data: '029E 0000  00000000 00000000  FFFFFC00 FFFFFC00 00000400 00000400  0400 0400 0000 0000  0008 0000'

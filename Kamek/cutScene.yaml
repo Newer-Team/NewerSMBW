@@ -1,0 +1,30 @@
+---
+source_files: [../src/cutScene.cpp, ../src/sceneGlue.cpp]
+hooks:
+  - name: DoOpeningLevel
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x809191D4
+    target_func: 'EnterOpeningLevel'
+
+  - name: BuildCutScene
+    type: add_func_pointer
+    src_addr_pal: 0x8098CD18
+    target_func: 'dScCutScene_c::build()'
+
+  - name: FixLastActorForCutScene
+    type: patch
+    addr_pal: 0x80124DDC
+    data: '28001234'
+
+  - name: WrapExitStage
+    type: branch_insn
+    src_addr_pal: 0x80102370
+    branch_type: b
+    target_func: 'ExitStageWrapper'
+
+  - name: DisableCutsceneMusic
+    type: patch
+    addr_pal: 0x802F68D8
+    data: '00000000 00000000 00000000'
+

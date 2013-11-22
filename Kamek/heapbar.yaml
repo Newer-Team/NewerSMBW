@@ -1,0 +1,8 @@
+---
+source_files: [../src/heapbar.S, ../src/heapbar.cpp]
+hooks:
+  - name: heapbar_draw
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x800B0B40
+    target_func: 'doHeapBar'

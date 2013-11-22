@@ -1,0 +1,15 @@
+---
+# Replaces TARZAN_ROPE
+
+source_files: [../src/topman.cpp]
+hooks:
+  - name: TopmanBuild
+    type: add_func_pointer
+    src_addr_pal: 0x8097CFC8
+    target_func: 'daTopman::build()'
+
+  - name: TopmanSpriteFileInfo
+    type: add_func_pointer
+    src_addr_pal: 0x8031AE94
+    target_func: 'TMarcNameList'
+    # 0x8031AB4C + sprite num * 0x4 == offset

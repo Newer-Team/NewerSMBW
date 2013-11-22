@@ -1,0 +1,1030 @@
+---
+source_files: [../src/poweruphax.S, ../src/poweruphax.cpp]
+hooks:
+  - {name: HammerDontTouchMario, type: nop_insn, area_pal: 0x8001DFDC}
+  - {name: HammerDontTouchYoshi, type: nop_insn, area_pal: 0x8001E02C}
+  - name: GetInfoFromDumbTable
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x80142650
+    target_func: 'GetInfoFromDumbTable'
+    
+  - name: FukidashiFix
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x800B1A50
+    target_func: 'FukidashiFix'
+    
+  - name: PlayerGetHeightFix
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x80132670
+    target_func: 'PlayerGetHeight'
+    
+#  - name: EnItem_BindAnimation_Fix
+#    type: branch_insn
+#    branch_type: b
+#    src_addr_pal: 0x80A291E0
+#    target_func: 'EnItem_BindAnimation_Fix'
+    
+  - name: DealWithBlahTable
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x80141F70
+    target_func: 'DealWithBlahTable'
+    
+  - name: GetAsdfTable
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x801466C0
+    target_func: 'GetAsdfTable'
+    
+  - name: GetBlahTableOffset
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x801421AC
+    target_func: 'GetBlahTableOffset'
+    
+  - name: GetWeirdScaleTable
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x8014676C
+    target_func: 'GetWeirdScaleTable'
+    
+  - name: WtfEver
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80133E48
+    target_func: 'WtfEver'
+    
+  - name: YetAnother
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80138840
+    target_func: 'YetAnother'
+    
+  - name: ExtendHammerStruct
+    type: patch
+    addr_pal: 0x807FCBA8
+    data: '3860 045C'
+    
+  - name: ThrowHammer
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x8013BEE4
+    target_func: 'ThrowHammer'
+    
+  - name: MoreProjectileStuff_Fix
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x8013C3A0
+    target_func: 'MoreProjectileStuff_Fix'
+    
+  - name: ProjectileShootCheck_Fix1
+    type: patch
+    addr_pal: 0x8013BB7C
+    data: '4181003C'
+    
+  - name: ProjectileShootCheck_Fix2
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x8013BBB8
+    target_func: 'ProjectileShootCheck_Fix'
+    
+  - name: QBlockItemChange
+    type: patch
+    addr_pal: 0x802ee628
+    data: '00000006'
+  - name: PatchEmptyBlockItemID1
+    type: patch
+    addr_pal: 0x802EE664
+    data: '000000AA'
+  - name: PatchEmptyBlockItemID2
+    type: patch
+    addr_pal: 0x802EE6AC
+    data: '000000AA'
+    
+  - name: QBlockItemFix
+    type: patch
+    addr_pal: 0x80022884
+    data: '281F00AA'
+
+  - name: QBlockMPItemFix
+    type: patch
+    addr_pal: 0x80022B88
+    data: '280500AA'
+    
+  - name: FixMushroomIfSmallBlock
+    type: patch
+    addr_pal: 0x800221ac
+    data: '2800 0003'
+    
+  - name: SomeEnItemFix
+    type: patch
+    addr_pal: 0x80A2BE98
+    data: '2800 0003'
+    
+  - name: MushroomEnItemFix
+    type: patch
+    addr_pal: 0x80A28598
+    data: '2800 0003'
+    
+  - name: DisablePowerupValidityCheck
+    type: patch
+    addr_pal: 0x800611C4
+    data: '60000000'
+  - name: DisablePowerupValidityCheck2
+    type: patch
+    addr_pal: 0x8006122C
+    data: '60000000'
+    
+  - name: TinyTableFix
+    type: patch
+    addr_pal: 0x802F5AEC
+    data: '00000001'
+    
+    #It's not actually a function but who cares?
+  - name: AlwaysLoadBrosArc
+    type: add_func_pointer
+    src_addr_pal: 0x8098C488
+    target_func: 'BrosArcFileName'
+
+  - name: LoadHammerFromHammerMArc
+    type: patch
+    addr_pal: 0x8095CDD4
+    data: '68616D6D65724D00' # "hammerM\0"
+    
+  - name: AlwaysLoadBrosArc
+    type: add_func_pointer
+    src_addr_pal: 0x8098C490
+    target_func: 'I_hammerArcFilename'
+    
+  - name: ChangeHammerBrres
+    type: add_func_pointer
+    src_addr_pal: 0x80AF0FA8
+    target_func: 'I_hammerResFile'
+    
+  - name: ChangeHammerArc
+    type: add_func_pointer
+    src_addr_pal: 0x80AF0ECC
+    target_func: 'I_hammerArcFilename'
+    
+  - name: ChangeHammerModel
+    type: add_func_pointer
+    src_addr_pal: 0x80AF1000
+    target_func: 'I_hammerModelName'
+
+  - name: DisableHat99Thing
+    type: nop_insn
+    area_pal: 0x80060F0C
+
+  - name: DisableHatForHammer
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x800CA658
+    target_func: 'DisableHatForHammer'
+    
+  - name: LetPlayerGetHammerItem
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A285FC
+    target_func: 'TryToGiveMarioHammerSuit'
+    
+  - name: WeirdAnimLoadHack
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80A27CE4
+    target_func: 'WeirdAnimLoadHack'
+    
+  - name: SetHammerToEnItemDCA
+    type: add_func_pointer
+    src_addr_pal: 0x80AF117C
+    target_func: 'SetHammerToEnItemDCA'
+
+  - name: SetHammerToEnItemDCASpecial
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x80A2C0B4
+    target_func: 'SetHammerToEnItemDCASpecial'
+    
+  - name: PlumberSetPowerupFix
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x800D47D4
+    target_func: 'PlumberSetPowerupFix'
+
+  - name: FixPowerupSound
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x80141334
+    target_func: 'FixPowerupSound'
+   
+  - name: PlumberSetPowerupFix2
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x80141510
+    target_func: 'PlumberSetPowerupFix2'
+    
+  - name: PlumberSetPowerupTextureFix
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x800CA6F8
+    target_func: 'PlumberSetPowerupTextureFix'
+    
+#  - name: PlumberSetPowerupTextureDebug
+#    type: branch_insn
+#    branch_type: b
+#    src_addr_pal: 0x800CA6B0
+#    target_func: 'PlumberSetPowerupTextureDebug'
+
+  - name: FixToadPowerup
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x800BCFB0
+    target_func: 'ToadPowerupFix'
+    
+  - name: FixPowerupScale_First
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x800d6fdc
+    target_func: 'GetPowerupScaleFloatAddr_r6_trash_r0_valshl2_r4_dest'
+    
+  - name: FixPowerupScale_Second
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x8004cc80
+    target_func: 'GetPowerupScaleFloatAddr_r6_trash_r0_valshl2_r3_dest'
+    
+  - name: FixPowerupScale_Third
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x800d7064
+    target_func: 'GetPowerupScaleFloatAddr_r8_trash_r0_valshl2_r7_dest'
+    
+  - name: FixPowerupScale_Fourth
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x801293D0
+    target_func: 'GetPowerupScaleFloatAddr_r6_trash_r0_valshl2_r3_dest'
+    
+  - name: FixPowerupScale_Fifth
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80137CDC
+    target_func: 'GetPowerupScaleFloatAddr_r6_trash_r0_valshl2_r3_dest'
+    
+  - name: FixPowerupScale_Sixth
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x80141FF4
+    target_func: 'GetPowerupScaleFloatAddr_fixForSixth'
+    
+  - name: FixPowerupScale_Seventh
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x8014378C
+    target_func: 'GetPowerupScaleFloatAddr_r6_trash_r0_valshl2_r3_dest'
+    
+  - name: FixPowerupScale_Eighth
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x80143884
+    target_func: 'GetPowerupScaleFloatAddr_r8_trash_r0_valshl2_r7_dest'
+
+
+
+
+# Below Here are added all the Hammer Collision hacks
+
+  - name: HammerPodooboo
+    type: patch
+    addr_pal: 0x80ACE8E4
+    data: '0008820C'
+
+  - name: HammerThwomp
+    type: patch
+    addr_pal: 0x80ACF9D0
+    data: '0008820e'
+
+  - name: HammerBigThwomp
+    type: patch
+    addr_pal: 0x80ACF9F4
+    data: '0008820e'
+
+  - name: HammerBigThwompBounce
+    type: add_func_pointer
+    src_addr_pal: 0x80AE8360
+    target_func: 'ThwompHammer(dEn_c*, ActivePhysics*, ActivePhysics*)'
+
+  - name: HammerBigBoo
+    type: patch
+    addr_pal: 0x80AD4AA0
+    data: '0008a80e'
+
+  - name: HammerBigBooTwo
+    type: patch
+    addr_pal: 0x80AD4AA4
+    data: '20020000'
+
+  - name: HammerBigBooBounce
+    type: add_func_pointer
+    src_addr_pal: 0x80B0AE20
+    target_func: 'BooHammer(dEn_c*, ActivePhysics*, ActivePhysics*)'
+
+  - name: HammerAmp
+    type: patch
+    addr_pal: 0x80ACE17C
+    data: '00080a04'
+
+  - name: HammerSpikeBall
+    type: patch
+    addr_pal: 0x80AD4D88
+    data: '00080006'
+
+  - name: HammerBigSpikeBall
+    type: patch
+    addr_pal: 0x80ACDD50
+    data: '00080006'
+
+  - name: HammerUrchin
+    type: patch
+    addr_pal: 0x80AD4F48
+    data: '00088a1e'
+
+  - name: HammerBigUrchinBounce
+    type: add_func_pointer
+    src_addr_pal: 0x80B0CCC0
+    target_func: 'UrchinHammer(dEn_c*, ActivePhysics*, ActivePhysics*)'
+
+  - name: HammerChainChomp
+    type: patch
+    addr_pal: 0x80AD5214
+    data: '00088206'
+
+  - name: HammerFireSnake
+    type: patch
+    addr_pal: 0x80ACFBC4
+    data: '00088206'
+
+  - name: HammerFishbones
+    type: patch
+    addr_pal: 0x80AD2748
+    data: '0008881e'
+
+  - name: HammerBeanGoomba
+    type: patch
+    addr_pal: 0x80acd988
+    data: '0008A2BE'
+
+  - name: HammerPukucoinOne
+    type: patch
+    addr_pal: 0x80AD3C60
+    data: '00088a0e'
+
+  - name: HammerPukucoinTwo
+    type: patch
+    addr_pal: 0x80AD3C3C
+    data: '00088a0e'
+
+  - name: HammerBulber
+    type: patch
+    addr_pal: 0x80ACEC60
+    data: '00088a0e'
+
+  - name: HammerFuzzyOne
+    type: patch
+    addr_pal: 0x80ACECF8
+    data: '0008828e'
+
+  - name: HammerFuzzyTwo
+    type: patch
+    addr_pal: 0x80ACED1C
+    data: '0008828e'
+
+  - name: HammerGhostCircle
+    type: patch
+    addr_pal: 0x80AD4158
+    data: '0008a80e'
+
+  - name: HammerPiranhaLily
+    type: patch
+    addr_pal: 0x80AD5538
+    data: '003AFFFE'
+
+  - name: HammerMicroGoomba
+    type: patch
+    addr_pal: 0x80ACD9A0
+    data: '0008A2BE'
+
+#  - name: HammerClam
+#    type: patch
+#    addr_pal: 0x80acd4BC
+#    data: '00000047'
+#
+#  - name: HammerClamTwo
+#    type: patch
+#    addr_pal: 0x80acd4e0
+#    data: '00000047'
+#
+#  - name: HammerClamNull
+#    type: add_func_pointer
+#    src_addr_pal: 0x80AD5BF0
+#    target_func: 'ReturnNone'
+
+  - name: HammerGiantWigglerNull
+    type: add_func_pointer
+    src_addr_pal: 0x80AD7FC8
+    target_func: 'ReturnNone'
+
+  - name: HammerParabeetleNull
+    type: add_func_pointer
+    src_addr_pal: 0x80B028D8
+    target_func: 'ReturnNone'
+
+  - name: HammerGiantBuzzyNull
+    type: add_func_pointer
+    src_addr_pal: 0x80AD8A10
+    target_func: 'ReturnNone'
+
+  - name: HammerGiantBuzzy
+    type: patch
+    addr_pal: 0x80ACDC8C
+    data: '0000004F'
+
+  - name: HammerGiantBuzzy
+    type: patch
+    addr_pal: 0x80ACDC90
+    data: 'FFBAFFBC'
+
+  - name: HammerKingBill
+    type: patch
+    addr_pal: 0x80AD2618
+    data: '0000004F'
+
+  - name: HammerKingBillTwo
+    type: patch
+    addr_pal: 0x80AD261C
+    data: '00088806'
+
+  - name: HammerKingBillNull
+    type: add_func_pointer
+    src_addr_pal: 0x80AF72A8
+    target_func: 'ReturnNone'
+
+
+
+  - name: HammerBulletBill
+    type: patch
+    addr_pal: 0x80AD22B8
+    data: '03000000'
+
+  - name: HammerBanzaiBill
+    type: patch
+    addr_pal: 0x80ad22Dc
+    data: '03000000'
+
+  - name: HammerPolterOne
+    type: patch
+    addr_pal: 0x80AD3ADC
+    data: '00000047'
+
+  - name: HammerPolterTwo
+    type: patch
+    addr_pal: 0x80AD3B00
+    data: '00000047'
+
+
+  - name: HammerGabonRock
+    type: branch_insn
+    src_addr_pal: 0x807F9694
+    branch_type: b
+    target_func: 'HammerGabonRock'
+
+  - name: GabonRockBounceBackHammers
+    type: patch
+    addr_pal: 0x8095C668
+    data: '00000010'
+  # - name: HammerCallbackGabonRockOverride
+  #   type: branch_insn
+  #   src_addr_pal: 0x8001DEC4
+  #   branch_type: b
+  #   target_func: 'HammerCallbackGabonRockOverride'
+
+
+
+  - name: Icicle
+    type: patch
+    data: "0000004F"
+    addr_pal: 0x80AD0EB4
+
+  - name: IcicleOne
+    type: patch
+    data: "0000004F"
+    addr_pal: 0x80AD0ED8
+
+  - name: IcicleTwo
+    type: patch
+    data: "0000004F"
+    addr_pal: 0x80ACFD08
+
+  - name: IcicleThree
+    type: patch
+    data: "0000004F"
+    addr_pal: 0x80ACFD2C
+
+  - name: IcicleNormalNoIceball
+    type: add_func_pointer
+    target_func: 'ReturnNone'
+    src_addr_pal: 0x80AEFFFC
+
+  - name: IcicleNormalNoFireball
+    type: add_func_pointer
+    target_func: 'ReturnNone'
+    src_addr_pal: 0x80AEFFF8
+
+  - name: IcicleFixationNoIceball
+    type: add_func_pointer
+    target_func: 'ReturnNone'
+    src_addr_pal: 0x80AE9EEC
+
+  - name: IcicleFixationNoFirball
+    type: add_func_pointer
+    target_func: 'ReturnNone'
+    src_addr_pal: 0x80AE9EE8
+
+
+
+
+  - name: FuckinCastleLarryNull
+    type: add_func_pointer
+    target_func: 'ReturnTrue'
+    src_addr_pal: 0x80B76CD8
+
+  - name: FuckinLarryNull
+    type: add_func_pointer
+    target_func: 'ReturnTrue'
+    src_addr_pal: 0x80B81F8C
+
+
+  - name: FuckinCastleLemmyNull
+    type: add_func_pointer
+    target_func: 'ReturnTrue'
+    src_addr_pal: 0x80B777F0
+
+  - name: FuckinLemmyNull
+    type: add_func_pointer
+    target_func: 'ReturnTrue'
+    src_addr_pal: 0x80B82E38
+
+
+  - name: FuckinCastleWendyNull
+    type: add_func_pointer
+    target_func: 'ReturnTrue'
+    src_addr_pal: 0x80B7ADB8
+
+  - name: FuckinWendyNull
+    type: add_func_pointer
+    target_func: 'ReturnTrue'
+    src_addr_pal: 0x80B8768C
+
+
+  - name: FuckinCastleLudwigNull
+    type: add_func_pointer
+    target_func: 'ReturnTrue'
+    src_addr_pal: 0x80B783C8
+
+  - name: FuckinLudwigNull
+    type: add_func_pointer
+    target_func: 'ReturnTrue'
+    src_addr_pal: 0x80B84120
+
+
+  - name: FuckinCastleIggyNull
+    type: add_func_pointer
+    target_func: 'ReturnTrue'
+    src_addr_pal: 0x80B75FC8
+
+  - name: FuckinIggyNull
+    type: add_func_pointer
+    target_func: 'ReturnTrue'
+    src_addr_pal: 0x80B7BC70
+
+
+  - name: FuckinCastleMortonNull
+    type: add_func_pointer
+    target_func: 'ReturnTrue'
+    src_addr_pal: 0x80B790A8
+
+  - name: FuckinMortonNull
+    type: add_func_pointer
+    target_func: 'ReturnTrue'
+    src_addr_pal: 0x80B853F0
+
+
+  - name: FuckinCastleRoyNull
+    type: add_func_pointer
+    target_func: 'ReturnTrue'
+    src_addr_pal: 0x80B79E10
+
+  - name: FuckinRoyNull
+    type: add_func_pointer
+    target_func: 'ReturnTrue'
+    src_addr_pal: 0x80B86458
+
+
+  - name: FuckinKamekNull
+    type: add_func_pointer
+    target_func: 'ReturnTrue'
+    src_addr_pal: 0x80B7CC24
+
+
+  - name: FuckinBowserNull
+    type: add_func_pointer
+    target_func: 'ReturnTrue'
+    src_addr_pal: 0x80B7E848
+
+
+  - name: FuckinJrANull
+    type: add_func_pointer
+    target_func: 'ReturnTrue'
+    src_addr_pal: 0x80B804FC
+
+  - name: FuckinJrBNull
+    type: add_func_pointer
+    target_func: 'ReturnTrue'
+    src_addr_pal: 0x80B80C04
+
+  - name: FuckinJrCNull
+    type: add_func_pointer
+    target_func: 'ReturnTrue'
+    src_addr_pal: 0x80B814B0
+
+
+
+  - name: BiggerAcPy
+    type: patch
+    addr_pal: 0x801443C8
+    data: '3860 2D0C'
+
+  - name: AcPyCtorHS
+    type: branch_insn
+    target_func: 'AcPyCtorHS'
+    src_addr_pal: 0x801447D4
+    branch_type: b
+
+  - name: AcPyDtorReplace
+    type: add_func_pointer
+    target_func: 'AcPyDtorHS'
+    src_addr_pal: 0x803257B0
+
+  - name: AcPySetMeUpHS
+    type: branch_insn
+    target_func: 'AcPySetMeUpHS'
+    src_addr_pal: 0x8014516C
+    branch_type: b
+
+  - name: AcPyDrawHS
+    type: branch_insn
+    target_func: 'AcPyDrawHS'
+    src_addr_pal: 0x80145BE0
+    branch_type: b
+
+
+  - name: BiggerWm2dPlayer
+    type: patch
+    addr_pal: 0x808C5108
+    data: '3860 0388'
+
+  - name: Wm2dPlayerCtorHS
+    type: branch_insn
+    target_func: 'Wm2dPlayerCtorHS'
+    src_addr_pal: 0x808C52A0
+    branch_type: b
+
+  - name: Wm2dPlayerDtorReplace
+    type: add_func_pointer
+    target_func: 'Wm2dPlayerDtorHS'
+    src_addr_pal: 0x80981328
+
+  - name: Wm2dPlayerSetMeUpHS
+    type: branch_insn
+    target_func: 'Wm2dPlayerSetMeUpHS'
+    src_addr_pal: 0x808C5A30
+    branch_type: b
+
+  - name: Wm2dPlayerDrawHS
+    type: branch_insn
+    target_func: 'Wm2dPlayerDrawHS'
+    src_addr_pal: 0x808C5910
+    branch_type: b
+
+
+
+  - name: AddHSToBattleItem_AddArcName
+    type: add_func_pointer
+    target_func: 'I_hammerArcFilename'
+    src_addr_pal: 0x80951A48
+  - name: AddHSToBattleItem_FixKinokoBrres1
+    type: add_func_pointer
+    target_func: 'g3d_I_kinoko_brres'
+    src_addr_pal: 0x80951ACC
+  - name: AddHSToBattleItem_FixKinokoBrres2
+    type: add_func_pointer
+    target_func: 'g3d_I_kinoko_brres'
+    src_addr_pal: 0x80951ADC
+  - name: AddHSToBattleItem_AddBrres
+    type: add_func_pointer
+    target_func: 'I_hammerResFile'
+    src_addr_pal: 0x80951AE8
+  - name: AddHSToBattleItem_FixPropellerModel
+    type: add_func_pointer
+    target_func: 'I_propeller_model'
+    src_addr_pal: 0x80951B04
+  - name: AddHSToBattleItem_AddModel
+    type: add_func_pointer
+    target_func: 'I_hammerModelName'
+    src_addr_pal: 0x80951B18
+  - name: AddHSToBattleItem_FixWait2Anim
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x807BA4A8
+    target_func: 'AddHSToBattleItem_FixWait2Anim'
+
+  - name: StrongboxInit
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x808AA450
+    target_func: 'StrongboxInit'
+
+  - name: StrongboxGiveBattleItem
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x808AAF90
+    target_func: 'StrongboxGiveBattleItem'
+
+  - name: StrongboxNoMushroom
+    type: nop_insn
+    area_pal: 0x808AB3E0
+
+  - name: NoSoundBattleKinopio
+    type: nop_insn
+    area_pal: 0x808AB5FC
+
+  - name: NoDrawBattleKinopio
+    type: nop_insn
+    area_pal: [0x807B9F74,0x807B9F88]
+
+  - name: NoBattleFanfare
+    type: patch
+    addr_pal: 0x8019C290
+    data: '4E800020'
+
+  - name: RedRingRespectsHammerSuit
+    type: patch
+    addr_pal: 0x80A942EC
+    data: '28000005'
+
+
+
+# STOCK ITEM BULLSHIT
+# Current size: 0x8E0
+# New size: ?
+# New fields:
+# - 0x8E0 : Item Pointers
+# - 0x900 : Item Counts
+# - 0x920 : Button Bases
+# - 0x940 : Icon Panes
+# - 0x960 : Icon Pictures
+# New anims:
+# - 0x1E : On Hammer
+# - 0x1F : Hit Hammer
+# - 0x20 : Off Hammer
+#
+# todo:
+# update loadlayout method
+# stock item shadow
+# wm_item
+
+  - name: ExpandStockItemStruct
+    type: patch
+    addr_pal: 0x807AF378
+    data: '38600980'
+
+  - name: SILayoutGroupParams
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x807AF94C
+    target_func: 'SILayoutGroupParams'
+
+  - name: SILayoutExtraStuffs
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x807AF9A4
+    target_func: 'SILayoutExtraStuffs'
+
+  - name: DisableUselessPowerupIDRedirection
+    type: nop_insn
+    area_pal: [0x807af790, 0x807af794]
+
+  - name: GetCountsFor8Powerups
+    type: patch
+    addr_pal: 0x807AF7A8
+    data: '2C1C0008 901E 0900'
+
+  - name: HideItemsByDefault
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x807AF7B8
+    target_func: 'HideItemsByDefault'
+
+  - {name: FixAnimID30, type: patch, addr_pal: 0x807AFB08, data: '2C04 0020'}
+  - {name: FixAnimID30, type: patch, addr_pal: 0x807AFB20, data: '3800 0020'}
+  - {name: FixAnimID30, type: patch, addr_pal: 0x807B0994, data: '3800 0020'}
+
+  - name: NewSetScalesThingy
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x807AFBC0
+    target_func: 'dStockItem_c::setScalesOfSomeThings()'
+
+  - name: AddHammerPowerupFinalValue
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x807B01F0
+    target_func: 'AddHammerPowerupFinalValue'
+
+  - {name: UpdCounts, type: patch, addr_pal: 0x807B02D8, data: '8085 0900'}
+  - {name: UpdCounts, type: patch, addr_pal: 0x807B02E0, data: '9005 0900'}
+  - {name: UpdCounts, type: patch, addr_pal: 0x807B02F0, data: '8084 0900'}
+  - {name: UpdCounts, type: patch, addr_pal: 0x807B0304, data: '8003 0900'}
+  - {name: UpdItemPtr, type: patch, addr_pal: 0x807B0310, data: '8063 08E0'}
+
+  - name: FixStockItemEffectPlayer
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x807B04BC
+    target_func: 'FixStockItemEffectPlayer'
+  - name: FixStockItemEffectPlayer2
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x807B0580
+    target_func: 'FixStockItemEffectPlayer2'
+  - name: FixMoreSIEffectRelatedCrap
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x807B05E8
+    target_func: 'FixMoreSIEffectRelatedCrap'
+
+  - name: AddHammerSuitAddSound
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x807B0840
+    target_func: 'AddHammerSuitAddSound'
+
+  - {name: UpdCounts, type: patch, addr_pal: 0x807B0908, data: '8005 0900'}
+  - {name: UpMaxItems, type: patch, addr_pal: 0x807B0934, data: '2C000008'}
+  - {name: UpdCounts, type: patch, addr_pal: 0x807B0944, data: '8005 0900'}
+  - {name: UpMaxItems, type: patch, addr_pal: 0x807B0954, data: '2C000008'}
+
+  - {name: UpdCounts, type: patch, addr_pal: 0x807B0A74, data: '809D 0900'}
+  - {name: UpMaxItems, type: patch, addr_pal: 0x807B0A8C, data: '2C1B0008'}
+
+  - name: ResetHammerAnimOnOpen
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x807B0B38
+    target_func: 'ResetHammerAnimOnOpen'
+
+  - {name: UpdItemPtr, type: patch, addr_pal: 0x807B0B68, data: '807C 08E0'}
+  - {name: UpdCounts, type: patch, addr_pal: 0x807B0B74, data: '801C 0900'}
+  - {name: UpdItemPtr, type: patch, addr_pal: 0x807B0B80, data: '807C 08E0'}
+  - {name: UpdItemPtr, type: patch, addr_pal: 0x807B0B8C, data: '807C 08E0'}
+  - {name: UpMaxItems, type: patch, addr_pal: 0x807B0B9C, data: '2C1D0008'}
+
+  - {name: UpdCounts, type: patch, addr_pal: 0x807B0C28, data: '8003 0900'}
+
+  - {name: UpdCountsOffs, type: patch, addr_pal: 0x807B0C64, data: '801E 0900'}
+  - {name: UpdCountsOffs, type: patch, addr_pal: 0x807B0C78, data: '801E 0904'}
+  - {name: UpdCountsOffs, type: patch, addr_pal: 0x807B0C90, data: '801E 0908'}
+  - {name: UpdCountsOffs, type: patch, addr_pal: 0x807B0CA8, data: '801E 090C'}
+  - {name: UpdCountsOffs, type: patch, addr_pal: 0x807B0CC0, data: '801E 0910'}
+  - {name: UpdCountsOffs, type: patch, addr_pal: 0x807B0CD8, data: '801E 0914'}
+  - name: PickHammerAsPossibleStartChoice
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x807B0CF0
+    target_func: 'PickHammerAsPossibleStartChoice'
+
+  - name: ChooseOldButtonOffAnim
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x807B0DB0
+    target_func: 'ChooseOldButtonOffAnim'
+
+  - name: ChooseOldButtonOffAnim2
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x807B0DF0
+    target_func: 'ChooseOldButtonOffAnim2'
+
+  - name: ChooseOldButtonOffAnim1b
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x807B0E00
+    target_func: 'ChooseOldButtonOffAnim'
+
+  - name: ChooseButtonOnAnim
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x807B0E14
+    target_func: 'ChooseButtonOnAnim'
+
+  - name: DoSISelectCursor
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x807B0EC4
+    target_func: 'DoSISelectCursor'
+
+  - {name: UpdItemPtr, type: patch, addr_pal: 0x807B1478, data: '807E 08E0'}
+  - {name: UpMaxItems, type: patch, addr_pal: 0x807B148C, data: '2C1D0008'}
+
+  - name: ChooseHitButtonAnim
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x807B14FC
+    target_func: 'ChooseHitButtonAnim'
+
+  - name: UpdateCalcPowerupResult
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x800FC9B4
+    target_func: 'UpdateCalcPowerupResult'
+
+  - name: FixCalcPowerupResultForMushroom
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x800FC9E8
+    target_func: 'FixCalcPowerupResultForMushroom'
+
+# THE WONDERS OF STOCK ITEM SHADOW
+# Current size: 0x280
+# New size: 0x290
+# New fields:
+# - 0x284: Hammer value textbox
+# - 0x288: Hammer X textbox
+# - 0x28C: Hammer shadow
+  - name: ExpandStockItemShadowStruct
+    type: patch
+    addr_pal: 0x807B2038
+    data: '38600290'
+
+  - name: SISLayoutExtraStuffs
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x807B225C
+    target_func: 'SISLayoutExtraStuffs'
+
+  - name: UpdateSIS
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x807B2524
+    target_func: 'UpdateSIS'
+
+# And now, the item itself
+
+  - name: AddIHammer1
+    type: add_func_pointer
+    src_addr_pal: 0x80983334
+    target_func: 'I_hammerArcFilename'
+  - name: ReplaceLostPropellerModel
+    type: add_func_pointer
+    src_addr_pal: 0x80983350
+    target_func: 'I_propeller_model'
+  - name: InsertLostG3D
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x808D4C80
+    target_func: 'InsertLostG3D'
+  - name: AddPtrToSIHammer
+    type: add_func_pointer
+    src_addr_pal: 0x809833D4
+    target_func: 'SI_hammer'
+
+  - name: SkawoHatesMe
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x808D4CCC
+    target_func: 'SkawoHatesMe'
+  - name: SkawoStillHatesMe
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x808D4CEC
+    target_func: 'SkawoStillHatesMe'
+
+
+  - name: PatchMultiplayerHits
+    type: patch
+    addr_pal: 0x8001E668
+    data: '38A00008'
+
+

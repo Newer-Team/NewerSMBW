@@ -1,0 +1,44 @@
+source_files: [../src/replay.S]
+hooks:
+ - name: ReplayHookStart
+   type: branch_insn
+   branch_type: b
+   src_addr_pal: 0x809246E0
+   target_func: 'replayStart'
+ - name: ReplayHookEnd
+   type: branch_insn
+   branch_type: bl
+   src_addr_pal: 0x80102238
+   target_func: 'replayEnd'
+ # this is commented out because it's called by the creditsMgr's dance value
+ # loader; due to a conflict
+ # - name: ReplayHookRecord
+ #   type: branch_insn
+ #   branch_type: b
+ #   src_addr_pal: 0x8006A1B4
+ #   target_func: 'replayRecord'
+# - name: LuigiOverride
+#   type: branch_insn
+#   branch_type: b
+#   src_addr_pal: 0x800E50B4
+#   target_func: 'luigiOverride'
+ - name: GetAndSaveRandomSeed
+   type: branch_insn
+   branch_type: b
+   src_addr_pal: 0x8091F930
+   target_func: 'getAndSaveRandomSeed'
+ - name: ReplayInitPatch1
+   type: branch_insn
+   branch_type: bl
+   src_addr_pal: 0x80920124
+   target_func: 'ChooseReplayStateIfNeeded'
+ - name: ReplayInitPatch2
+   type: branch_insn
+   branch_type: bl
+   src_addr_pal: 0x8092016C
+   target_func: 'ChooseReplayStateIfNeeded'
+ - name: ReplayPrepareSkip
+   type: branch_insn
+   branch_type: b
+   src_addr_pal: 0x8091F6E8
+   target_func: 'SkipReplayPrepareIfNeeded'

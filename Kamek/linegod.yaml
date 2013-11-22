@@ -1,0 +1,36 @@
+---
+# Replaces RIVER_MGR
+
+source_files: [../src/linegod.cpp, ../src/linegod.S]
+hooks:
+  - name: LineGodCreate
+    type: add_func_pointer
+    src_addr_pal: 0x80979570
+    src_addr_ntsc: 0xdeadbeef
+    target_func: 'LineGod_Create(LineGod*)'
+    
+  - name: LineGodExecute
+    type: add_func_pointer
+    src_addr_pal: 0x80979588
+    src_addr_ntsc: 0xdeadbeef
+    target_func: 'LineGod_Execute(LineGod*)'
+    
+  - name: LineGodSpawnFix
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x8007EA98
+    src_addr_ntsc: 0xdeadbeef
+    target_func: 'BgActorSpawnFix'
+    
+  - name: BgActorSetInfoFix
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x8007EA60
+    src_addr_ntsc: 0xdeadbeef
+    target_func: 'BgActorSetInfoFix'
+    
+  - name: LineGodMemFix
+    type: patch
+    addr_pal: 0x80898798
+    addr_ntsc: 0xdeadbeef
+    data: '3860 0400'

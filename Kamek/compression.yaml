@@ -1,0 +1,18 @@
+---
+source_files: [../src/compression.S]
+hooks:
+  - name: InitialiseEverything
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x8015BCA0
+    target_func: 'InitCompression'
+
+  - name: GetFileEntrynumNew
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x8016BD70
+    target_func: 'GetFileEntrynumNew'
+
+  - name: FixStreamingLHDecompression
+    type: nop_insn
+    area_pal: 0x801D7884

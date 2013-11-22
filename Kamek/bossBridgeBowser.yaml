@@ -1,0 +1,96 @@
+---
+# BombDrop   = WM_Cloud        (673)
+# DropedBomb = WM_SmallCloud   (674)
+
+source_files: [../src/bossBridgeBowser.cpp, ../src/bossBombDrop.cpp]
+
+hooks:
+
+  ################################################
+  # HOOKS FOR Dropped Bomb
+  ################################################
+  - name: dDroppedBombBuild
+    type: add_func_pointer
+    src_addr_pal: 0x8098550C
+    target_func: 'dDroppedBomb::build()'
+
+
+
+  ################################################
+  # HOOKS FOR Bomb Drop
+  ################################################
+  - name: BombDropBuild
+    type: add_func_pointer
+    src_addr_pal: 0x80982530
+    target_func: 'dBombDrop::build()'
+
+  - name: UpdatedBombDropSpriteInfo
+    type: patch
+    addr_pal: 0x8030A5C0
+    data: '02A1 0000 00000010 00000010  00000000 00000000 00000200 00000200  0000 0000 0200 0200 0000 0000'
+    # 0x8030A340 + sprite num * 0x28 == offset
+
+  - name: dBombDropSpriteFileInfo
+    type: add_func_pointer
+    src_addr_pal: 0x8031AB8C
+    target_func: 'BDarcNameList'
+
+    # 0x8031AB4C + sprite num * 0x4 == offset
+    # That offset stores a pointer to a table of pointers to strings, followed by four bytes of padding
+    # Each string is an arcname to load
+
+
+  ################################################
+  # HOOKS FOR BRIDGE BOWSER
+  ################################################
+
+  - name: BowserBridgeCollision
+    type: add_func_pointer
+    src_addr_pal: 0x80B7E804
+    target_func: 'BowserDoomSpriteCollision(dEn_c*, ActivePhysics*, ActivePhysics*)'
+
+  - name: RemoveBowserAnimationCheck
+    type: patch
+    addr_pal: 0x80B4157C
+    data: '60000000'
+
+  # - name: SetBowserBridgeHP
+  #   type: patch
+  #   addr_pal: 0x80B3E478
+  #   data: '38000003'
+
+  - name: BowserBridgeHammerCollision
+    type: add_func_pointer
+    src_addr_pal: 0x80B7E848
+    target_func: 'ReturnNone'
+
+  - name: PatchMagicStart
+    type: add_func_pointer
+    src_addr_pal: 0x80954BF0
+    target_func: 'BowserDoomStart(dStageActor_c*)'
+
+  - name: PatchMagicExecute
+    type: add_func_pointer
+    src_addr_pal: 0x80954BF4
+    target_func: 'BowserDoomExecute(dStageActor_c*)'
+
+  - name: PatchMagicEnd
+    type: add_func_pointer
+    src_addr_pal: 0x80954BF8
+    target_func: 'BowserDoomEnd(dStageActor_c*)'
+
+  - name: PatchBattleStartEnd
+    type: add_func_pointer
+    src_addr_pal: 0x80954BD4
+    target_func: 'BowserStartEnd(dStageActor_c*)'
+
+
+  ################################################
+  # HOOKS FOR FIREBALL PATCHING
+  ################################################
+
+  - name: BowserFireballPatch
+    type: patch
+    addr_pal: 0x80B44950
+    data: '38000001'
+

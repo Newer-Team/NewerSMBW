@@ -1,0 +1,120 @@
+---
+source_files:
+  - ../src/koopatlas/fixes.S
+  - ../src/boss.cpp # wtf is this doing in the Level Select/WorldMap stuff??
+  - ../src/fileload.cpp
+  - ../src/scene.S
+  - ../src/levelinfo.cpp
+  - ../src/koopatlas/core.cpp
+  - ../src/koopatlas/player.cpp
+  - ../src/koopatlas/hud.cpp
+  - ../src/koopatlas/camera.cpp
+  - ../src/koopatlas/map.cpp
+  - ../src/koopatlas/mapdata.cpp
+  - ../src/koopatlas/pathmanager.cpp
+  - ../src/koopatlas/shop.cpp
+  - ../src/koopatlas/starcoin.cpp
+  - ../src/koopatlas/mapmusic.cpp
+  - ../src/texmapcolouriser.cpp
+
+hooks:
+  - name: BuildWorldMap # WORLD_MAP
+    type: add_func_pointer
+    src_addr_pal: 0x8098DCF0
+    target_func: 'dScKoopatlas_c::build()'
+
+  - name: BuildWMPlayer # WM_PLAYER
+    type: add_func_pointer
+    src_addr_pal: 0x80988DDC
+    target_func: 'daWMPlayer_c::build()'
+
+  - name: BuildWMHud # WM_DANCE_PAKKUN
+    type: add_func_pointer
+    src_addr_pal: 0x80982844
+    target_func: 'dWMHud_c::build()'
+
+  - name: BuildWorldCamera # WORLD_CAMERA
+    type: add_func_pointer
+    src_addr_pal: 0x8098EEC8
+    target_func: 'dWorldCamera_c::build()'
+
+  - name: BuildWMMap # WM_MAP
+    type: add_func_pointer
+    src_addr_pal: 0x80984710
+    target_func: 'dWMMap_c::build()'
+
+  - name: BuildWMShop # WM_TOGEZO
+    type: add_func_pointer
+    src_addr_pal: 0x80986074
+    target_func: 'dWMShop_c::build()'
+
+  - name: BuildWMdStarCoin # WM_GHOST
+    type: add_func_pointer
+    src_addr_pal: 0x80982D1C
+    target_func: 'dWMStarCoin_c::build()'
+
+
+# fix the STOCK_ITEM references
+  - name: StockItemFix
+    type: patch
+    addr_ntsc: 0x80101110
+    addr_pal: 0x80101220
+    data: '4E800020'
+
+# this isn't used!
+  - name: WMDrawFuncFix
+    type: patch
+    addr_pal: 0x80926800
+    data: '60000000'
+
+# try to fix effects?
+#  - name: WMEffectFixTry
+#    type: patch
+#    addr_pal: 0x80124DCC
+#    data: '2800000D'
+#  - name: WMEffectDebug
+#    type: branch_insn
+#    src_addr_pal: 0x802863AC #Effect::Calc
+#    src_addr_pal: 0x8016CB10 #mEf::effect_c::spawnWithName or something
+#    src_addr_pal: 0x802858B0 #Effect::Draw
+#    src_addr_pal: 0x8016C9CC #DealWithPuttingEffectsOnTheScreen-succeeds with extra RenderEffects
+#    src_addr_pal: 0x80286A70
+#    branch_type: b
+#    target_func: 'UniversalFunctionLog'
+
+  - name: ClearLastPowerupStoreTypeAfterGameOver
+    type: branch_insn
+    src_addr_pal: 0x809216EC
+    branch_type: b
+    target_func: ClearLastPowerupStoreTypeAfterGameOver
+
+  - name: DisableRetailMapMusic
+    type: patch
+    addr_pal: 0x800696CC
+    data: '38600020'
+
+  - name: DisableQuickSave
+    type: nop_insn
+    area_pal: 0x8077AA7C
+
+  - name: StarMarioOnMaps
+    type: patch
+    addr_pal: 0x800D52F0
+    data: '41820010'
+
+  - name: ResetAllCompletionCandidates
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x800B2FF0
+    target_func: 'ResetAllCompletionCandidates()'
+
+  - name: UpdateFSStars
+    type: branch_insn
+    branch_type: b
+    src_addr_pal: 0x801028D0
+    target_func: 'UpdateFSStars()'
+
+  - name: DisableExitStageWorldMapOverride
+    type: patch
+    addr_pal: 0x80102528
+    data: '281D7777'

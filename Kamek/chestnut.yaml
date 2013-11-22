@@ -1,0 +1,16 @@
+---
+source_files: [../src/chestnut.cpp]
+
+hooks:
+  - name: BuildChestnut
+    type: add_func_pointer
+    src_addr_pal: 0x80978E90
+    target_func: 'daEnChestnut_c::build()'
+  - name: ChestnutSpriteFileInfo
+    type: add_func_pointer
+    src_addr_pal: 0x8031B04C
+    target_func: 'ChestnutFileList'
+  - name: ChestnutFixSpawnPosition
+    type: patch
+    addr_pal: 0x8030D544
+    data: '00000008 FFFFFFF0'

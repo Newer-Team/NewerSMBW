@@ -1,0 +1,28 @@
+---
+source_files: [../src/animtiles.cpp]
+hooks:
+  - name: AnimatedTiles
+    type: branch_insn
+    branch_type: bl
+    src_addr_ntsc: 0x80087698
+    src_addr_pal: 0x80087698
+    target_func: 'DoTiles(void*)'
+    
+  - name: AnimatedTilesDestroy
+    type: branch_insn
+    branch_type: b
+    src_addr_ntsc: 0x80087508
+    src_addr_pal: 0x80087508
+    target_func: 'DestroyTiles(void*)'
+    
+  - name: AnimTileFrameHeapPatch
+    type: patch
+    addr_ntsc: 0xdeadbeef
+    addr_pal: 0x80087544
+    data: '3880 1000' # 128 tiles should be enough for anyone
+
+  # - name: AnimTileOptimisedCopy
+  #   type: branch_insn
+  #   branch_type: bl
+  #   src_addr_pal: 0x80087AD0
+  #   target_func: 'CopyAnimTile'

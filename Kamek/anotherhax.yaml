@@ -1,0 +1,22 @@
+source_files: [../src/fix38.S]
+hooks:
+- {addr_pal: 0x8000D064, data: '280000FF', name: Fix1, type: patch}
+- {addr_pal: 0x80079BD0, data: '280000FF', name: Fix2, type: patch}
+- {addr_pal: 0x80079F60, data: '280000FF', name: Fix3, type: patch}
+- {addr_pal: 0x8007A898, data: '280000FF', name: Fix4, type: patch}
+- {addr_pal: 0x80083A80, data: '38600000', name: Fix5, type: patch}
+- {addr_pal: 0x800EBDE4, data: '280000FF', name: Fix6, type: patch}
+- {addr_pal: 0x80101C60, data: '280000FF', name: Fix7, type: patch}
+- {addr_pal: 0x8015530C, data: '280000FF', name: Fix8, type: patch}
+- {addr_pal: 0x807B4EA8, data: '280000FF', name: Fix9, type: patch}
+- {addr_pal: 0x807B5328, data: '280000FF', name: Fix10, type: patch}
+- {addr_pal: 0x80888958, data: '280000FF', name: Fix11, type: patch}
+- {addr_pal: 0x80888B78, data: '280000FF', name: Fix12, type: patch}
+- {name: Fix38WithJumpCoin, src_addr_pal: 0x807EBC5C, type: branch_insn, branch_type: b, target_func: 'fix38WithJumpCoin'}
+- {name: RemoveTitleReplay, addr_pal: 0x80781FBC, type: patch, data: '60000000 60000000 60000000'}
+- {name: RemoveSGSwitch, addr_pal: 0x801025F8, type: patch, data: '60000000'}
+- {name: RemoveToadHouseMsg1, addr_pal: 0x808FB974, type: patch, data: '60000000'}
+- {name: RemoveToadHouseMsg2, addr_pal: 0x808FB968, type: patch, data: '60000000'}
+- {name: RemovePeachCastleMsg, addr_pal: 0x80924894, type: patch, data: '38600000'}
+- {name: NewSaveFilename, addr_pal: 0x802F148C, type: patch, data: '616E6F746865722E'}
+

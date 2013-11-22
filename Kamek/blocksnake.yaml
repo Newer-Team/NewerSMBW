@@ -1,0 +1,33 @@
+---
+source_files: []
+hooks:
+  - name: DisableBlockSnakeIce
+    type: patch
+    addr_pal: 0x80AA6FC4
+    data: '60000000'
+
+#  - name: ChangeBlockSnakeModel
+#    type: patch
+#    addr_pal: 0x80B09110
+#    data: '616B6500'
+#
+#  - name: ChangeBlockSnakeModel2
+#    type: patch
+#    addr_pal: 0x80B090F8
+#    data: '616B652E6272726573000000'
+
+# SnakeSubBase::loadModelUsingAllocator()
+  - name: DisableBlockSnakeAnmTexSrt
+    type: nop_insn
+    area_pal: [0x80AA6BE8, 0x80AA6C60]
+
+# SnakeSubBase::cleanup()
+  - name: DisableBlockSnakeAnmTexSrt2
+    type: nop_insn
+    area_pal: [0x80AA6D3C, 0x80AA6D4C]
+
+# SnakeSubBase::updateAnimations()
+  - name: DisableBlockSnakeAnmTexSrt3
+    type: nop_insn
+    area_pal: [0x80AA6D98, 0x80AA6DA8]
+

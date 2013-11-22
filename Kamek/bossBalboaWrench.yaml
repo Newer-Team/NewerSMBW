@@ -1,0 +1,10 @@
+---
+# Replaces AC_LIFT_ICE_SPRING
+
+source_files: [../src/bossBalboaWrench.cpp]
+hooks:
+  - name: BalboaWrenchBuild
+    type: add_func_pointer
+    src_addr_pal: 0x80967548
+    target_func: 'daBalboa_c::build()'
+

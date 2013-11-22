@@ -1,0 +1,57 @@
+#!/bin/sh
+
+remove_files() {
+	rm ~/Dropbox/Public/NewerBeta/NewerRes/System$1.bin
+	rm ~/Dropbox/Public/NewerBeta/NewerRes/DLCode$1.bin
+	rm ~/Dropbox/Public/NewerBeta/NewerRes/DLRelocs$1.bin
+}
+
+copy_files() {
+	mv NewerASM/n_$1_loader.bin ~/Dropbox/Public/NewerBeta/NewerRes/System$2.bin
+	mv NewerASM/n_$1_dlcode.bin ~/Dropbox/Public/NewerBeta/NewerRes/DLCode$2.bin
+	mv NewerASM/n_$1_dlrelocs.bin ~/Dropbox/Public/NewerBeta/NewerRes/DLRelocs$2.bin
+}
+
+
+
+rm -r ~/Dropbox/Public/NewerBeta/NewerRes
+rm -r ~/Dropbox/Public/NewerBeta/TestPackBuildRC*
+
+cp -R ~/Dropbox/NEWERsmbw/Test\ Pack/NewerSMBW/NewerRes ~/Dropbox/Public/NewerBeta/NewerRes
+
+for i in {1..12}
+	do
+
+	remove_files EU_1
+	remove_files EU_2
+	remove_files US_1
+	remove_files US_2
+	remove_files JP_1
+	remove_files JP_2
+
+	python makeNewerBeta.py $1 $i
+	python tools/mapfile_tool.py
+	python tools/kamek.py NewerProjectKP.yaml --no-rels --use-clang --gcc-type=/usr/local/devkitPRO/devkitPPC/bin/powerpc-eabi --llvm-path=/usr/local/llvm-kamek/bin
+	if [ "$?" = "0" ]; then
+		echo "compile successful"
+	else
+		exit 1
+	fi
+
+	copy_files pal EU_1
+	copy_files pal2 EU_2
+	copy_files ntsc US_1
+	copy_files ntsc2 US_2
+	copy_files jpn JP_1
+	copy_files jpn2 JP_2
+
+	pushd ~/Dropbox/Public/NewerBeta/
+	zip -r9 TestPackBuildRC$1-$i.zip NewerRes
+	zip -d TestPackBuildRC$1-$i.zip *.DS_Store __MACOSX*
+	popd
+
+	done
+
+
+echo Built all!
+

@@ -1,0 +1,15 @@
+---
+# Replaces EN_WALLINSECT
+
+source_files: [../src/mrsun.cpp]
+hooks:
+  - name: BuildMrSun
+    type: add_func_pointer
+    src_addr_pal: 0x80B0DFA0
+    target_func: 'daMrSun_c::build()'
+
+  - name: MrSunSpriteFileInfo
+    type: add_func_pointer
+    src_addr_pal: 0x8031AFB4
+    target_func: 'MSarcNameList'
+    # 0x8031AB4C + sprite num * 0x4 == offset

@@ -1,0 +1,15 @@
+---
+# Replaces EN_HELPOS
+
+source_files: [../src/eventlooper.cpp]
+hooks:
+  - name: eventlooper_Create
+    type: add_func_pointer
+    src_addr_pal: 0x80AEE18C
+    target_func: 'EventLooper_Create(EventLooper*)'
+    
+  - name: eventlooper_Execute
+    type: add_func_pointer
+    src_addr_pal: 0x80AEE1A4
+    target_func: 'EventLooper_Execute(EventLooper*)'
+        

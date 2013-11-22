@@ -1,0 +1,19 @@
+---
+source_files: [../src/bowserKey.cpp]
+hooks:
+
+  - name: endKeyLevel
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x808047EC
+    target_func: 'endKeyLevel(dStageActor_c*)'
+
+  - name: startEndKeyLevel
+    type: add_func_pointer
+    src_addr_pal: 0x8095E25C
+    target_func: 'startEndKeyLevel(dStageActor_c*)'
+
+  - name: soundsEndKeyLevel
+    type: add_func_pointer
+    src_addr_pal: 0x8095E280
+    target_func: 'soundsEndKeyLevel(dStageActor_c*)'

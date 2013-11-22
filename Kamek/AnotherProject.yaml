@@ -1,0 +1,6 @@
+---
+output_dir: "AnotherASM"
+code_address: 0x80A02610
+modules:
+  - processed/anotherhax.yaml
+#  - processed/replay.yaml

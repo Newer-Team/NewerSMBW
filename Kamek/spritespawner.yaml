@@ -1,0 +1,10 @@
+---
+# Replaces EN_BOYON
+
+source_files: [../src/spritespawner.cpp]
+hooks:
+  - name: BuildSpriteSpawner
+    type: add_func_pointer
+    src_addr_pal: 0x80ADEA00
+    target_func: 'dSpriteSpawner_c::build()'
+       

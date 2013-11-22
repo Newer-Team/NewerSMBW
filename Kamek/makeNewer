@@ -1,0 +1,23 @@
+#!/bin/sh
+python2 tools/mapfile_tool.py
+python2 tools/kamek.py NewerProject.yaml --no-rels --use-clang --gcc-type=/opt/wiidev/bin/powerpc-elf --llvm-path=/home/me/Dev/llvm-build/bin
+if [ "$?" = "0" ]; then
+	echo "compile successful"
+else
+	exit 1
+fi
+
+copy_files() {
+	cp NewerASM/n_$1_loader.bin ~/Games/Newer/DolphinPatch/NewerRes/System$2.bin
+	cp NewerASM/n_$1_dlcode.bin ~/Games/Newer/DolphinPatch/NewerRes/DLCode$2.bin
+	cp NewerASM/n_$1_dlrelocs.bin ~/Games/Newer/DolphinPatch/NewerRes/DLRelocs$2.bin
+}
+
+copy_files pal EU_1
+copy_files pal2 EU_2
+copy_files ntsc US_1
+copy_files ntsc2 US_2
+copy_files jpn JP_1
+
+echo Built all!
+

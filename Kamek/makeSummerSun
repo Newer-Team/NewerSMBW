@@ -1,0 +1,38 @@
+#!/bin/sh
+
+remove_files() {
+	rm "SumSource/System$1.bin"
+	rm "SumSource/DLCode$1.bin"
+	rm "SumSource/DLRelocs$1.bin"
+}
+
+remove_files EU_1
+remove_files EU_2
+remove_files US_1
+remove_files US_2
+remove_files JP_1
+remove_files JP_2
+
+python2 tools/mapfile_tool.py
+python2 tools/kamek.py SummerSun.yaml --no-rels --use-wine --gcc-type=/opt/wiidev/bin/powerpc-elf --llvm-path=/home/me/Dev/llvm-build/bin
+if [ "$?" = "0" ]; then
+	echo "compile successful"
+else
+	exit 1
+fi
+
+copy_files() {
+	cp NewerASM/n_$1_loader.bin "SumSource/System$2.bin"
+	cp NewerASM/n_$1_dlcode.bin "SumSource/DLCode$2.bin"
+	cp NewerASM/n_$1_dlrelocs.bin "SumSource/DLRelocs$2.bin"
+}
+
+copy_files pal EU_1
+copy_files pal2 EU_2
+copy_files ntsc US_1
+copy_files ntsc2 US_2
+copy_files jpn JP_1
+copy_files jpn2 JP_2
+
+echo Built all!
+

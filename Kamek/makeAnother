@@ -1,0 +1,10 @@
+#!/bin/sh
+python2 tools/mapfile_tool.py
+python2 tools/kamek.py AnotherProject.yaml --no-rels --use-clang --gcc-type=/opt/wiidev/bin/powerpc-elf --llvm-path=/home/me/Dev/llvm-build/bin
+cp AnotherASM/n_pal_loader.bin AnotherASM/SystemEU_1.bin
+cp AnotherASM/n_pal2_loader.bin AnotherASM/SystemEU_2.bin
+cp AnotherASM/n_ntsc_loader.bin AnotherASM/SystemUS_1.bin
+cp AnotherASM/n_ntsc2_loader.bin AnotherASM/SystemUS_2.bin
+cp AnotherASM/n_jpn_loader.bin AnotherASM/SystemJP_1.bin
+echo Built Another for all regions!!
+
