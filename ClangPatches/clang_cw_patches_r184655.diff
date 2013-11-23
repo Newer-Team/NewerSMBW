@@ -1,16 +1,3 @@
-Index: include/clang/AST/Mangle.h
-===================================================================
---- include/clang/AST/Mangle.h	(revision 184655)
-+++ include/clang/AST/Mangle.h	(working copy)
-@@ -160,6 +160,8 @@
-   /// @}
- };
- 
-+MangleContext *createCWMangleContext(ASTContext &Context,
-+                                     DiagnosticsEngine &Diags);
- MangleContext *createItaniumMangleContext(ASTContext &Context,
-                                           DiagnosticsEngine &Diags);
- MangleContext *createMicrosoftMangleContext(ASTContext &Context,
 Index: include/clang/Basic/Attr.td
 ===================================================================
 --- include/clang/Basic/Attr.td	(revision 184655)
@@ -28,18 +15,6 @@ Index: include/clang/Basic/Attr.td
  def AddressSpace : Attr {
    let Spellings = [GNU<"address_space">];
    let Args = [IntArgument<"AddressSpace">];
-Index: lib/AST/CMakeLists.txt
-===================================================================
---- lib/AST/CMakeLists.txt	(revision 184655)
-+++ lib/AST/CMakeLists.txt	(working copy)
-@@ -10,6 +10,7 @@
-   ASTTypeTraits.cpp
-   AttrImpl.cpp
-   CXXInheritance.cpp
-+  CWMangle.cpp
-   Comment.cpp
-   CommentBriefParser.cpp
-   CommentCommandTraits.cpp
 Index: lib/AST/ItaniumCXXABI.cpp
 ===================================================================
 --- lib/AST/ItaniumCXXABI.cpp	(revision 184655)
