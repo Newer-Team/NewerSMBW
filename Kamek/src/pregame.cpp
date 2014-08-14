@@ -70,9 +70,11 @@ void LoadPregameStyleNameAndNumber(m2d::EmbedLayout_c *layout) {
 		Newer_WriteBMGToTextBox(LevelName, bmg, 8000+level->worldSlot+1, level->levelSlot+1, 0);
 		Newer_WriteBMGToTextBox(LevelNameShadow, bmg, 8000+level->worldSlot+1, level->levelSlot+1, 0);
 
+		// I'm too lazy to find wcscat right now >.>
 		wchar_t levelNumber[32];
-		wcscpy(levelNumber, L"World ");
-		getNewerLevelNumberString(level->displayWorld, level->displayLevel, &levelNumber[6]);
+		wcscpy(levelNumber, bmg->findStringForMessageID(2, 80));
+		wcscpy(&levelNumber[wcslen(levelNumber)], L" ");
+		getNewerLevelNumberString(level->displayWorld, level->displayLevel, &levelNumber[wcslen(levelNumber)]);
 
 		LevelNum->SetString(levelNumber);
 
