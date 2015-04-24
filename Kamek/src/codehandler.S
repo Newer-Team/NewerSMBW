@@ -441,7 +441,7 @@ _redobp:
 
 _executebp:
 	li	r5, 2
-	;TODO check FROZENVAL vs r4 in other
+	#;TODO check FROZENVAL vs r4 in other
 	lis FROZENVAL, frozenvalue@h
 	ori	FROZENVAL, FROZENVAL, frozenvalue@l	# Freeze once returned to let user know there is a breakpoint hit
 	stw	r5, 0(FROZENVAL)
@@ -650,7 +650,7 @@ exisendbyte:					# r3, send value
 	mflr	TEMPLR
 	slwi	r3, r3, 20			# (sendbyte<<20);
 	oris	r3, r3, 0xB000		# 0xB0000000 | (OR)
-	#TODO why am I missing?
+	#;TODO why am I missing?
 	li	r22,0x19			# already done in _setvals
 	li	r23,0xD0			# already done in _setvals
 	lis	r24,0xCD00			# already done in _setvals
@@ -686,7 +686,7 @@ exicheckreceive2:
 exichecktx:
 	mflr	r30
 	lis r3, 0xC000
-	; TODO yet I'm here
+	#; TODO yet I'm here
 	li  r22, 0x09
 	li  r23, 0xD0
 	lis r24, 0xCD00
