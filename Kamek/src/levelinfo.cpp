@@ -33,6 +33,12 @@ void dLevelInfo_c::load(void *buffer) {
 
 			if (level->levelSlot < 42)
 				SetSomeConditionShit(level->worldSlot, level->levelSlot, level->flags);
+
+			char *name = (char*)getNameForLevel(level);
+
+			for (int i = 0; i < level->nameLength+1; i++) {
+				name[i] -= 0xD0;
+			}
 		}
 	}
 }

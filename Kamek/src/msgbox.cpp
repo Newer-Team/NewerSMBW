@@ -79,8 +79,20 @@ int dMsgBoxManager_c::onDelete() {
 	MessageBoxIsShowing = false;
 	if (canCancel && StageC4::instance)
 		StageC4::instance->_1D = 0; // disable no-pause
+	msgDataLoader.unload();
 
 	return layout.free();
+}
+
+/*****************************************************************************/
+// Load Resources
+CREATE_STATE_E(dMsgBoxManager_c, LoadRes);
+
+void dMsgBoxManager_c::executeState_LoadRes() {
+	if (msgDataLoader.load("/NewerRes/Messages.bin")) {
+		state.setState(&StateID_Wait);
+	} else {
+	}
 }
 
 /*****************************************************************************/
@@ -100,14 +112,25 @@ void dMsgBoxManager_c::showMessage(int id, bool canCancel, int delay) {
 	}
 
 	// get the data file
-	dScript::Res_c *bmg = GetBMG();
+	header_s *data = (header_s*)msgDataLoader.buffer;
 
-	nw4r::lyt::TextBox *tb = layout.findTextBoxByName("T_title");
-	nw4r::lyt::TextBox *mb = layout.findTextBoxByName("T_msg");
-	mb->alignment = (2*3) + 3;
+	const wchar_t *title = 0, *msg = 0;
 
-	Newer_WriteBMGToTextBox(tb, bmg, 110000 + (id >> 8), id & 0xFF, 0);
-	Newer_WriteBMGToTextBox(mb, bmg, 100000 + (id >> 8), id & 0xFF, 0);
+	for (int i = 0; i < data->count; i++) {
+		if (data->entry[i].id == id) {
+			title = (const wchar_t*)((u32)data + data->entry[i].titleOffset);
+			msg = (const wchar_t*)((u32)data + data->entry[i].msgOffset);
+			break;
+		}
+	}
+
+	if (title == 0) {
+		OSReport("Message Box: Message %08x not found\n", id);
+		return;
+	}
+
+	layout.findTextBoxByName("T_title")->SetString(title);
+	layout.findTextBoxByName("T_msg")->SetString(msg);
 
 	this->canCancel = canCancel;
 	this->delay = delay;

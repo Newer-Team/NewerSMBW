@@ -19,7 +19,7 @@ public:
 		u8 nameLength;
 		u8 reserved3;
 		u16 flags;
-		u32 nameOffset; // NO LONGER USED
+		u32 nameOffset;
 	};
 
 	struct section_s {
@@ -42,6 +42,10 @@ public:
 
 	section_s *getSectionByIndex(u32 index) {
 		return (section_s*)(((char*)data) + data->sectionOffsets[index]);
+	}
+
+	const char *getNameForLevel(entry_s *entry) {
+		return (const char*)data + entry->nameOffset;
 	}
 
 	static dLevelInfo_c s_info;

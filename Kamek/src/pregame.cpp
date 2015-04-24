@@ -66,15 +66,20 @@ void LoadPregameStyleNameAndNumber(m2d::EmbedLayout_c *layout) {
 	// work out the thing now
 	dLevelInfo_c::entry_s *level = dLevelInfo_c::s_info.searchBySlot(CurrentWorld, CurrentLevel);
 	if (level) {
-		dScript::Res_c *bmg = GetBMG();
-		Newer_WriteBMGToTextBox(LevelName, bmg, 8000+level->worldSlot+1, level->levelSlot+1, 0);
-		Newer_WriteBMGToTextBox(LevelNameShadow, bmg, 8000+level->worldSlot+1, level->levelSlot+1, 0);
+		wchar_t convLevelName[160];
+		const char *srcLevelName = dLevelInfo_c::s_info.getNameForLevel(level);
+		int i = 0;
+		while (i < 159 && srcLevelName[i]) {
+			convLevelName[i] = srcLevelName[i];
+			i++;
+		}
+		convLevelName[i] = 0;
+		LevelNameShadow->SetString(convLevelName);
+		LevelName->SetString(convLevelName);
 
-		// I'm too lazy to find wcscat right now >.>
 		wchar_t levelNumber[32];
-		wcscpy(levelNumber, bmg->findStringForMessageID(2, 80));
-		wcscpy(&levelNumber[wcslen(levelNumber)], L" ");
-		getNewerLevelNumberString(level->displayWorld, level->displayLevel, &levelNumber[wcslen(levelNumber)]);
+		wcscpy(levelNumber, L"World ");
+		getNewerLevelNumberString(level->displayWorld, level->displayLevel, &levelNumber[6]);
 
 		LevelNum->SetString(levelNumber);
 

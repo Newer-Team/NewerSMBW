@@ -239,7 +239,6 @@ void dWMStarCoin_c::loadInfo() {
 }
 
 void dWMStarCoin_c::loadSectionInfo() {
-	dScript::Res_c *bmg = GetBMG();
 	dLevelInfo_c::entry_s *visibleLevels[COLUMN_COUNT][ROW_COUNT];
 
 	// reset everything... everything
@@ -263,9 +262,9 @@ void dWMStarCoin_c::loadSectionInfo() {
 	SaveBlock *save = GetSaveFile()->GetBlock(-1);
 	dLevelInfo_c *linfo = &dLevelInfo_c::s_info;
 
-	const wchar_t *names[COLUMN_COUNT];
+	dLevelInfo_c::entry_s *names[COLUMN_COUNT];
 	for (int i = 0; i < COLUMN_COUNT; i++)
-		names[i] = bmg->findStringForMessageID(8000+currentSection, 100+i);
+		names[i] = linfo->searchByDisplayNum(currentSection, 100+i);
 
 	bool useSubworlds = (COLUMN_COUNT > 1) && names[1];
 
@@ -322,10 +321,9 @@ void dWMStarCoin_c::loadSectionInfo() {
 		names[1] = 0;
 
 	// work out the names
-	LeftTitle->SetString(names[0]);
-
+	WriteAsciiToTextBox(LeftTitle, linfo->getNameForLevel(names[0]));
 	if (names[1])
-		RightTitle->SetString(names[1]);
+		WriteAsciiToTextBox(RightTitle, linfo->getNameForLevel(names[1]));
 	RightTitle->SetVisible(names[1] != 0);
 
 	// load all level info
@@ -353,7 +351,7 @@ void dWMStarCoin_c::loadSectionInfo() {
 			}
 
 			LevelName[col][row]->SetVisible(true);
-			Newer_WriteBMGToTextBox(LevelName[col][row], bmg, 8000+level->worldSlot+1, level->levelSlot+1, 0);
+			WriteAsciiToTextBox(LevelName[col][row], linfo->getNameForLevel(level));
 		}
 	}
 

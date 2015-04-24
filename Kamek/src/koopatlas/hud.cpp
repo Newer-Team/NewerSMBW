@@ -227,9 +227,19 @@ void dWMHud_c::loadHeaderInfo() {
 	}
 
 	// LEVEL NAME
-	dScript::Res_c *bmg = GetBMG();
-	Newer_WriteBMGToTextBox(LevelName, bmg, 8000+infEntry->worldSlot+1, infEntry->levelSlot+1, 0);
-	Newer_WriteBMGToTextBox(LevelNameS, bmg, 8000+infEntry->worldSlot+1, infEntry->levelSlot+1, 0);
+	wchar_t convertedLevelName[100];
+	const char *sourceLevelName = levelInfo->getNameForLevel(infEntry);
+	int charCount = 0;
+	
+	while (*sourceLevelName != 0 && charCount < 99) {
+		convertedLevelName[charCount] = *sourceLevelName;
+		sourceLevelName++;
+		charCount++;
+	}
+	convertedLevelName[charCount] = 0;
+
+	LevelName->SetString(convertedLevelName);
+	LevelNameS->SetString(convertedLevelName);
 
 	// a hack because I don't feel like editing the rlyt
 	LevelName->size.x = LevelNameS->size.x = 400.0f;
@@ -316,7 +326,7 @@ void dWMHud_c::loadHeaderInfo() {
 	if (LevelName->tagProc != 0)
 		tw.tagProcessor = LevelName->tagProc;
 
-	float width = tw.CalcStringWidth(LevelName->stringBuf, LevelName->stringLength);
+	float width = tw.CalcStringWidth(convertedLevelName, charCount);
 	float totalWidth = width + LevelName->trans.x - 20.0f;
 	if (totalWidth < currentPos)
 		totalWidth = currentPos;

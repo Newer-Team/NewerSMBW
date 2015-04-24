@@ -538,9 +538,23 @@ void dWMShop_c::loadInfo() {
 	rightCol.colourise(save->hudHintH, save->hudHintS, save->hudHintL);
 
 	// find out the shop name
-	dScript::Res_c *bmg = GetBMG();
-	Newer_WriteBMGToTextBox(Title, bmg, 8000+shopKind+1, 99, 0);
-	Newer_WriteBMGToTextBox(TitleShadow, bmg, 8000+shopKind+1, 99, 0);
+	dLevelInfo_c::entry_s *shopNameEntry =
+		dLevelInfo_c::s_info.searchBySlot(shopKind, 98);
+
+	wchar_t shopName[100];
+	// TODO: refactor this a bit
+	const char *sourceName = dLevelInfo_c::s_info.getNameForLevel(shopNameEntry);
+	int charCount = 0;
+	
+	while (*sourceName != 0 && charCount < 99) {
+		shopName[charCount] = *sourceName;
+		sourceName++;
+		charCount++;
+	}
+	shopName[charCount] = 0;
+
+	Title->SetString(shopName);
+	TitleShadow->SetString(shopName);
 
 	// load the coin count
 	int scCount = getUnspentStarCoinCount();
