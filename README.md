@@ -1,6 +1,8 @@
 # NEWER Super Mario Bros. Wii
 ## Source Code Public Release
 
+## NOTE: This version is now deprecated and out-of-date. Please use the cw branch if you are able to.
+
 ### Preamble
 
 Well, here it is, the thing you've been awaiting for... years. Yep.
