@@ -14,7 +14,7 @@ hooks:
   - name: BossCaptainBoswerBuild
     type: add_func_pointer
     src_addr_pal: 0x80955978
-    target_func: 'daCaptainBowser::build()'
+    target_func: 'daCaptainBowser::build(void)'
 
   - name: UpdateaptainBoswerSpriteInfo
     type: patch
@@ -43,7 +43,7 @@ hooks:
   - name: KoopaThrowBuild
     type: add_func_pointer
     src_addr_pal: 0x80981960
-    target_func: 'daKoopaThrow::build()'
+    target_func: 'daKoopaThrow::build(void)'
 
   - name: UpdateKoopaThrowSpriteInfo
     type: patch
@@ -65,7 +65,7 @@ hooks:
   - name: KFlameThrowerBuild
     type: add_func_pointer
     src_addr_pal: 0x80981A3C
-    target_func: 'daKoopaBreath::build()'
+    target_func: 'daKoopaBreath::build(void)'
 
   - name: UpdateKoopaThrowSpriteInfo
     type: patch
@@ -114,39 +114,39 @@ hooks:
     type: branch_insn
     branch_type: bl
     src_addr_pal: 0x8080F92C
-    target_func: 'newClownCtor(dEn_c*)'
+    target_func: 'newClownCtor(dEn_c *)'
 
   - name: ClownCarDtor
     type: add_func_pointer
     src_addr_pal: 0x8095FF30
-    target_func: 'newClownDtor(dEn_c*, unsigned int)'
+    target_func: 'newClownDtor(dEn_c *, unsigned int)'
 
 
   # My overrides
   - name: ClownCarMoveExecute
     type: add_func_pointer
     src_addr_pal: 0x80960184
-    target_func: 'CConExecuteMove(dEn_c*)'
+    target_func: 'CConExecuteMove(dEn_c *)'
 
   - name: ClownCarAfterCreate
     type: add_func_pointer
     src_addr_pal: 0x8095FEF8
-    target_func: 'CCafterCreate(dEn_c*, unsigned int)'
+    target_func: 'CCafterCreate(dEn_c *, unsigned int)'
 
   - name: ClownCarOnExecute
     type: add_func_pointer
     src_addr_pal: 0x8095FF08
-    target_func: 'CConExecute(dEn_c*)'
+    target_func: 'CConExecute(dEn_c *)'
 
   - name: ClownCarOnDraw
     type: add_func_pointer
     src_addr_pal: 0x8095FF14
-    target_func: 'CConDraw(dEn_c*)'
+    target_func: 'CConDraw(dEn_c *)'
 
   # - name: ClownCarSpriteCollision
   #   type: add_func_pointer
   #   src_addr_pal: 0x8095FFDC
-  #   target_func: 'CCSpriteCollision(dEn_c*, ActivePhysics*, ActivePhysics*)'
+  #   target_func: 'CCSpriteCollision(dEn_c *, ActivePhysics *, ActivePhysics *)'
 
   - name: ClownCarDetectAdjacents
     type: branch_insn
@@ -166,7 +166,7 @@ hooks:
   - name: ClownShotBuild
     type: add_func_pointer
     src_addr_pal: 0x80988934
-    target_func: 'daClownShot::build()'
+    target_func: 'daClownShot::build(void)'
 
   - name: ClownShotKillAmp
     type: add_func_pointer

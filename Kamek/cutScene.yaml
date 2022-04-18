@@ -10,7 +10,7 @@ hooks:
   - name: BuildCutScene
     type: add_func_pointer
     src_addr_pal: 0x8098CD18
-    target_func: 'dScCutScene_c::build()'
+    target_func: 'dScCutScene_c::build(void)'
 
   - name: FixLastActorForCutScene
     type: patch

@@ -6,5 +6,5 @@ hooks:
   - name: SpriteSpawnerTimedBuild
     type: add_func_pointer
     src_addr_pal: 0x80B05E10
-    target_func: 'SpriteSpawnerTimed::build()'
+    target_func: 'SpriteSpawnerTimed::build(void)'
 

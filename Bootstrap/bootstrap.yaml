@@ -1,0 +1,14 @@
+---
+source_files: [redirect.S, mpatcher.S, linker.S]
+
+hooks:
+  - name: NewerBootstrapNTSC
+    type: add_func_pointer
+    src_addr_newerbs: 0x80328130
+    target_func: 'JumpToBootstrap'
+    
+  - name: NewerBootstrapPAL
+    type: add_func_pointer
+    src_addr_newerbs: 0x80328478
+    target_func: 'JumpToBootstrap'
+

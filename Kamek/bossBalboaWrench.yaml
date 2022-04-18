@@ -6,5 +6,5 @@ hooks:
   - name: BalboaWrenchBuild
     type: add_func_pointer
     src_addr_pal: 0x80967548
-    target_func: 'daBalboa_c::build()'
+    target_func: 'daBalboa_c::build(void)'
 

@@ -1,5 +1,4 @@
 .text
-#include <asm_setup.S>
 .extern loadArc__Q23m2d13EmbedLayout_cFPCcb
 .extern loadAnimations__Q23m2d13EmbedLayout_cFPPCci
 .extern loadGroups__Q23m2d13EmbedLayout_cFPPCcPCii

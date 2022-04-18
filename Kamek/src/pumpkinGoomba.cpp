@@ -7,7 +7,7 @@ const char* GParcNameList [] = {
 	"kuribo",
 	"pumpkin",
 	"wing",
-	NULL
+	NULL	
 };
 
 class dGoombaPie : public dEn_c {
@@ -86,11 +86,11 @@ dGoombaPie *dGoombaPie::build() {
 		if(hitType == 1) {	// regular jump
 			apOther->someFlagByte |= 2;
 			doStateChange(&StateID_Burst);
-		}
+		} 
 		else if(hitType == 3) {	// spinning jump or whatever?
 			apOther->someFlagByte |= 2;
 			doStateChange(&StateID_Burst);
-		}
+		} 
 		else if(hitType == 0) {
 			EN_LandbarrelPlayerCollision(this, apThis, apOther);
 			if (this->pos.x > apOther->owner->pos.x) {
@@ -100,7 +100,7 @@ dGoombaPie *dGoombaPie::build() {
 				this->direction = 0;
 			}
 			doStateChange(&StateID_Burst);
-		}
+		} 
 
 		// fix multiple player collisions via megazig
 		deathInfo.isDead = 0;
@@ -148,7 +148,7 @@ dGoombaPie *dGoombaPie::build() {
 
 int dGoombaPie::onCreate() {
 
-	// Model creation
+	// Model creation	
 	allocator.link(-1, GameHeaps[0], 0, 0x20);
 
 	this->resFile.data = getResource("pumpkin", "g3d/model.brres");
@@ -173,7 +173,7 @@ int dGoombaPie::onCreate() {
 	HitMeBaby.yDistToCenter = 12.0;
 
 	HitMeBaby.xDistToEdge = 8.0;
-	HitMeBaby.yDistToEdge = 14.0;
+	HitMeBaby.yDistToEdge = 14.0;		
 
 	HitMeBaby.category1 = 0x3;
 	HitMeBaby.category2 = 0x0;
@@ -241,15 +241,13 @@ int dGoombaPie::onDraw() {
 ///////////////
 // Burst State
 ///////////////
-	void dGoombaPie::beginState_Burst() {
-		this->timer = 0;
+	void dGoombaPie::beginState_Burst() { 
+		this->timer = 0; 
 		isBursting = true;
 		this->removeMyActivePhysics();
-		S16Vec nullRot = {0,0,0};
-		Vec twoVec = {2.0f, 2.0f, 2.0f};
-		SpawnEffect("Wm_ob_eggbreak_yw", 0, &pos, &nullRot, &twoVec);
+		SpawnEffect("Wm_ob_eggbreak_yw", 0, &pos, &(S16Vec){0,0,0}, &(Vec){2.0, 2.0, 2.0});
 	}
-	void dGoombaPie::executeState_Burst() {
+	void dGoombaPie::executeState_Burst() { 
 		this->Delete(1);
 	}
 	void dGoombaPie::endState_Burst() { }

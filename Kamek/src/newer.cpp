@@ -165,27 +165,3 @@ extern "C" GEIFS *GrabExitInfoForFileSelect(GEIFS *out, SaveBlock *save) {
 }
 
 
-void Newer_WriteBMGToTextBox_VAList(nw4r::lyt::TextBox *textBox, dScript::Res_c *res, int category, int message, int argCount, va_list *args) {
-	GameMgrP->layoutShadowFlag = false;
-	if (textBox->GetExtUserDataNum())
-		CheckForUSD1ShadowEntry(textBox);
-
-	GameMgrP->msgCategory = category;
-	GameMgrP->msgID = message;
-
-	const wchar_t *str = res->findStringForMessageID(category, message);
-	WriteParsedStringToTextBox(textBox, str, argCount, args, res);
-}
-void Newer_WriteBMGToTextBox(nw4r::lyt::TextBox *textBox, dScript::Res_c *res, int category, int message, int argCount, ...) {
-	va_list vl;
-
-	// from Clang lib/Headers/stdarg.h
-	// Is this even interoperable with CodeWarrior's va_list?
-	// Not sure, and I have a feeling that it's not.....
-
-	__builtin_va_start(vl, argCount);
-
-	Newer_WriteBMGToTextBox_VAList(textBox, res, category, message, argCount, &vl);
-
-	__builtin_va_end(vl);
-}

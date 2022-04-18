@@ -1,0 +1,7 @@
+source_files: [../src/exceptionHandler.cpp]
+hooks:
+    - name: ReplacePrintContext
+      type: branch_insn
+      branch_type: b
+      src_addr_pal: 0x80234CA0
+      target_func: 'PrintContext(unsigned short, void *, unsigned int, unsigned int)'

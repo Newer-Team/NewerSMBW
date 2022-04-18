@@ -1,5 +1,5 @@
 #---
-#source_files: [../src/crowdclapper.S]
+#source_files: [../src/crowdclapper.s]
 #hooks:
 #
 #  - name: CrowdClapperEventActivate

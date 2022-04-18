@@ -6,7 +6,7 @@ hooks:
   - name: SamurshaiBuild
     type: add_func_pointer
     src_addr_pal: 0x809894B4
-    target_func: 'daSamurshai::build()'
+    target_func: 'daSamurshai::build(void)'
 
   - name: SamurshaiSpriteFileInfo
     type: add_func_pointer

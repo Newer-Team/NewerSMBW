@@ -6,5 +6,5 @@ hooks:
   - name: PodoubleBuild
     type: add_func_pointer
     src_addr_pal: 0x8097B0D0
-    target_func: 'daPodouble::build()'
+    target_func: 'daPodouble::build(void)'
 

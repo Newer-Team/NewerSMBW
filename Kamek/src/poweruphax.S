@@ -1,6 +1,6 @@
 .text
 .align 4
-#include <asm_setup.S>
+.set sp, 1
 
 .extern returnFromGPSFASixth
 .extern daEnItem_c__GetWhetherPlayerCanGetPowerupOrNot
@@ -17,6 +17,17 @@
 .extern doneSettingThePowerupTexture
 .extern doneSettingThePowerupTexture2
 .extern returnFromPowerupSoundChange
+
+#ifndef __MWERKS__
+.set r0,0;   .set r1,1;   .set r2,2; .set r3,3;   .set r4,4
+.set r5,5;   .set r6,6;   .set r7,7;   .set r8,8;   .set r9,9
+.set r10,10; .set r11,11; .set r12,12; .set r13,13; .set r14,14
+.set r15,15; .set r16,16; .set r17,17; .set r18,18; .set r19,19
+.set r20,20; .set r21,21; .set r22,22; .set r23,23; .set r24,24
+.set r25,25; .set r26,26; .set r27,27; .set r28,28; .set r29,29
+.set r30,30; .set r31,31; .set f0,0; .set f2,2; .set f3,3
+.set f1,1;   .set f30,30; .set f31,31
+#endif
 
 .global DisableHatForHammer
 DisableHatForHammer:
@@ -371,7 +382,7 @@ FixPowerupSound:
 
 	lwz r5, 0x14DC(r29) # Original powerup
 	lwz r0, 0x1090(r29) # New powerup
-	# If NEW is 1 (big) and OLD is not 0 or 3, then play 273 (powerdown)
+	# if NEW is 1 (big) and OLD is not 0 or 3, then play 273 (powerdown)
 	cmpwi r0, 1
 	bne dontConsiderPowerdown
 
@@ -658,7 +669,7 @@ AcPyCtorHS:
 	stw r31, 0xC(r1)
 	mr r31, r3
 
-	bl _ZN21dHammerSuitRenderer_c5buildEv
+	bl build__21dHammerSuitRenderer_cFv
 	stw r3, 0x2D08(r31)
 
 	mr r3, r31
@@ -683,7 +694,7 @@ AcPyDtorHS:
 	beq oops2
 	lwz r3, 0x2D08(r30)
 	li r4, 1
-	bl _ZN21dHammerSuitRenderer_cD1Ev
+	bl __dt__21dHammerSuitRenderer_cFv
 oops2:
 	
 	mr r3, r30
@@ -702,7 +713,7 @@ AcPySetMeUpHS:
 	# partway in: r31 = this
 	lwz r3, 0x2D08(r31)
 	addi r4, r31, 0x2A60
-	bl _ZN21dHammerSuitRenderer_c5setupEP21dPlayerModelHandler_c
+	bl setup__21dHammerSuitRenderer_cFP21dPlayerModelHandler_c
 
 	# epilogue
 	li r3, 1
@@ -716,7 +727,7 @@ AcPySetMeUpHS:
 AcPyDrawHS:
 	# partway in: r31 = this
 	lwz r3, 0x2D08(r31)
-	bl _ZN21dHammerSuitRenderer_c4drawEv
+	bl draw__21dHammerSuitRenderer_cFv
 
 	# epilogue
 	li r3, 1
@@ -737,7 +748,7 @@ Wm2dPlayerCtorHS:
 	stw r31, 0xC(r1)
 	mr r31, r3
 
-	bl _ZN21dHammerSuitRenderer_c5buildEv
+	bl build__21dHammerSuitRenderer_cFv
 	stw r3, 0x384(r31)
 
 	mr r3, r31
@@ -762,7 +773,7 @@ Wm2dPlayerDtorHS:
 	beq oops
 	lwz r3, 0x384(r30)
 	li r4, 1
-	bl _ZN21dHammerSuitRenderer_cD1Ev
+	bl __dt__21dHammerSuitRenderer_cFv
 oops:
 	
 	mr r3, r30
@@ -782,7 +793,7 @@ Wm2dPlayerSetMeUpHS:
 	lwz r3, 0x384(r27)
 	lwz r4, 0x128(r27)
 	li r5, 1
-	bl _ZN21dHammerSuitRenderer_c5setupEP21dPlayerModelHandler_ci
+	bl setup__21dHammerSuitRenderer_cFP21dPlayerModelHandler_ci
 
 	# epilogue
 	addi r11, r1, 0x20
@@ -806,7 +817,7 @@ Wm2dPlayerDrawHS:
 	mr r31, r3
 
 	lwz r3, 0x384(r31)
-	bl _ZN21dHammerSuitRenderer_c4drawEv
+	bl draw__21dHammerSuitRenderer_cFv
 
 	lwz r3, 0x128(r31)
 	bl draw__21dPlayerModelHandler_cFv
@@ -820,11 +831,11 @@ Wm2dPlayerDrawHS:
 .extern _restgpr_27
 .extern RealAcPyDtor
 .extern RealWm2dPlayerDtor
-.extern _ZN21dHammerSuitRenderer_c5buildEv
-.extern _ZN21dHammerSuitRenderer_cD1Ev
-.extern _ZN21dHammerSuitRenderer_c5setupEP21dPlayerModelHandler_c
-.extern _ZN21dHammerSuitRenderer_c5setupEP21dPlayerModelHandler_ci
-.extern _ZN21dHammerSuitRenderer_c4drawEv
+.extern build__21dHammerSuitRenderer_cFv
+.extern __dt__21dHammerSuitRenderer_cFv
+.extern setup__21dHammerSuitRenderer_cFP21dPlayerModelHandler_ci
+.extern setup__21dHammerSuitRenderer_cFP21dPlayerModelHandler_c
+.extern draw__21dHammerSuitRenderer_cFv
 .extern draw__21dPlayerModelHandler_cFv
 
 .extern GabonRock_DropOutState
@@ -1026,7 +1037,7 @@ StrongboxInit:
 
 .extern continueFromStrongBox2
 .extern AddStockPowerup
-.extern create__13dStageActor_cF6ActorsUiP4VEC3P6S16VecUc
+.extern create__13dStageActor_cF6ActorsUiP7Point3dP6S16VecUc
 .global StrongboxGiveBattleItem
 StrongboxGiveBattleItem:
 	# save a reg we can use
@@ -1063,7 +1074,7 @@ StrongboxGiveBattleItem:
 	addi r5, r1, 0x10
 	li r6, 0
 	li r7, 0
-	bl create__13dStageActor_cF6ActorsUiP4VEC3P6S16VecUc
+	bl create__13dStageActor_cF6ActorsUiP7Point3dP6S16VecUc
 
 	# restore our reg
 	lwz r29, 0x24(r1)
@@ -1473,18 +1484,18 @@ SkawoHatesMe:
 	lwzx r4, r27, r0
 	cmpwi r0, 28
 	bnelr
-	lis r5, FireflowerFileName@h
-	ori r5, r5, FireflowerFileName@l
+	lis r5, SolveMystery@h
+	ori r5, r5, SolveMystery@l
 	blr
 SkawoStillHatesMe:
 	lwzx r4, r4, r0
 	cmpwi r0, 28
 	bnelr
-	lis r4, FireflowerModelName@h
-	ori r4, r4, FireflowerModelName@l
+	lis r4, RewriteHistory@h
+	ori r4, r4, RewriteHistory@l
 	blr
 .data
-FireflowerFileName: .string "g3d/I_fireflower.brres"
-FireflowerModelName: .string "I_fireflower"
+SolveMystery: .string "g3d/I_fireflower.brres"
+RewriteHistory: .string "I_fireflower"
 .align 4
 

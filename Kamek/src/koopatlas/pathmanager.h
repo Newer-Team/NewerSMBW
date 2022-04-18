@@ -11,7 +11,7 @@
 #include "koopatlas/mapdata.h"
 #include "levelinfo.h"
 
-extern void *SoundRelatedClass;
+extern "C" void *SoundRelatedClass;
 extern "C" void *MapSoundPlayer(void *SoundClass, int soundID, int unk);
 extern "C" bool SpawnEffect(const char*, int, Vec*, S16Vec*, Vec*);
 

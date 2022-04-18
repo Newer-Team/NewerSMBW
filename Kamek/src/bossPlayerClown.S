@@ -1,5 +1,4 @@
 .text
-#include <asm_setup.S>
 .align 4
 .extern ContinueFromClownCarDetectAdjacent
 .extern calculateAdjacentCollision__14collisionMgr_cFPf

@@ -1,5 +1,4 @@
 #include <game.h>
-#include <sfx.h>
 #include "koopatlas/mapmusic.h"
 #include "music.h"
 

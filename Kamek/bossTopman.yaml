@@ -6,7 +6,7 @@ hooks:
   - name: BossTopmanBuild
     type: add_func_pointer
     src_addr_pal: 0x8097BCC0
-    target_func: 'daDreidel::build()'
+    target_func: 'daDreidel::build(void)'
 
   - name: BossTopmanSpriteFileInfo
     type: add_func_pointer

@@ -5,7 +5,7 @@ hooks:
     type: branch_insn
     branch_type: b
     src_addr_pal: 0x80B6BDD0
-    target_func: 'PregameLytHandler::hijack_loadLevelNumber()'
+    target_func: 'PregameLytHandler::hijack_loadLevelNumber(void)'
 
   - {name: CRSIN_makeLonger,type: patch,addr_pal: 0x8091F144,data: '380000B4'}
 

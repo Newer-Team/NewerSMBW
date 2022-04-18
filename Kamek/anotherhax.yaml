@@ -1,4 +1,4 @@
-source_files: [../src/fix38.S]
+source_files: [../src/fix38.S, ../src/spritetex.S]
 hooks:
 - {addr_pal: 0x8000D064, data: '280000FF', name: Fix1, type: patch}
 - {addr_pal: 0x80079BD0, data: '280000FF', name: Fix2, type: patch}
@@ -19,4 +19,5 @@ hooks:
 - {name: RemoveToadHouseMsg2, addr_pal: 0x808FB968, type: patch, data: '60000000'}
 - {name: RemovePeachCastleMsg, addr_pal: 0x80924894, type: patch, data: '38600000'}
 - {name: NewSaveFilename, addr_pal: 0x802F148C, type: patch, data: '616E6F746865722E'}
-
+- {name: NoteBlockTex, src_addr_pal: 0x80AC8664, type: branch_insn, branch_type: bl, target_func: 'NoteBlockTex'}
+- {name: NoteBlockTex2, addr_pal: 0x80AC8668, type: patch, data: '60000000'}

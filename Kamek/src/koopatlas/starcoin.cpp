@@ -443,7 +443,8 @@ void dWMStarCoin_c::beginState_Wait() { }
 void dWMStarCoin_c::executeState_Wait() {
 	int nowPressed = Remocon_GetPressed(GetActiveRemocon());
 
-	if ((GetActiveRemocon()->heldButtons == 0xc10) && (nowPressed & 0xc10)) { // A, B, and Plus
+	// A and Plus (formerly B as well, prior to 1.30, but nunchuk scheme binds B to cancel)
+	if ((GetActiveRemocon()->heldButtons == 0x810) && (nowPressed & 0x810)) {
 
 		const int lineCountOn = 9, lineCountOff = 2;
 		static const wchar_t *linesOn[lineCountOn] = {
@@ -453,9 +454,9 @@ void dWMStarCoin_c::executeState_Wait() {
 			L"any time he takes damage, and",
 			L"the timer will be more strict.",
 			L" ",
-			L"So treasure your Yoshi, and",
-			L"hold on to your hat, you're",
-			L"in for a wild ride!",
+			L"So treasure your Yoshi and",
+			L"hold on to your hat, 'cause",
+			L"you're in for a wild ride!",
 		};
 		static const wchar_t *linesOff[lineCountOff] = {
 			L"Hard Mode has been",

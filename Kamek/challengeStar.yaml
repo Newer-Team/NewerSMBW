@@ -6,7 +6,7 @@ hooks:
   - name: ChallengeStarBuild
     type: add_func_pointer
     src_addr_pal: 0x8098872C
-    target_func: 'dChallengeStar::build()'
+    target_func: 'dChallengeStar::build(void)'
 
   - name: UpdateModelSpriteInfo
     type: patch

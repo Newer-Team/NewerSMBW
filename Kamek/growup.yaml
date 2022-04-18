@@ -1,5 +1,5 @@
 ---
-source_files: [../src/growup.S]
+source_files: [../src/growup.s]
 hooks:
 
 

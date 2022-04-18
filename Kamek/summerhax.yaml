@@ -1,9 +1,39 @@
-source_files: [../src/summermodel.cpp, ../src/fix38.S, ../src/nullsub.S, ../src/soundPlayer.S]
+source_files: [../src/summermodel.cpp, ../src/fix38.S, ../src/nullsub.S, ../src/soundPlayer.S, ../src/spritetexsum.S]
 hooks:
-- {name: RemoveTitleReplay, addr_pal: 0x80781FBC, type: patch, data: '60000000 60000000 60000000'}
 - {name: RemoveToadHouseMsg1, addr_pal: 0x808FB974, type: patch, data: '60000000'}
 - {name: RemoveToadHouseMsg2, addr_pal: 0x808FB968, type: patch, data: '60000000'}
 - {name: UpdateChompModelInfo, addr_pal: 0x8030B998, type: patch, data: '00BC0000000000100000001000000000000000000000080000000800000000000000000000000000'}
+
+- name: NoTitleScreenMovie
+  type: nop_insn
+  area_pal: 0x80781FB8
+
+- name: SkipReplays
+  type: patch
+  addr_pal: 0x80781FBC
+  data: '38600000'
+
+# There was originally a pre-made save file to skip this, but we can just code hax it which is better
+- name: RemoveOpeningCS
+  type: nop_insn
+  area_pal: [0x809191C8, 0x809191D8]
+
+# The default save file also started you out with 3 lives instead of 5, so let's recreate that too
+- name: SetDefaultLivesTo3
+  type: patch
+  addr_pal: 0x800CE05C
+  data: '38A00003'
+
+# Also, let's make continues give you 3 lives instead of 5 to be consistent
+- name: Show3LivesOnContinue
+  type: patch
+  addr_pal: 0x807785CC
+  data: '2C000003'
+
+- name: Give3LivesOnContinue
+  type: patch
+  addr_pal: 0x807786DC
+  data: '3B800003'
 
 - name: Fix38WithJumpCoin
   src_addr_pal: 0x807EBC5C
@@ -24,7 +54,7 @@ hooks:
 - name: BuildYourOwnModel
   type: add_func_pointer
   src_addr_pal: 0x8098FEAC
-  target_func: 'dMakeYourOwn::build()'
+  target_func: 'dMakeYourOwn::build(void)'
 
 - name: UpdateModelSpriteInfo
   type: patch
@@ -236,3 +266,61 @@ hooks:
 #   type: patch
 #   addr_pal: 0x80803904
 #   data: '60000000 60000000 60000000 60000000 60000000 60000000 60000000 60000000 60000000 60000000 60000000'
+
+- name: TiltZAdjust
+  src_addr_pal: 0x80849B3C
+  type: branch_insn
+  branch_type: bl
+  target_func: 'TiltZAdjust'
+
+- name: MusicNukeBahps_BGM_CHIJOU
+  type: patch
+  addr_pal: 0x802F6BC8
+  data: '00000000'
+
+- name: MusicNukeBahps_BGM_SABAKU
+  type: patch
+  addr_pal: 0x802F6BF0
+  data: '00000000'
+
+- name: MusicNukeBahps_BGM_TORIDE_SHIRO
+  type: patch
+  addr_pal: 0x802F6BF0
+  #      BGM_TORIDE        BGM_SHIRO
+  data: '00000000 00000000 00000000 00000000'
+
+- name: MusicNukeBahps_BGM_MORI
+  type: patch
+  addr_pal: 0x802F6C50
+  data: '00000000'
+
+- name: MusicNukeBahps_BGM_KAZAN_TIKA
+  type: patch
+  addr_pal: 0x802F6C68
+  data: '00000000'
+
+- name: MusicNukeBahps_BGM_CHIJOU_FAST
+  type: patch
+  addr_pal: 0x802F6CB0
+  data: '00000000'
+
+- name: MusicNukeBahps_BGM_SABAKU_FAST
+  type: patch
+  addr_pal: 0x802F6CD8
+  data: '00000000'
+
+- name: MusicNukeBahps_BGM_TORIDE_SHIORO_FAST
+  type: patch
+  addr_pal: 0x802F6CF0
+  #      BGM_TORIDE        BGM_SHIRO
+  data: '00000000 00000000 00000000 00000000'
+
+- name: MusicNukeBahps_BGM_MORI_FAST
+  type: patch
+  addr_pal: 0x802F6D38
+  data: '00000000'
+
+- name: MusicNukeBahps_BGM_KAZAN_TIKA_FAST
+  type: patch
+  addr_pal: 0x802F6D50
+  data: '00000000'

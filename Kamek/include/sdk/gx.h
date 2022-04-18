@@ -12,7 +12,7 @@
 
 //#include <gctypes.h>
 //#include "lwp.h"
-#include "gx_struct.h"
+#include "sdk/gx_struct.h"
 //#include "gu.h"
 
 #define GX_FALSE			0

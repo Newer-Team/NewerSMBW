@@ -6,5 +6,5 @@ hooks:
   - name: WrenchThrowBuild
     type: add_func_pointer
     src_addr_pal: 0x80AEA9F8
-    target_func: 'daWrench::build()'
+    target_func: 'daWrench::build(void)'
 

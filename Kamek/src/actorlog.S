@@ -1,6 +1,6 @@
 .text
 
-#include <asm_setup.S>
+.set sp, 1
 
 .align 4
 .extern OSReport

@@ -6,7 +6,7 @@ hooks:
   - name: BuildThundercloud
     type: add_func_pointer
     src_addr_pal: 0x80981E0C
-    target_func: 'dThunderCloud::build()'
+    target_func: 'dThunderCloud::build(void)'
 
   - name: ThundercloudSpriteFileInfo
     type: add_func_pointer

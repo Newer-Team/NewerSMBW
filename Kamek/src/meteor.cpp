@@ -39,14 +39,14 @@ dMeteor *dMeteor::build() {
 
 const char* MEarcNameList [] = {
 	"kazan_rock",
-	NULL
+	NULL	
 };
 
 // extern "C" dStageActor_c *GetSpecificPlayerActor(int num);
 // extern "C" void *modifyPlayerPropertiesWithRollingObject(dStageActor_c *Player, float _52C);
 
 
-void dMeteor::playerCollision(ActivePhysics *apThis, ActivePhysics *apOther) {
+void dMeteor::playerCollision(ActivePhysics *apThis, ActivePhysics *apOther) { 
 	DamagePlayer(this, apThis, apOther);
 }
 
@@ -54,10 +54,8 @@ void MeteorPhysicsCallback(dMeteor *self, dEn_c *other) {
 	if (other->name == 657) {
 		OSReport("CANNON COLLISION");
 
-		S16Vec nullRot = {0,0,0};
-		Vec oneVec = {1.0f, 1.0f, 1.0f};
-		SpawnEffect("Wm_en_explosion", 0, &other->pos, &nullRot, &oneVec);
-		SpawnEffect("Wm_en_explosion_smk", 0, &other->pos, &nullRot, &oneVec);
+		SpawnEffect("Wm_en_explosion", 0, &other->pos, &(S16Vec){0,0,0}, &(Vec){1.0, 1.0, 1.0});
+		SpawnEffect("Wm_en_explosion_smk", 0, &other->pos, &(S16Vec){0,0,0}, &(Vec){1.0, 1.0, 1.0});
 		PlaySound(other, SE_OBJ_TARU_BREAK);
 		other->Delete(1);
 
@@ -75,7 +73,7 @@ void MeteorPhysicsCallback(dMeteor *self, dEn_c *other) {
 	}
 }
 
-bool dMeteor::collisionCat7_GroundPound(ActivePhysics *apThis, ActivePhysics *apOther) {
+bool dMeteor::collisionCat7_GroundPound(ActivePhysics *apThis, ActivePhysics *apOther) { 
 	DamagePlayer(this, apThis, apOther);
 	return true;
 }
@@ -123,14 +121,10 @@ int dMeteor::onCreate() {
 		elec.callback = &dEn_c::collisionCallback;
 
 		this->aPhysics.initWithStruct(this, &elec);
-		this->aPhysics.addToList();
+		this->aPhysics.addToList();	
 	}
 
-	MakeItRound.baseSetup(this,
-			(void*)&MeteorPhysicsCallback,
-			(void*)&MeteorPhysicsCallback,
-			(void*)&MeteorPhysicsCallback,
-			1, 0);
+	MakeItRound.baseSetup(this, &MeteorPhysicsCallback, &MeteorPhysicsCallback, &MeteorPhysicsCallback, 1, 0);
 
 	MakeItRound.x = 0.0;
 	MakeItRound.y = 0.0;
@@ -143,7 +137,7 @@ int dMeteor::onCreate() {
 	MakeItRound.addToList();
 
 	this->pos.z = (settings & 0x1000000) ? -2000.0f : 3458.0f;
-
+		
 	this->onExecute();
 	return true;
 }
@@ -161,9 +155,7 @@ int dMeteor::onExecute() {
 	updateModelMatrices();
 
 	if (isElectric) {
-		Vec efPos = {pos.x, pos.y, pos.z+500.0f};
-		Vec efScale = {scale.x*0.8f, scale.y*0.8f, scale.z*0.8f};
-		effect.spawn("Wm_en_birikyu_biri", 0, &efPos, &rot, &efScale);
+		effect.spawn("Wm_en_birikyu_biri", 0, &(Vec){pos.x, pos.y, pos.z+500.0}, &rot, &(Vec){scale.x*0.8, scale.y*0.8, scale.z*0.8});
 		PlaySound(this, SE_EMY_BIRIKYU_SPARK);
 	}
 

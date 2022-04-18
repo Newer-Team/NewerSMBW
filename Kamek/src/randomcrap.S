@@ -1,9 +1,12 @@
 .text
-#include <asm_setup.S>
-.global _Z3absf
-_Z3absf:
-	fabs f1, f1
-	frsp f1, f1
+
+.global IcicleFix
+IcicleFix:
+	#809B4420
+	li r9, 0
+	stw r9, 0x36D(r30) # Set "eatable" field to 0
+	
+	stfs f1, 0x318(r30) # Reinclude replaced instruction
 	blr
 
 .global JrFloorFireHax
@@ -459,10 +462,10 @@ dontResetRREDelay:
 	b set__10dFlagMgr_cFUcibbbUi
 
 .global EFB_Crap
-.extern _Z9EFBMagic2v
+.extern EFBMagic2__Fv
 .extern ContinueFromEFBMagic2
 EFB_Crap:
-	bl _Z9EFBMagic2v
+	bl EFBMagic2__Fv
 	lwz r3, 4(r30)
 	b ContinueFromEFBMagic2
 
@@ -602,17 +605,6 @@ BGScaleEnabled: .byte 0
 #	icbi r0, r3
 #	blr
 
-.text
-.align 4
-.global ReplaceExceptionOccurred
-ReplaceExceptionOccurred:
-	lis r3, NewExceptionOccurred@h
-	ori r3, r3, NewExceptionOccurred@l
-	blr
-
-.data
-NewExceptionOccurred:
-.string "Whoops! Newer 1.0.2 has crashed.\nPlease take a screenshot of the info below\nand send it to newer@newerteam.com.\nYou can scroll through this report using the D-Pad.\n"
 UniLogStr: .string "[ULog] returning %8x to: %x > %x > %x > %x > %x > %x\n"
 #WillAlloc: .string "[AH] Will allocate %x bytes aligned by %x\n"
 #Alloced: .string "[AH] Allocated %p\n"
@@ -622,3 +614,7 @@ SCMs: .string "Setting music to %d\n"
 
 .global Rrun
 Rrun: .string "Rrun"
+
+.global enableHardMode
+enableHardMode:
+	.byte 0

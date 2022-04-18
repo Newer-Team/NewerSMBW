@@ -225,9 +225,9 @@ void dWorldCamera_c::calculateScreenGeometry() {
 
 void dWorldCamera_c::doStuff(float something) {
 	camTarget = (Vec){
-		screenLeft + (screenWidth * 0.5f),
-	   (screenTop - screenHeight) + (screenHeight * 0.5f),
-	   0.0f
+		screenLeft + (screenWidth * 0.5),
+	   (screenTop - screenHeight) + (screenHeight * 0.5),
+	   0.0
 	};
 
 	camPos = (Vec){camTarget.x, camTarget.y, something};
@@ -248,11 +248,7 @@ void dWorldCamera_c::generateCameraMatrices() {
 
 	screen.setOrtho(orthoTop, orthoBottom, orthoLeft, orthoRight, -100000.0f, 100000.0f);
 
-	//VEC2 crap = GetSomeSizeRelatedBULLSHIT();
-	// This is a horrible, horrible hack
-	VEC2 crap;
-	*((u64*)(&crap)) = GetSomeSizeRelatedBULLSHIT();
-
+	VEC2 crap = GetSomeSizeRelatedBULLSHIT();
 	Vec calcedAboutRatio = CalculateSomethingAboutRatio(orthoTop, orthoBottom, orthoLeft, orthoRight);
 	screen._44 = CalculateSomethingElseAboutRatio();
 

@@ -5,7 +5,7 @@
 #include <stage.h>
 #include "boss.h"
 
-void poodleCollisionCallback(ActivePhysics *apThis, ActivePhysics *apOther);
+void poodleCollisionCallback(ActivePhysics *apThis, ActivePhysics *apOther);	
 
 void poodleCollisionCallback(ActivePhysics *apThis, ActivePhysics *apOther) {
 		if (apOther->owner->name == BROS_FIREBALL) { return; }
@@ -119,7 +119,7 @@ daPodouble *daPodouble::build() {
 	bool daPodouble::collisionCat9_RollingObject(ActivePhysics *apThis, ActivePhysics *apOther) { return true; }
 	bool daPodouble::collisionCat3_StarPower(ActivePhysics *apThis, ActivePhysics *apOther)		{ return true; }
 
-	bool daPodouble::collisionCat13_Hammer(ActivePhysics *apThis, ActivePhysics *apOther) {
+	bool daPodouble::collisionCat13_Hammer(ActivePhysics *apThis, ActivePhysics *apOther) {	
 		apOther->owner->kill();
 		return true;
 	}
@@ -128,8 +128,8 @@ daPodouble *daPodouble::build() {
 		apOther->owner->Delete(1);
 		if (this->isInvulnerable) { return true; }
 
-		if (this->isFire == 0) {
-			this->damage += 4;
+		if (this->isFire == 0) { 
+			this->damage += 4; 
 
 			if (this->damage < 12)  { doStateChange(&StateID_Damage); }
 			else 				    { doStateChange(&StateID_Outro); }
@@ -140,8 +140,8 @@ daPodouble *daPodouble::build() {
 	bool daPodouble::collisionCat1_Fireball_E_Explosion(ActivePhysics *apThis, ActivePhysics *apOther) {
 		if (this->isInvulnerable) { return true; }
 
-		if (this->isFire == 0) {
-			this->damage += 2;
+		if (this->isFire == 0) { 
+			this->damage += 2; 
 
 			if (this->damage < 12)  { doStateChange(&StateID_Damage); }
 			else 				    { doStateChange(&StateID_Outro); }
@@ -153,10 +153,10 @@ daPodouble *daPodouble::build() {
 		apOther->owner->Delete(1);
 		if (this->isInvulnerable) { return true; }
 
-		if (this->isFire == 1) {
+		if (this->isFire == 1) { 
 			if (apOther->owner->name == 104) { this->damage += 2; }
 			else 						     { this->damage += 4; }
-
+		
 			if (this->damage < 12)  { doStateChange(&StateID_Damage); }
 			else 				    { doStateChange(&StateID_Outro); }
 
@@ -246,7 +246,7 @@ int daPodouble::onCreate() {
 	this->rot.x = 0; // X is vertical axis
 	this->rot.y = (direction) ? 0xD800 : 0x2800;
 	this->rot.z = 0; // Z is ... an axis >.>
-
+	
 	this->speed.x = 0.0;
 	this->speed.y = 0.0;
 	this->max_speed.x = 0.0;
@@ -262,7 +262,7 @@ int daPodouble::onCreate() {
 	HitMeBaby.yDistToCenter = 0.0;
 
 	HitMeBaby.xDistToEdge = 40.0;
-	HitMeBaby.yDistToEdge = 40.0;
+	HitMeBaby.yDistToEdge = 40.0;		
 
 	HitMeBaby.category1 = 0x3;
 	HitMeBaby.category2 = 0x0;
@@ -366,7 +366,7 @@ int daPodouble::onDraw() {
 ///////////////
 // Grow State
 ///////////////
-	void daPodouble::beginState_Grow() {
+	void daPodouble::beginState_Grow() { 
 		this->timer = 0;
 		if (isFire) { return; }
 
@@ -374,34 +374,34 @@ int daPodouble::onDraw() {
 		this->scale = (Vec){1.0, 1.0, 1.0};
 	}
 
-	void daPodouble::executeState_Grow() {
+	void daPodouble::executeState_Grow() { 
 
 		this->timer += 1;
 
-		if (isFire) {
+		if (isFire) { 
 			float scaleSpeed;
 
 			if (timer == 150) { PlaySound(this, SE_BOSS_IGGY_WANWAN_TO_L); }
-
+			
 			if ((timer > 150) && (timer < 230)) {
 				scaleSpeed = (3.5 - 1.0) / 80.0;
-
+			
 				float modifier;
 
 				modifier = 1.0 + ((timer - 150) * scaleSpeed);
-
+				
 				this->scale = (Vec){modifier, modifier, modifier};
 				this->pos.y = this->pos.y + (18/80.0);
 			}
 
-			if (timer > 420) {
+			if (timer > 420) { 
 				PlaySound(this, SE_EMY_CS_MOVE_W8_BUBBLE_APP);
-				doStateChange(&StateID_Bounce);
+				doStateChange(&StateID_Bounce); 
 			}
 
 			return;
 		}
-
+		
 		bool ret;
 		ret = GrowBoss(this, Kameck, 1.0, 3.5, 18, this->timer);
 
@@ -409,37 +409,33 @@ int daPodouble::onDraw() {
 
 			int players = GetActivePlayerCount();
 
-			Vec tempPos = (Vec){this->pos.x - 190.0f, this->pos.y + 120.0f, 3564.0};
-			S16Vec nullRot = {0,0,0};
-			dStageActor_c *spawner = create(AC_YOSHI_EGG, 0x71010000, &tempPos, &nullRot, 0);
+			Vec tempPos = (Vec){this->pos.x - 190.0, this->pos.y + 120.0, 3564.0};
+			dStageActor_c *spawner = create(AC_YOSHI_EGG, 0x71010000, &tempPos, &(S16Vec){0,0,0}, 0);
 			spawner->speed.x = spawner->speed.x / 2.0;
-
+			
 			if (players > 1) {
-				tempPos = (Vec){this->pos.x - 190.0f, this->pos.y + 120.0f, 3564.0f};
-				S16Vec nullRot = {0,0,0};
-				spawner = create(AC_YOSHI_EGG, 0xF1010000, &tempPos, &nullRot, 0);
+				tempPos = (Vec){this->pos.x - 190.0, this->pos.y + 120.0, 3564.0};
+				spawner = create(AC_YOSHI_EGG, 0xF1010000, &tempPos, &(S16Vec){0,0,0}, 0);
 				spawner->speed.x = spawner->speed.x / 2.0;
 			}
-
+			
 			if (players > 2) {
-				tempPos = (Vec){this->pos.x - 190.0f, this->pos.y + 120.0f, 3564.0f};
-				S16Vec nullRot = {0,0,0};
-				spawner->create(AC_YOSHI_EGG, 0x71010000, &tempPos, &nullRot, 0);
+				tempPos = (Vec){this->pos.x - 190.0, this->pos.y + 120.0, 3564.0};
+				spawner->create(AC_YOSHI_EGG, 0x71010000, &tempPos, &(S16Vec){0,0,0}, 0);
 			}
 
 			if (players > 3) {
-				tempPos = (Vec){this->pos.x - 190.0f, this->pos.y + 120.0f, 3564.0f};
-				S16Vec nullRot = {0,0,0};
-				create(AC_YOSHI_EGG, 0xF1010000, &tempPos, &nullRot, 0);
+				tempPos = (Vec){this->pos.x - 190.0, this->pos.y + 120.0, 3564.0};
+				create(AC_YOSHI_EGG, 0xF1010000, &tempPos, &(S16Vec){0,0,0}, 0);
 			}
 		}
 
-		if (ret) {
+		if (ret) { 	
 			PlaySound(this, SE_EMY_CS_MOVE_W8_BUBBLE_APP);
-			doStateChange(&StateID_Bounce);
+			doStateChange(&StateID_Bounce); 
 		}
 	}
-	void daPodouble::endState_Grow() {
+	void daPodouble::endState_Grow() { 
 		this->Baseline = this->pos.y;
 		if (isFire) { return; }
 
@@ -450,7 +446,7 @@ int daPodouble::onDraw() {
 ///////////////
 // Bounce State
 ///////////////
-	void daPodouble::beginState_Bounce() {
+	void daPodouble::beginState_Bounce() { 
 		this->rot.y = (direction) ? 0xD800 : 0x2800;
 		this->rot.x = 0;
 
@@ -460,29 +456,28 @@ int daPodouble::onDraw() {
 
 		this->goingUp = 0;
 	}
-	void daPodouble::executeState_Bounce() {
+	void daPodouble::executeState_Bounce() { 
 
-		if (this->countdown) {
-			this->countdown--;
+		if (this->countdown) { 
+			this->countdown--; 
 			return; }
 
 		HandleYSpeed();
 		doSpriteMovement();
 
-		if (this->pos.y < this->Baseline) {
-			this->speed.y = 7.5;
+		if (this->pos.y < this->Baseline) { 
+			this->speed.y = 7.5; 		
 			this->goingUp = 1; }
 
-		if (-0.1 < this->speed.y < 0.1) {
+		if (-0.1 < this->speed.y < 0.1) { 
 			if (this->goingUp == 1) { doStateChange(&StateID_Spit); } }
 
 
 		// Check for stupid liquid junk
-		Vec2 checkWhere = {this->pos.x, this->pos.y};
-		checkLiquidImmersion(&checkWhere, 3.0f);
+		checkLiquidImmersion(&(Vec2){this->pos.x, this->pos.y}, 3.0f);
 
 	}
-	void daPodouble::endState_Bounce() {
+	void daPodouble::endState_Bounce() { 
 		this->speed.y = 0.0;
 		this->y_speed_inc = 0.0;
 	}
@@ -492,7 +487,7 @@ int daPodouble::onDraw() {
 // Spit State
 ///////////////
 	void daPodouble::beginState_Spit() { this->timer = 0; }
-	void daPodouble::executeState_Spit() {
+	void daPodouble::executeState_Spit() { 
 
 		if (this->timer < 0x40) {
 			this->rot.x -= 0x80;
@@ -504,8 +499,7 @@ int daPodouble::onDraw() {
 
 		else if (this->timer == 0x48) {
 			if (this->isFire == 0) {
-				S16Vec nullRot = {0,0,0};
-				dStageActor_c *spawner = create(BROS_ICEBALL, 0x10, &this->pos, &nullRot, 0);
+				dStageActor_c *spawner = create(BROS_ICEBALL, 0x10, &this->pos, &(S16Vec){0,0,0}, 0);
 				*((u32 *) (((char *) spawner) + 0x3DC)) = this->id;
 
 				int num;
@@ -526,8 +520,7 @@ int daPodouble::onDraw() {
 				doStateChange(&StateID_Bounce);
 			}
 			else {
-				S16Vec nullRot = {0,0,0};
-				dStageActor_c *spawner = create(BROS_FIREBALL, 0, &this->pos, &nullRot, 0);
+				dStageActor_c *spawner = create(BROS_FIREBALL, 0, &this->pos, &(S16Vec){0,0,0}, 0);
 
 				int num;
 				num = GenerateRandomNumber(20);
@@ -549,7 +542,7 @@ int daPodouble::onDraw() {
 
 		this->timer += 1;
 	}
-	void daPodouble::endState_Spit() {
+	void daPodouble::endState_Spit() { 
 		this->speed.y = -1.0;
 		this->y_speed_inc = -0.1875;
 	}
@@ -558,22 +551,18 @@ int daPodouble::onDraw() {
 ///////////////
 // Damage State
 ///////////////
-	void daPodouble::beginState_Damage() {
+	void daPodouble::beginState_Damage() { 
 		this->timer = 0;
 		this->isInvulnerable = 1;
 
 		if (this->isFire == 0) {
 			PlaySoundAsync(this, SE_OBJ_PNGN_ICE_THAW);
-			S16Vec nullRot = {0,0,0};
-			Vec twoVec = {2.0f, 2.0f, 2.0f};
-			SpawnEffect("Wm_ob_iceevaporate", 0, &this->pos, &nullRot, &twoVec); }
+			SpawnEffect("Wm_ob_iceevaporate", 0, &this->pos, &(S16Vec){0,0,0}, &(Vec){2.0, 2.0, 2.0}); }
 		else {
 			PlaySoundAsync(this, SE_EMY_FIRE_SNAKE_EXTINCT);
-			S16Vec nullRot = {0,0,0};
-			Vec threeVec = {3.0f, 3.0f, 3.0f};
-			SpawnEffect("Wm_en_firesnk_icehitsmk_b", 0, &this->pos, &nullRot, &threeVec); }
+			SpawnEffect("Wm_en_firesnk_icehitsmk_b", 0, &this->pos, &(S16Vec){0,0,0}, &(Vec){3.0, 3.0, 3.0}); }
 	}
-	void daPodouble::executeState_Damage() {
+	void daPodouble::executeState_Damage() { 
 
 		int amt;
 		amt = sin(this->timer * 3.14 / 4.0) * 0x2000;
@@ -593,17 +582,15 @@ int daPodouble::onDraw() {
 		if (this->timer > 180) {
 			doStateChange(&StateID_Bounce);
 		}
-
+		
 		if ((this->timer == 60) || (this->timer == 80) || (this->timer == 100)) {
 			if (this->isFire == 0) {
-				S16Vec nullRot = {0,0,0};
-				dStageActor_c *spawner = create(BROS_ICEBALL, 0x10, &this->pos, &nullRot, 0);
+				dStageActor_c *spawner = create(BROS_ICEBALL, 0x10, &this->pos, &(S16Vec){0,0,0}, 0);
 				*((u32 *) (((char *) spawner) + 0x3DC)) = this->id;
 				PlaySoundAsync(this, SE_EMY_ICE_BROS_ICE);
 			}
 			else {
-				S16Vec nullRot = {0,0,0};
-				create(BROS_FIREBALL, 0, &this->pos, &nullRot, 0);
+				create(BROS_FIREBALL, 0, &this->pos, &(S16Vec){0,0,0}, 0);
 				PlaySoundAsync(this, SE_EMY_FIRE_BROS_FIRE);
 			}
 		}
@@ -611,7 +598,7 @@ int daPodouble::onDraw() {
 		this->timer += 1;
 
 	}
-	void daPodouble::endState_Damage() {
+	void daPodouble::endState_Damage() { 
 		this->isInvulnerable = 0;
 	}
 
@@ -619,7 +606,7 @@ int daPodouble::onDraw() {
 ///////////////
 // Outro State
 ///////////////
-	void daPodouble::beginState_Outro() {
+	void daPodouble::beginState_Outro() { 
 
 		daPodouble *other = (daPodouble*)FindActorByType(SHIP_WINDOW, 0);
 			if (other->id == this->id) {
@@ -640,25 +627,25 @@ int daPodouble::onDraw() {
 	}
 	void daPodouble::executeState_Outro() {
 
-		if (this->dying == 1) {
+		if (this->dying == 1) { 
 			if (this->timer > 180) { ExitStage(WORLD_MAP, 0, BEAT_LEVEL, MARIO_WIPE); }
-			if (this->timer == 60) { PlayerVictoryCries(this); }
-
+			if (this->timer == 60) { PlayerVictoryCries(this); }	
+			
 			this->timer += 1;
-			return;
-		}
+			return; 
+		}	
 
 		bool ret;
 		ret = ShrinkBoss(this, &this->pos, 3.5, this->timer);
 
-		if (ret == true) {
-			BossExplode(this, &this->pos);
+		if (ret == true) { 
+			BossExplode(this, &this->pos); 
 			this->dying = 1;
-			this->timer = 0;
+			this->timer = 0;	
 			nw4r::snd::SoundHandle handle;
 			PlaySoundWithFunctionB4(SoundRelatedClass, &handle, SE_EMY_BUBBLE_EXTINCT, 1);
 		}
-
+	
 		this->timer += 1;
 
 	}
@@ -669,7 +656,7 @@ int daPodouble::onDraw() {
 ///////////////
 // SyncDie State
 ///////////////
-	void daPodouble::beginState_SyncDie() {
+	void daPodouble::beginState_SyncDie() { 
 
 		this->removeMyActivePhysics();
 		this->timer = 0;

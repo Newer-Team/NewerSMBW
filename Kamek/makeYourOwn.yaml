@@ -6,7 +6,7 @@ hooks:
   - name: BuildYourOwnModel
     type: add_func_pointer
     src_addr_pal: 0x80988574
-    target_func: 'dMakeYourOwn::build()'
+    target_func: 'dMakeYourOwn::build(void)'
 
   - name: UpdateModelSpriteInfo
     type: patch

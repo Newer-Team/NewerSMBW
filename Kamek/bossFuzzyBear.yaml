@@ -6,5 +6,5 @@ hooks:
   - name: FuzzyBearBuild
     type: add_func_pointer
     src_addr_pal: 0x8097F730
-    target_func: 'daFuzzyBear_c::build()'
+    target_func: 'daFuzzyBear_c::build(void)'
 

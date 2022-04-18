@@ -4,19 +4,19 @@
 #include <sfx.h>
 #include "boss.h"
 
-struct TypeInfo {
+struct TypeInfo { 
 	const char *arcName;
-	const char *brresName;
-	const char *modelName;
-	const char *deathEffect;
-	int launchSound;
-	int breakSound;
-	int flySound;
-	float size;
-	float scale;
-	u16 xrot;
-	u16 yrot;
-	u16 zrot;
+	const char *brresName; 
+	const char *modelName; 
+	const char *deathEffect; 
+	int launchSound; 
+	int breakSound; 
+	int flySound; 
+	float size; 
+	float scale; 
+	u16 xrot; 
+	u16 yrot; 
+	u16 zrot; 
 };
 
 static const TypeInfo types[6] = {
@@ -34,7 +34,7 @@ const char* KPTarcNameList [] = {
 	"koopa_clown_bomb",
 	"dossun",
 	"KoopaShip",
-	NULL
+	NULL	
 };
 
 
@@ -99,12 +99,10 @@ extern "C" void *PlayWrenchSound(dEn_c *);
 extern "C" void *dAcPy_c__ChangePowerupWithAnimation(void * Player, int powerup);
 extern "C" int CheckExistingPowerup(void * Player);
 
-void daKoopaThrow::playerCollision(ActivePhysics *apThis, ActivePhysics *apOther) {
+void daKoopaThrow::playerCollision(ActivePhysics *apThis, ActivePhysics *apOther) { 
 	if (Type == 5) {
 		PlaySoundAsync(this, currentInfo->breakSound);
-		S16Vec nullRot = {0,0,0};
-		Vec efScale = {3.0f, 3.0f, 3.0f};
-		SpawnEffect(currentInfo->deathEffect, 0, &this->pos, &nullRot, &efScale);
+		SpawnEffect(currentInfo->deathEffect, 0, &this->pos, &(S16Vec){0,0,0}, &(Vec){3.0, 3.0, 3.0});
 		// dStageActor_c *spawned = CreateActor(EN_ITEM, 0x20000063, this->pos, 0, 0);
 		// spawned->pos.x = this->pos.x;
 		// spawned->pos.y = this->pos.y;
@@ -124,11 +122,8 @@ void daKoopaThrow::playerCollision(ActivePhysics *apThis, ActivePhysics *apOther
 	if (Type == 1 || Type == 2) {
 		PlaySoundAsync(this, SE_BOSS_JR_BOMB_BURST);
 
-		S16Vec nullRot = {0,0,0};
-		Vec efScale = {0.75f, 0.75f, 0.75f};
-		SpawnEffect("Wm_en_burst_s", 0, &this->pos, &nullRot, &efScale);
-		Vec hitScale = {1.25f, 1.25f, 1.25f};
-		SpawnEffect("Wm_mr_wirehit", 0, &this->pos, &nullRot, &hitScale);
+		SpawnEffect("Wm_en_burst_s", 0, &this->pos, &(S16Vec){0,0,0}, &(Vec){0.75, 0.75, 0.75});
+		SpawnEffect("Wm_mr_wirehit", 0, &this->pos, &(S16Vec){0,0,0}, &(Vec){1.25, 1.25, 1.25});
 		this->Delete(1);
 	}
 }
@@ -138,24 +133,19 @@ void daKoopaThrow::spriteCollision(ActivePhysics *apThis, ActivePhysics *apOther
 bool daKoopaThrow::collisionCat1_Fireball_E_Explosion(ActivePhysics *apThis, ActivePhysics *apOther) {
 	return true;
 }
-bool daKoopaThrow::collisionCat2_IceBall_15_YoshiIce(ActivePhysics *apThis, ActivePhysics *apOther) {
-	return false;
+bool daKoopaThrow::collisionCat2_IceBall_15_YoshiIce(ActivePhysics *apThis, ActivePhysics *apOther) { 
+	return false; 
 }
 bool daKoopaThrow::collisionCat9_RollingObject(ActivePhysics *apThis, ActivePhysics *apOther) {
 	return true;
 }
 bool daKoopaThrow::collisionCat13_Hammer(ActivePhysics *apThis, ActivePhysics *apOther) {
 	if (Type == 1 || Type == 2) {
-		S16Vec nullRot = {0,0,0};
-		Vec burstScale = {0.75f, 0.75f, 0.75f};
-		SpawnEffect("Wm_en_burst_s", 0, &this->pos, &nullRot, &burstScale);
-		Vec hitScale = {1.25f, 1.25f, 1.25f};
-		SpawnEffect("Wm_mr_wirehit", 0, &this->pos, &nullRot, &hitScale);
+		SpawnEffect("Wm_en_burst_s", 0, &this->pos, &(S16Vec){0,0,0}, &(Vec){0.75, 0.75, 0.75});
+		SpawnEffect("Wm_mr_wirehit", 0, &this->pos, &(S16Vec){0,0,0}, &(Vec){1.25, 1.25, 1.25});
 	}
 	else {
-		S16Vec nullRot = {0,0,0};
-		Vec efScale = {0.5f, 0.5f, 0.5f};
-		SpawnEffect("Wm_ob_cmnboxgrain", 0, &this->pos, &nullRot, &efScale);
+		SpawnEffect("Wm_ob_cmnboxgrain", 0, &this->pos, &(S16Vec){0,0,0}, &(Vec){0.5, 0.5, 0.5});		
 	}
 
 	PlaySoundAsync(this, currentInfo->breakSound);
@@ -165,17 +155,14 @@ bool daKoopaThrow::collisionCat13_Hammer(ActivePhysics *apThis, ActivePhysics *a
 bool daKoopaThrow::collisionCat14_YoshiFire(ActivePhysics *apThis, ActivePhysics *apOther) {
 	return true;
 }
-bool daKoopaThrow::collisionCat7_GroundPound(ActivePhysics *apThis, ActivePhysics *apOther) {
+bool daKoopaThrow::collisionCat7_GroundPound(ActivePhysics *apThis, ActivePhysics *apOther) { 
 	DamagePlayer(this, apThis, apOther);
 
 	if (Type == 1 || Type == 2) {
 		PlaySoundAsync(this, SE_BOSS_JR_BOMB_BURST);
 
-		S16Vec nullRot = {0,0,0};
-		Vec burstScale = {0.75f, 0.75f, 0.75f};
-		SpawnEffect("Wm_en_burst_s", 0, &this->pos, &nullRot, &burstScale);
-		Vec hitScale = {1.25f, 1.25f, 1.25f};
-		SpawnEffect("Wm_mr_wirehit", 0, &this->pos, &nullRot, &hitScale);
+		SpawnEffect("Wm_en_burst_s", 0, &this->pos, &(S16Vec){0,0,0}, &(Vec){0.75, 0.75, 0.75});
+		SpawnEffect("Wm_mr_wirehit", 0, &this->pos, &(S16Vec){0,0,0}, &(Vec){1.25, 1.25, 1.25});
 		this->Delete(1);
 	}
 	return true;
@@ -189,12 +176,12 @@ daKoopaThrow *daKoopaThrow::build() {
 
 
 int daKoopaThrow::onCreate() {
-
+	
 	this->direction = this->settings & 0xF;
 	this->Type = (this->settings >> 4) & 0xF;
 	this->front = (this->settings >> 8) & 0xF;
 
-	currentInfo = &types[Type];
+	currentInfo = &types[Type]; 
 
 	allocator.link(-1, GameHeaps[0], 0, 0x20);
 
@@ -216,10 +203,10 @@ int daKoopaThrow::onCreate() {
 	}
 
 	allocator.unlink();
-
-
+	
+	
 	ActivePhysics::Info KoopaJunk;
-
+	
 	KoopaJunk.xDistToCenter = 0.0f;
 	KoopaJunk.yDistToCenter = (Type == 4) ? currentInfo->size : 0.0;
 	KoopaJunk.xDistToEdge = currentInfo->size;
@@ -228,7 +215,7 @@ int daKoopaThrow::onCreate() {
 	this->scale.x = currentInfo->scale;
 	this->scale.y = currentInfo->scale;
 	this->scale.z = currentInfo->scale;
-
+	
 	KoopaJunk.category1 = 0x3;
 	KoopaJunk.category2 = 0x0;
 	KoopaJunk.bitfield1 = 0x47;
@@ -269,7 +256,7 @@ int daKoopaThrow::onCreate() {
 	if (this->front == 1) { this->pos.z = -1804.0; }
 	else 				  { this->pos.z =  3300.0; }
 
-
+	
 	if (currentInfo->launchSound != 0) {
 		PlaySound(this, currentInfo->launchSound);
 	}
@@ -279,7 +266,7 @@ int daKoopaThrow::onCreate() {
 	}
 
 	doStateChange(&StateID_Straight);
-
+	
 	this->onExecute();
 	return true;
 }
@@ -327,19 +314,19 @@ int daKoopaThrow::onExecute() {
 
 
 
-void daKoopaThrow::beginState_Straight() {
+void daKoopaThrow::beginState_Straight() { 
 	float rand = (float)GenerateRandomNumber(10) * 0.4;
 
 	if (this->direction == 0) { // directions 1 spins clockwise, fly rightwards
-		speed.x = 1.5 + rand;
+		speed.x = 1.5 + rand; 
 	}
 	else {						// directions 0 spins anti-clockwise, fly leftwards
-		speed.x = -1.5 - rand;
+		speed.x = -1.5 - rand; 
 	}
 
 	speed.y = 9.0;
 }
-void daKoopaThrow::executeState_Straight() {
+void daKoopaThrow::executeState_Straight() { 
 
 	speed.y = speed.y - 0.01875;
 
@@ -365,8 +352,8 @@ void daKoopaThrow::executeState_Straight() {
 	else {						// directions 0 spins anti-clockwise, fly leftwards
 		this->rot.x -= currentInfo->xrot;
 		this->rot.y -= currentInfo->yrot;
-		this->rot.z += currentInfo->zrot; }
-
+		this->rot.z += currentInfo->zrot; }	
+	
 
 	if (Type < 2) {
 		PlayWrenchSound(this);

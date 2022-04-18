@@ -6,5 +6,5 @@ hooks:
   - name: BuildFireLaser
     type: add_func_pointer
     src_addr_pal: 0x80958D68
-    target_func: 'daFireLaser_c::build()'
+    target_func: 'daFireLaser_c::build(void)'
 

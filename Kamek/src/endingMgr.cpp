@@ -303,6 +303,11 @@ void dEndingMgr_c::executeState_ThanksPeach() {
 
 
 Vec2 dEndingMgr_c::_vf70() {
-	return (const Vec2){1195.0f,-394.0f};
+	// HACK OF THE MILLENIUM
+	// DON'T TRY THIS AT HOME.
+	Vec2 *v = (Vec2*)this;
+	v->x = 1195.0f;
+	v->y = -394.0f;
+	return (const Vec2){12345.0f, 67890.f};
 }
 

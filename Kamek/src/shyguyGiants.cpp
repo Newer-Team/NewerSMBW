@@ -3,7 +3,7 @@
 #include <g3dhax.h>
 #include <sfx.h>
 
-extern void shyCollisionCallback(ActivePhysics *apThis, ActivePhysics *apOther);
+
 const char* SGGarcNameList [] = {
 	"shyguy",
 	NULL	
@@ -442,7 +442,7 @@ int daShyGuyGiant::onCreate() {
 	HitMeBaby.category2 = 0x9;
 	HitMeBaby.bitfield1 = 0x4F;
 	HitMeBaby.bitfield2 = 0xffba7ffe;
-	HitMeBaby.unkShort1C = 0;
+	HitMeBaby.unkShort1C = 0x20000;
 	HitMeBaby.callback = &shyCollisionCallback;
 
 	this->aPhysics.initWithStruct(this, &HitMeBaby);

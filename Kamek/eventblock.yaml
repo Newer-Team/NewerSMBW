@@ -4,4 +4,4 @@ hooks:
   - name: BuildEventBlock
     type: add_func_pointer
     src_addr_pal: 0x80970DB8
-    target_func: 'daEnEventBlock_c::build()'
+    target_func: 'daEnEventBlock_c::build(void)'

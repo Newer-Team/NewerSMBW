@@ -93,11 +93,8 @@ int EffectVideo::onExecute() {
 					case 865: efName = "Wm_en_obakedoor_ic"; break;
 				}
 
-				if (efName != 0) {
-					S16Vec nullRot = {0,0,0};
-					Vec efScale = {scale,scale,scale};
-					SpawnEffect(efName, 0, &this->pos, &nullRot, &efScale);
-				}
+				if (efName != 0)
+					SpawnEffect(efName, 0, &this->pos, &(S16Vec){0,0,0}, &(Vec){this->scale, this->scale, this->scale});
 			}
 	
 			this->timer = 0;

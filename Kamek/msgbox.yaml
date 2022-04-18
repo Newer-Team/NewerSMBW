@@ -10,9 +10,9 @@ hooks:
   - name: BuildMsgManager
     type: add_func_pointer
     src_addr_pal: 0x80AF96F8
-    target_func: 'dMsgBoxManager_c::build()'
+    target_func: 'dMsgBoxManager_c::build(void)'
 
   - name: BuildMsgBlock
     type: add_func_pointer
     src_addr_pal: 0x80ADD890
-    target_func: 'daEnMsgBlock_c::build()'
+    target_func: 'daEnMsgBlock_c::build(void)'

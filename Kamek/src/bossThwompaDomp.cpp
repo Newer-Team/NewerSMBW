@@ -10,6 +10,7 @@
 	extern "C" void* ScreenPositionClass;
 	extern "C" int SpawnThwompEffects(dEn_c *);
 
+	extern "C" void* SoundRelatedClass;
 	extern "C" Vec ConvertStagePositionIntoScreenPosition__Maybe(Vec);
 	extern "C" void AnotherSoundRelatedFunction(void*,SFX,Vec,int);
 
@@ -242,25 +243,25 @@ int daEnMegaDosun_c::onDelete() {
 
 // Grow State
 
-	void daEnMegaDosun_c::beginState_Grow() {
+	void daEnMegaDosun_c::beginState_Grow() { 
 		this->scale = (Vec){0.5, 0.5, 0.5};
 		this->timer = 0;
 
 		SetupKameck(this, Kameck);
 	}
 
-	void daEnMegaDosun_c::executeState_Grow() {
-
+	void daEnMegaDosun_c::executeState_Grow() { 
+			
 		bool ret;
 		ret = GrowBoss(this, Kameck, 0.5, 1.0, 0, this->timer);
 
-		if (ret) {
+		if (ret) { 	
 			PlaySound(this, SE_EMY_BIG_DOSSUN);
-			doStateChange(&StateID_UpMove);
-		}
-		this->timer += 1;
+			doStateChange(&StateID_UpMove); 
+		}	
+		this->timer += 1;		
 	}
-	void daEnMegaDosun_c::endState_Grow() {
+	void daEnMegaDosun_c::endState_Grow() { 
 		CleanupKameck(this, Kameck);
 	}
 
@@ -278,20 +279,14 @@ int daEnMegaDosun_c::onDelete() {
 		}
 
 		if (this->pos.x > this->rightBuffer) {
-			Vec efPos = {this->pos.x + 38.0f, this->pos.y + 32.0f, 5500.0f};
-			S16Vec nullRot = {0,0,0};
-			Vec oneVec = {1.0f, 1.0f, 1.0f};
-			SpawnEffect("Wm_en_dossunfall02", 0, &efPos, &nullRot, &oneVec);
+			SpawnEffect("Wm_en_dossunfall02", 0, &(Vec){this->pos.x + 38.0, this->pos.y + 32.0, 5500.0}, &(S16Vec){0,0,0}, &(Vec){1.0, 1.0, 1.0});
 			PlaySoundAsync(this, SE_OBJ_TEKKYU_G_CRASH);
-
+			
 			this->direction = 0;
 		}
 
 		if (this->pos.x < this->leftBuffer) {
-			Vec efPos = {this->pos.x - 40.0f, this->pos.y + 32.0f, 5500.0f};
-			S16Vec nullRot = {0,0,0};
-			Vec oneVec = {1.0f, 1.0f, 1.0f};
-			SpawnEffect("Wm_en_dossunfall02", 0, &efPos, &nullRot, &oneVec);
+			SpawnEffect("Wm_en_dossunfall02", 0, &(Vec){this->pos.x - 40.0, this->pos.y + 32.0, 5500.0}, &(S16Vec){0,0,0}, &(Vec){1.0, 1.0, 1.0});
 			PlaySoundAsync(this, SE_OBJ_TEKKYU_G_CRASH);
 
 			this->direction = 1;
@@ -305,7 +300,7 @@ int daEnMegaDosun_c::onDelete() {
 				this->speed.y = 0.0;
 			}
 		}
-
+		
 		if (this->timer == 30) {
 			this->notFalling = 0;
 		}
@@ -435,7 +430,7 @@ int daEnMegaDosun_c::onDelete() {
 	}
 
 // Outro
-	void daEnMegaDosun_c::beginState_Outro() {
+	void daEnMegaDosun_c::beginState_Outro() { 
 		OutroSetup(this);
 		this->timer = 0;
 
@@ -451,10 +446,8 @@ int daEnMegaDosun_c::onDelete() {
 			nw4r::snd::SoundHandle handle;
 			PlaySoundWithFunctionB4(SoundRelatedClass, &handle, SE_EMY_BIG_DOSSUN_DEAD, 1);
 
-			S16Vec nullRot = {0,0,0};
-			Vec twoVec = {2.0f, 2.0f, 2.0f};
-			SpawnEffect("Wm_mr_stockitemuse_b", 0, &this->pos, &nullRot, &twoVec);
-			SpawnEffect("Wm_mr_stockitemuse_c", 0, &this->pos, &nullRot, &twoVec);
+			SpawnEffect("Wm_mr_stockitemuse_b", 0, &this->pos, &(S16Vec){0,0,0}, &(Vec){2.0, 2.0, 2.0});
+			SpawnEffect("Wm_mr_stockitemuse_c", 0, &this->pos, &(S16Vec){0,0,0}, &(Vec){2.0, 2.0, 2.0});
 		}
 
 		if (this->timer == 60) {
@@ -462,12 +455,12 @@ int daEnMegaDosun_c::onDelete() {
 			PlaySoundWithFunctionB4(SoundRelatedClass, &handle, STRM_BGM_SHIRO_BOSS_CLEAR, 1);
 			BossGoalForAllPlayers();
 		}
-
+		
 		if (this->timer == 120) {
-
+			
 			PlayerVictoryCries(this);
-		}
-
+		}	
+				
 		if (this->timer > 240) {
 			ExitStage(WORLD_MAP, 0, BEAT_LEVEL, MARIO_WIPE);
 		}

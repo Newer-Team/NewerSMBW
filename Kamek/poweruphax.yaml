@@ -314,7 +314,7 @@ hooks:
   - name: HammerBigThwompBounce
     type: add_func_pointer
     src_addr_pal: 0x80AE8360
-    target_func: 'ThwompHammer(dEn_c*, ActivePhysics*, ActivePhysics*)'
+    target_func: 'ThwompHammer(dEn_c *, ActivePhysics *, ActivePhysics *)'
 
   - name: HammerBigBoo
     type: patch
@@ -329,7 +329,7 @@ hooks:
   - name: HammerBigBooBounce
     type: add_func_pointer
     src_addr_pal: 0x80B0AE20
-    target_func: 'BooHammer(dEn_c*, ActivePhysics*, ActivePhysics*)'
+    target_func: 'BooHammer(dEn_c *, ActivePhysics *, ActivePhysics *)'
 
   - name: HammerAmp
     type: patch
@@ -354,7 +354,7 @@ hooks:
   - name: HammerBigUrchinBounce
     type: add_func_pointer
     src_addr_pal: 0x80B0CCC0
-    target_func: 'UrchinHammer(dEn_c*, ActivePhysics*, ActivePhysics*)'
+    target_func: 'UrchinHammer(dEn_c *, ActivePhysics *, ActivePhysics *)'
 
   - name: HammerChainChomp
     type: patch
@@ -845,7 +845,7 @@ hooks:
     type: branch_insn
     branch_type: b
     src_addr_pal: 0x807AFBC0
-    target_func: 'dStockItem_c::setScalesOfSomeThings()'
+    target_func: 'dStockItem_c::setScalesOfSomeThings(void)'
 
   - name: AddHammerPowerupFinalValue
     type: branch_insn

@@ -16,8 +16,10 @@ dScCutScene_c::dScCutScene_c() {
 	layout = 0;
 	sceneLoaders = 0;
 
-	yesNoWindow = (dYesNoWindow_c*)CreateParentedObject(YES_NO_WINDOW, this, 0, 0);
-	CreateParentedObject(SELECT_CURSOR, this, 0, 0);
+	Actors aYesNoWindow = translateActorID(YES_NO_WINDOW);
+	yesNoWindow = (dYesNoWindow_c*)CreateParentedObject(aYesNoWindow, this, 0, 0);
+	Actors aSelectCursor = translateActorID(SELECT_CURSOR);
+	CreateParentedObject(aSelectCursor, this, 0, 0);
 }
 
 dScCutScene_c::~dScCutScene_c() {

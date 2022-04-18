@@ -6,5 +6,5 @@ hooks:
   - name: electricLineBuild
     type: add_func_pointer
     src_addr_pal: 0x809622F8
-    target_func: 'daElectricLine::build()'
+    target_func: 'daElectricLine::build(void)'
 

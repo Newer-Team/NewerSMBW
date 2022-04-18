@@ -3,23 +3,17 @@
 # yaml, hasn't it...
 source_files: [../src/randomcrap.S, ../src/music.cpp, ../src/fix38.S, ../src/nullsub.S, ../src/newer.cpp]#, ../src/anmconstruct.S]
 hooks:
+  - name: IcicleFix
+    type: branch_insn
+    branch_type: bl
+    src_addr_pal: 0x809B4420
+    target_func: 'IcicleFix'
+
   - name: TryAndFixScoreGlitch
     type: branch_insn
     branch_type: bl
     src_addr_pal: 0x8010D014
     target_func: 'TryAndFixScoreGlitch'
-
-  - name: ReplaceExceptionOccurred
-    type: branch_insn
-    branch_type: bl
-    src_addr_pal: 0x80234CE0
-    target_func: 'ReplaceExceptionOccurred'
-  - {name: DeleteMainInfo, type: patch, addr_pal: 0x8034D410, data: '00000000'}
-  - {name: DeleteTrace, type: patch, addr_pal: 0x8034D590, data: '00000000'}
-  - {name: DeleteTraceHeadings, type: patch, addr_pal: 0x8034D5B8, data: '00000000'}
-  - {name: DeleteContextExc, type: patch, addr_pal: 0x8034D614, data: '00000000'}
-  - {name: DeleteContext, type: patch, addr_pal: 0x8034D634, data: '00000000'}
-  - {name: DeleteDsisrDar, type: patch, addr_pal: 0x8034D770, data: '00000000'}
 
   - name: RedRingEventControl
     type: branch_insn

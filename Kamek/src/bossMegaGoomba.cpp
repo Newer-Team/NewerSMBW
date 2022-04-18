@@ -486,10 +486,10 @@ void daMegaGoomba_c::updateModelMatrices() {
 void daMegaGoomba_c::beginState_Shrink() {
 	this->timer = 1.0;
 	Xkey_count = 4;
-	keysX[0] = (HermiteKey){  0.0f, this->scale.y,         0.5f };
-	keysX[1] = (HermiteKey){ 10.0f, this->scale.y - 0.75f, 0.5f };
-	keysX[2] = (HermiteKey){ 20.0f, this->scale.y - 0.35f, 0.5f };
-	keysX[3] = (HermiteKey){ 39.0f, this->scale.y - 0.75f, 0.5f };
+	keysX[0] = (HermiteKey){  0.0, this->scale.y,        0.5 };
+	keysX[1] = (HermiteKey){ 10.0, this->scale.y - 0.75, 0.5 };
+	keysX[2] = (HermiteKey){ 20.0, this->scale.y - 0.35, 0.5 };
+	keysX[3] = (HermiteKey){ 39.0, this->scale.y - 0.75, 0.5 };
 
 	// disable being hit
 	Vec tempVec = (Vec){0.0, 0.0, 0.0};
@@ -674,9 +674,7 @@ void daMegaGoomba_c::dieOther_End() {
 void daMegaGoomba_c::dieOther_Execute() {
 	bodyModel._vf1C();
 	if (counter_500 == 0) {
-		S16Vec nullRot = {0,0,0};
-		Vec vecFive = {5.0f, 5.0f, 5.0f};
-		SpawnEffect("Wm_ob_icebreaksmk", 0, &pos, &nullRot, &vecFive);
+		SpawnEffect("Wm_ob_icebreaksmk", 0, &pos, &(S16Vec){0,0,0}, &(Vec){5.0f, 5.0f, 5.0f});
 		Delete(1);
 	}
 }

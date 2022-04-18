@@ -6,5 +6,5 @@ hooks:
   - name: RambooBuild
     type: add_func_pointer
     src_addr_pal: 0x80AF1F80
-    target_func: 'daRamboo_c::build()'
+    target_func: 'daRamboo_c::build(void)'
 

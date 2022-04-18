@@ -1,6 +1,5 @@
 .text
 
-#include <asm_setup.S>
 .extern OSReport
 .extern strcmp
 

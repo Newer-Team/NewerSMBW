@@ -6,7 +6,7 @@ hooks:
   - name: BuildMeteor
     type: add_func_pointer
     src_addr_pal: 0x80B0A940
-    target_func: 'dMeteor::build()'
+    target_func: 'dMeteor::build(void)'
 
   - name: UpdateMeteorSpriteInfo
     type: patch

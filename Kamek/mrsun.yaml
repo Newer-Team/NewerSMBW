@@ -6,7 +6,7 @@ hooks:
   - name: BuildMrSun
     type: add_func_pointer
     src_addr_pal: 0x80B0DFA0
-    target_func: 'daMrSun_c::build()'
+    target_func: 'daMrSun_c::build(void)'
 
   - name: MrSunSpriteFileInfo
     type: add_func_pointer

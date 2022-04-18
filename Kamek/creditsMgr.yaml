@@ -4,7 +4,7 @@ hooks:
   - name: BuildCreditsMgr
     type: add_func_pointer
     src_addr_pal: 0x8098A360
-    target_func: 'dCreditsMgr_c::build()'
+    target_func: 'dCreditsMgr_c::build(void)'
 
   - name: StaffCreditsAddAllCoins
     type: branch_insn
@@ -40,13 +40,13 @@ hooks:
     type: branch_insn
     branch_type: b
     src_addr_pal: 0x8006A1B4
-    target_func: 'LoadDanceValues()'
+    target_func: 'LoadDanceValues(void)'
 
 #  - name: EFBMagic
 #    type: branch_insn
 #    branch_type: b
 #    src_addr_pal: 0x80924220
-#    target_func: 'EFBMagic()'
+#    target_func: 'EFBMagic(void)'
 
 
 
@@ -54,7 +54,7 @@ hooks:
 #    type: branch_insn
 #    branch_type: b
 #    src_addr_pal: 0x801C63C8
-#    target_func: 'EFBMagic2()'
+#    target_func: 'EFBMagic2(void)'
 
 
   - name: EFBMagic

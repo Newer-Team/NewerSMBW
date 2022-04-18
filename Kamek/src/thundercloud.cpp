@@ -6,7 +6,7 @@
 
 const char* TLCarcNameList [] = {
 	"tcloud",
-	NULL
+	NULL	
 };
 
 class dThunderCloud : public dEn_c {
@@ -91,7 +91,7 @@ void dThunderCloud::powBlockActivated(bool isNotMPGP) { }
 	extern "C" void *dAcPy_c__ChangePowerupWithAnimation(void * Player, int powerup);
 	extern "C" int CheckExistingPowerup(void * Player);
 
-	void dThunderCloud::playerCollision(ActivePhysics *apThis, ActivePhysics *apOther) {
+	void dThunderCloud::playerCollision(ActivePhysics *apThis, ActivePhysics *apOther) { 
 
 		if (this->counter_504[apOther->owner->which_player]) {
 			if (apThis->info.category2 == 0x9) {
@@ -119,7 +119,7 @@ void dThunderCloud::powBlockActivated(bool isNotMPGP) { }
 	bool dThunderCloud::collisionCat1_Fireball_E_Explosion(ActivePhysics *apThis, ActivePhysics *apOther) { return BigHanaFireball(this, apThis, apOther); }
 	bool dThunderCloud::collisionCat14_YoshiFire(ActivePhysics *apThis, ActivePhysics *apOther) { return BigHanaFireball(this, apThis, apOther); }
 
-	bool dThunderCloud::collisionCat13_Hammer(ActivePhysics *apThis, ActivePhysics *apOther) {
+	bool dThunderCloud::collisionCat13_Hammer(ActivePhysics *apThis, ActivePhysics *apOther) { 
 		if (apThis->info.category2 == 0x9) { return true; }
 		PlaySound(this, SE_EMY_DOWN);
 		doStateChange(&StateID_DieFall);
@@ -129,7 +129,7 @@ void dThunderCloud::powBlockActivated(bool isNotMPGP) { }
 		this->collisionCat13_Hammer(apThis, apOther);
 		return true;
 	}
-	bool dThunderCloud::collisionCat3_StarPower(ActivePhysics *apThis, ActivePhysics *apOther) {
+	bool dThunderCloud::collisionCat3_StarPower(ActivePhysics *apThis, ActivePhysics *apOther) { 
 		if (apThis->info.category2 == 0x9) { return true; }
 		dEn_c::collisionCat3_StarPower(apThis, apOther);
 		this->collisionCat13_Hammer(apThis, apOther);
@@ -154,7 +154,7 @@ void dThunderCloud::powBlockActivated(bool isNotMPGP) { }
 	bool dThunderCloud::CreateIceActors() {
 		this->Lightning.removeFromList();
 
-		struct DoSomethingCool my_struct = { 0, (Vec){pos.x, pos.y - 16.0f, pos.z}, {1.75, 1.4, 1.5}, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+		struct DoSomethingCool my_struct = { 0, (Vec){pos.x, pos.y - 16.0, pos.z}, {1.75, 1.4, 1.5}, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 	    this->frzMgr.Create_ICEACTORs( (void*)&my_struct, 1 );
 	    __destroy_arr( (void*)&my_struct, sub_80024C20, 0x3C, 1 );
 	    return true;
@@ -163,47 +163,45 @@ void dThunderCloud::powBlockActivated(bool isNotMPGP) { }
 
 void dThunderCloud::dieFall_Begin() {
 	this->Lightning.removeFromList();
-	this->timer = 0;
+	this->timer = 0; 
 	this->dEn_c::dieFall_Begin();
 }
-void dThunderCloud::dieFall_Execute() {
+void dThunderCloud::dieFall_Execute() {	
 	if (this->killFlag == 1) { return; }
 
 	this->timer = this->timer + 1;
-
+	 
 	this->dying = this->dying + 0.15;
-
+	
 	this->pos.x = this->pos.x + 0.15;
 	this->pos.y = this->pos.y - ((-0.2 * (this->dying*this->dying)) + 5);
-
+	
 	this->dEn_c::dieFall_Execute();
-
+		
 	if (this->timer > 450) {
-
-		if (((this->settings >> 28) > 0) || (stationary)) {
+		
+		if (((this->settings >> 28) > 0) || (stationary)) { 		
 			this->Delete(1);
 			this->killFlag = 1;
 			return;
 		}
-
+		
 		dStageActor_c *Player = GetSpecificPlayerActor(0);
 		if (Player == 0) { Player = GetSpecificPlayerActor(1); }
 		if (Player == 0) { Player = GetSpecificPlayerActor(2); }
 		if (Player == 0) { Player = GetSpecificPlayerActor(3); }
+		
 
-
-		if (Player == 0) {
+		if (Player == 0) { 
 			this->pos.x = 0;
 		} else {
 			this->pos.x = Player->pos.x - 300;
 		}
+				
+		this->pos.y = this->Baseline; 
 
-		this->pos.y = this->Baseline;
-
-		S16Vec nullRot = {0,0,0};
-		Vec oneVec = {1.0f, 1.0f, 1.0f};
-		SpawnEffect("Wm_en_blockcloud", 0, &pos, &nullRot, &oneVec);
-
+		SpawnEffect("Wm_en_blockcloud", 0, &pos, &(const S16Vec){0,0,0}, &(const Vec){1.0f,1.0f,1.0f});
+		
 		scale.x = scale.y = scale.z = 0.0f;
 		this->aPhysics.addToList();
 		doStateChange(&StateID_Follow);
@@ -246,7 +244,7 @@ int dThunderCloud::onCreate() {
 	Cloud.category2 = 0x0;
 	Cloud.bitfield1 = 0x4F;
 
-	Cloud.bitfield2 = 0xffba7ffe;
+	Cloud.bitfield2 = 0xffba7ffe; 
 	Cloud.xDistToEdge = 18.0f * scale.x;
 	Cloud.yDistToEdge = 12.0f * scale.y;
 
@@ -267,7 +265,7 @@ int dThunderCloud::onCreate() {
 	this->pos.z = 5750.0f; // sun
 
 	stationary 		= this->settings & 0xF;
-
+	
 	char eventNum	= (this->settings >> 16) & 0xFF;
 	usingEvents = (stationary != 0) && (eventNum != 0);
 
@@ -299,12 +297,12 @@ int dThunderCloud::onExecute() {
 	if ((dFlagMgr_c::instance->flags & this->eventFlag) && (!stationary)) {
 		if (this->killFlag == 0 && acState.getCurrentState()->isNotEqual(&StateID_DieFall)) {
 			this->kill();
-			this->pos.y = this->pos.y + 800.0;
+			this->pos.y = this->pos.y + 800.0; 
 			this->killFlag = 1;
 			doStateChange(&StateID_DieFall);
 		}
 	}
-
+		
 	return true;
 }
 
@@ -328,7 +326,7 @@ void dThunderCloud::updateModelMatrices() {
 
 // Follow State
 
-void dThunderCloud::beginState_Follow() {
+void dThunderCloud::beginState_Follow() { 
 	this->timer = 0;
 	this->bindAnimChr_and_setUpdateRate("cloud_wait", 1, 0.0, 1.0);
 	this->rot.x = 0;
@@ -338,9 +336,7 @@ void dThunderCloud::beginState_Follow() {
 }
 void dThunderCloud::executeState_Follow() {
 
-	S16Vec nullRot = {0,0,0};
-	Vec efScale = {1.5f, 1.5f, 1.5f};
-	charge.spawn("Wm_mr_electricshock_biri02_s", 0, &pos, &nullRot, &efScale);
+	charge.spawn("Wm_mr_electricshock_biri02_s", 0, &pos, &(S16Vec){0,0,0}, &(Vec){1.5, 1.5, 1.5});
 
 	if(this->anm.isAnimationDone()) {
 		this->anm.setCurrentFrame(0.0); }
@@ -348,13 +344,13 @@ void dThunderCloud::executeState_Follow() {
 	if (this->timer > 200) { this->doStateChange(&StateID_Lightning); }
 
 	this->direction = dSprite_c__getXDirectionOfFurthestPlayerRelativeToVEC3(this, this->pos);
-
+	
 	float speedDelta;
 	speedDelta = 0.05;
 
 	if (this->direction == 0) { // Going Left
-		this->speed.x = this->speed.x + speedDelta; //
-
+		this->speed.x = this->speed.x + speedDelta; // 
+		
 		if (this->speed.x < 0) { this->speed.x += (speedDelta / 1.5); }
 		if (this->speed.x < -6.0) { this->speed.x += (speedDelta * 2.0); }
 	}
@@ -364,27 +360,27 @@ void dThunderCloud::executeState_Follow() {
 		if (this->speed.x > 0) { this->speed.x -= (speedDelta / 1.5); }
 		if (this->speed.x > 6.0) { this->speed.x -= (speedDelta * 2.0); }
 	}
-
+	
 	this->HandleXSpeed();
-
+	
 	float yDiff;
 	yDiff = (this->Baseline - this->pos.y) / 8;
 	this->speed.y = yDiff;
-
+		
 	this->HandleYSpeed();
 
 	this->UpdateObjectPosBasedOnSpeedValuesReal();
 
 	this->timer = this->timer + 1;
 }
-void dThunderCloud::endState_Follow() {
+void dThunderCloud::endState_Follow() { 
 	this->speed.y = 0;
 }
 
 
 // Wait State
 
-void dThunderCloud::beginState_Wait() {
+void dThunderCloud::beginState_Wait() { 
 	this->timer = 0;
 	this->bindAnimChr_and_setUpdateRate("cloud_wait", 1, 0.0, 1.0);
 	this->rot.x = 0;
@@ -394,9 +390,7 @@ void dThunderCloud::beginState_Wait() {
 }
 void dThunderCloud::executeState_Wait() {
 
-	S16Vec nullRot = {0,0,0};
-	Vec efScale = {1.5f, 1.5f, 1.5f};
-	charge.spawn("Wm_mr_electricshock_biri02_s", 0, &pos, &nullRot, &efScale);
+	charge.spawn("Wm_mr_electricshock_biri02_s", 0, &pos, &(S16Vec){0,0,0}, &(Vec){1.5, 1.5, 1.5});
 
 	if(this->anm.isAnimationDone()) {
 		this->anm.setCurrentFrame(0.0); }
@@ -422,7 +416,7 @@ static void lightningCallback(ActivePhysics *one, ActivePhysics *two) {
 }
 
 void dThunderCloud::lightningStrike() {
-	PlaySound(this, SE_OBJ_KAZAN_ERUPTION);
+	PlaySound(this, SE_OBJ_KAZAN_ERUPTION); 
 
 	float boltsize = (leader-14.0)/2;
 	float boltpos = -boltsize - 14.0;
@@ -434,7 +428,7 @@ void dThunderCloud::lightningStrike() {
 	Shock.category2 = 0x9;
 	Shock.bitfield1 = 0x4D;
 
-	Shock.bitfield2 = 0x420;
+	Shock.bitfield2 = 0x420; 
 	Shock.xDistToEdge = 12.0;
 	Shock.yDistToEdge = boltsize;
 
@@ -482,49 +476,43 @@ void dThunderCloud::beginState_Lightning() {
 
 	if (usingEvents) {
 		timer = 2;
-		this->bindAnimChr_and_setUpdateRate("thundershoot", 1, 0.0, 1.0);
+		this->bindAnimChr_and_setUpdateRate("thundershoot", 1, 0.0, 1.0); 
 		lightningStrike();
 	} else {
 		timer = 0;
 	}
 }
-void dThunderCloud::executeState_Lightning() {
-	S16Vec nullRot = {0,0,0};
-	Vec efScale = {1.5f, 1.5f, 1.5f};
+void dThunderCloud::executeState_Lightning() { 
 
 	switch (timer) {
 		case 0:
-			charge.spawn("Wm_en_birikyu", 0, &pos, &nullRot, &efScale);
+			charge.spawn("Wm_en_birikyu", 0, &(Vec){pos.x, pos.y, pos.z}, &(S16Vec){0,0,0}, &(Vec){1.5, 1.5, 1.5});
 			break;
 		case 1:
-			charge.spawn("Wm_en_birikyu", 0, &pos, &nullRot, &efScale);
+			charge.spawn("Wm_en_birikyu", 0, &(Vec){pos.x, pos.y, pos.z}, &(S16Vec){0,0,0}, &(Vec){1.5, 1.5, 1.5});
 			break;
-		case 2:
-			PlaySound(this, SE_BOSS_JR_ELEC_APP);
-			PlaySound(this, SE_BOSS_JR_DAMAGE_ELEC);
+		case 2:		
+			PlaySound(this, SE_BOSS_JR_ELEC_APP); 
+			PlaySound(this, SE_BOSS_JR_DAMAGE_ELEC); 
 
-			{
 			float boltsize = (leader-14.0)/2;
 			float boltpos = -boltsize - 14.0;
 
-			Vec efPos = {pos.x, pos.y + boltpos, pos.z};
-			Vec otherEfScale = {1.0f, boltsize/36.0f, 1.0f};
-			bolt.spawn("Wm_jr_electricline", 0, &efPos, &nullRot, &otherEfScale);
-			}
+			bolt.spawn("Wm_jr_electricline", 0, &(Vec){pos.x, pos.y + boltpos, pos.z}, &(S16Vec){0,0,0}, &(Vec){1.0, boltsize/36.0, 1.0});
 			break;
 		case 3:
 			this->Lightning.removeFromList();
-			charge.spawn("Wm_mr_electricshock_biri02_s", 0, &pos, &nullRot, &efScale);
+			charge.spawn("Wm_mr_electricshock_biri02_s", 0, &pos, &(S16Vec){0,0,0}, &(Vec){1.5, 1.5, 1.5});
 			break;
 		case 4:
-			charge.spawn("Wm_mr_electricshock_biri02_s", 0, &pos, &nullRot, &efScale);
+			charge.spawn("Wm_mr_electricshock_biri02_s", 0, &pos, &(S16Vec){0,0,0}, &(Vec){1.5, 1.5, 1.5});
 			break;
 		case 5:
 			if (stationary) { doStateChange(&StateID_Wait); }
 			else 			{ doStateChange(&StateID_Follow); }
 			break;
 		default:
-			charge.spawn("Wm_mr_electricshock_biri02_s", 0, &pos, &nullRot, &efScale);
+			charge.spawn("Wm_mr_electricshock_biri02_s", 0, &pos, &(S16Vec){0,0,0}, &(Vec){1.5, 1.5, 1.5});
 			break;
 	}
 
@@ -537,8 +525,8 @@ void dThunderCloud::executeState_Lightning() {
 			}
 		} else {
 			timer++;
-			if (timer == 2) {
-				this->bindAnimChr_and_setUpdateRate("thundershoot", 1, 0.0, 1.0);
+			if (timer == 2) { 
+				this->bindAnimChr_and_setUpdateRate("thundershoot", 1, 0.0, 1.0); 
 				lightningStrike();
 			} else if (timer == 3) {
 				this->bindAnimChr_and_setUpdateRate("cloud_wait", 1, 0.0, 1.0);

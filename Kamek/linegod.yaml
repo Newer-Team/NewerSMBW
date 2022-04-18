@@ -7,13 +7,13 @@ hooks:
     type: add_func_pointer
     src_addr_pal: 0x80979570
     src_addr_ntsc: 0xdeadbeef
-    target_func: 'LineGod_Create(LineGod*)'
+    target_func: 'LineGod_Create(LineGod *)'
     
   - name: LineGodExecute
     type: add_func_pointer
     src_addr_pal: 0x80979588
     src_addr_ntsc: 0xdeadbeef
-    target_func: 'LineGod_Execute(LineGod*)'
+    target_func: 'LineGod_Execute(LineGod *)'
     
   - name: LineGodSpawnFix
     type: branch_insn

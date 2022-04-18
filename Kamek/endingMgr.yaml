@@ -4,7 +4,7 @@ hooks:
   - name: BuildEndingMgr
     type: add_func_pointer
     src_addr_pal: 0x8095D018
-    target_func: 'dEndingMgr_c::build()'
+    target_func: 'dEndingMgr_c::build(void)'
 
   - name: DisablePeachThankMP
     type: nop_insn

@@ -4,9 +4,21 @@
 .extern Cloud_death_execute
 .extern Cloud_execute
 
-#include <asm_setup.S>
+
+#ifndef __MWERKS__
+.set r0,0;   .set r1,1;   .set r2,2; .set r3,3;   .set r4,4
+.set r5,5;   .set r6,6;   .set r7,7;   .set r8,8;   .set r9,9
+.set r10,10; .set r11,11; .set r12,12; .set r13,13; .set r14,14
+.set r15,15; .set r16,16; .set r17,17; .set r18,18; .set r19,19
+.set r20,20; .set r21,21; .set r22,22; .set r23,23; .set r24,24
+.set r25,25; .set r26,26; .set r27,27; .set r28,28; .set r29,29
+.set r30,30; .set r31,31; .set f0,0; .set f2,2; .set f3,3
+#endif
+
 .text
 .align 4
+
+.set sp, 1
 
 .global BigBlockSound
 .extern Delete__7fBase_cFv
@@ -1083,8 +1095,8 @@ BombLaunch:
 	lfs f1, 0x38(sp)
 	addi r3, r31, 0x5C0
 	li r4, 0
-.extern setFrameForEntry__Q23m3d8anmClr_cFfi
-	bl setFrameForEntry__Q23m3d8anmClr_cFfi
+.extern setFrameForEntry__Q23m3d8anmClrFfi
+	bl setFrameForEntry__Q23m3d8anmClrFfi
 
 	mr r3, r31
 
@@ -1204,7 +1216,7 @@ GoingLeft:
 	li r8, 1
 	stb r8, 0x348(r31)
 
-	li r6, -0x300
+	li r6, 0xFD00
 	add r7, r6, r7
 	sth r7, 0x102(r31)
 	sth r7, 0x108(r31)
@@ -1624,10 +1636,18 @@ TogeMetIceFix:
 TogeMetIceSpecial:
 	li r3, 1
 	blr
+	
+.global NoteBlockTex
+NoteBlockTex:
+	lwz r4, 0(r4) # put pointer to string "block_jumpA" in r4
+	addic r0, r0, 65 # add 65 to the spritedata setting (ASCII code for 'A')
+	# ^ addic is used instead of addi here because r0 is treated as value 0 in addi operations
+	stb r0, 0xA(r4) # store result back into string
+	blr
 
 .data
 BomombDir:
-	.word 0x0400,0xFC00
+	.word 0x0400FC00
 
 TexFilenameBuffer:
 	.long 0,0,0,0
@@ -1688,7 +1708,7 @@ snoweffectC:
 
 
 ConvertFloat:
-	.long  0x43300000,0x0,0x43300000,0x80000000
+	.word  0x43300000,0x0,0x43300000,0x80000000
 
 .align 4
 

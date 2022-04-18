@@ -33,7 +33,7 @@ class daFuzzyBear_c : public daBoss {
 	char damage;
 	char roly;
 	char isInvulnerable;
-
+	
 	static daFuzzyBear_c *build();
 
 	void bindAnimChr_and_setUpdateRate(const char* name, int unk, float unk2, float rate);
@@ -81,22 +81,20 @@ CREATE_STATE(daFuzzyBear_c, Outro);
 
 void daFuzzyBear_c::playerCollision(ActivePhysics *apThis, ActivePhysics *apOther) { DamagePlayer(this, apThis, apOther); }
 void daFuzzyBear_c::yoshiCollision(ActivePhysics *apThis, ActivePhysics *apOther) { DamagePlayer(this, apThis, apOther); }
-bool daFuzzyBear_c::collisionCat1_Fireball_E_Explosion(ActivePhysics *apThis, ActivePhysics *apOther) {
+bool daFuzzyBear_c::collisionCat1_Fireball_E_Explosion(ActivePhysics *apThis, ActivePhysics *apOther) { 
 	return true; // added by skawo request
 
 	if (this->isInvulnerable == 1) { return true; }
 
 	this->timer = 0;
 	PlaySound(this, SE_BOSS_KOOPA_FIRE_DISAPP);
-
-	S16Vec nullRot = {0,0,0};
-	Vec oneVec = {1.0f, 1.0f, 1.0f};
-	SpawnEffect("Wm_mr_fireball_hit", 0, &apOther->owner->pos, &nullRot, &oneVec);
+	
+	SpawnEffect("Wm_mr_fireball_hit", 0, &apOther->owner->pos, &(S16Vec){0,0,0}, &(Vec){1.0, 1.0, 1.0});
 	this->damage++;
 	if (this->damage > 14) { doStateChange(&StateID_Outro); }
 	return true;
 }
-bool daFuzzyBear_c::collisionCat7_GroundPound(ActivePhysics *apThis, ActivePhysics *apOther) {
+bool daFuzzyBear_c::collisionCat7_GroundPound(ActivePhysics *apThis, ActivePhysics *apOther) { 
 	apOther->someFlagByte |= 2;
 
 	dActor_c *block = apOther->owner;
@@ -107,16 +105,16 @@ bool daFuzzyBear_c::collisionCat7_GroundPound(ActivePhysics *apThis, ActivePhysi
 
 	if (mario->direction == 0) { mario->speed.x = 4.0; }
 	else					  { mario->speed.x = -4.0; }
-
+	
 	mario->doSpriteMovement();
 	mario->doSpriteMovement();
 	return true;
 }
-bool daFuzzyBear_c::collisionCat7_GroundPoundYoshi(ActivePhysics *apThis, ActivePhysics *apOther) {
+bool daFuzzyBear_c::collisionCat7_GroundPoundYoshi(ActivePhysics *apThis, ActivePhysics *apOther) { 
 	this->counter_504[apOther->owner->which_player] = 0;
 	return this->collisionCat9_RollingObject(apThis, apOther);
 }
-bool daFuzzyBear_c::collisionCat9_RollingObject(ActivePhysics *apThis, ActivePhysics *apOther) {
+bool daFuzzyBear_c::collisionCat9_RollingObject(ActivePhysics *apThis, ActivePhysics *apOther) { 
 
 	dActor_c *block = apOther->owner;
 	dEn_c *blah = (dEn_c*)block;
@@ -138,34 +136,32 @@ bool daFuzzyBear_c::collisionCat9_RollingObject(ActivePhysics *apThis, ActivePhy
 
 	if (blah->speed.y < 0) {
 		blah->speed.y = -blah->speed.y; }
-
+	
 	blah->doSpriteMovement();
 	blah->doSpriteMovement();
-
-	if (this->isInvulnerable == 1) {
-
+	
+	if (this->isInvulnerable == 1) { 
+		
 		if (blah->direction == 0) { blah->direction = 1; }
 		else					  { blah->direction = 0; }
-
-		return true;
-	}
-
+		
+		return true; 
+	}	
+	
 	this->pos.x += blah->speed.x;
-
-	this->timer = 0;
+		
+	this->timer = 0; 
 	this->damage = this->damage + 5;
-
-
+	
+	
 	PlaySound(this, SE_EMY_BLOW_PAKKUN_DOWN);
-	S16Vec nullRot = {0,0,0};
-	Vec oneVec = {1.0f, 1.0f, 1.0f};
-	SpawnEffect("Wm_mr_kickhit", 0, &blah->pos, &nullRot, &oneVec);
-
-	if (this->damage > 14) { doStateChange(&StateID_Outro); }
+	SpawnEffect("Wm_mr_kickhit", 0, &blah->pos, &(S16Vec){0,0,0}, &(Vec){1.0, 1.0, 1.0});
+	
+	if (this->damage > 14) { doStateChange(&StateID_Outro); } 
 	else { doStateChange(&StateID_RolyPoly); }
 	return true;
 }
-bool daFuzzyBear_c::collisionCat13_Hammer(ActivePhysics *apThis, ActivePhysics *apOther) {
+bool daFuzzyBear_c::collisionCat13_Hammer(ActivePhysics *apThis, ActivePhysics *apOther) { 
 
 	if (this->isInvulnerable == 1) { return true; }
 
@@ -176,14 +172,12 @@ bool daFuzzyBear_c::collisionCat13_Hammer(ActivePhysics *apThis, ActivePhysics *
 	else					  { blah->direction = 0; this->roly = 0; }
 
 	PlaySound(this, SE_EMY_BIG_PAKKUN_DAMAGE_1);
-	this->timer = 0;
+	this->timer = 0; 
 	this->damage += 5;
-
-	S16Vec nullRot = {0,0,0};
-	Vec oneVec = {1.0f, 1.0f, 1.0f};
-	SpawnEffect("Wm_mr_kick_glow", 0, &apOther->owner->pos, &nullRot, &oneVec);
-
-	if (this->damage > 14) { doStateChange(&StateID_Outro); }
+	
+	SpawnEffect("Wm_mr_kick_glow", 0, &apOther->owner->pos, &(S16Vec){0,0,0}, &(Vec){1.0, 1.0, 1.0});
+	
+	if (this->damage > 14) { doStateChange(&StateID_Outro); } 
 	else { doStateChange(&StateID_RolyPoly); }
 	return true;
 }
@@ -257,7 +251,7 @@ int daFuzzyBear_c::onCreate() {
 	this->aPhysics.initWithStruct(this, &HitMeBaby);
 	this->aPhysics.addToList();
 
-
+	
 	this->pos.y = this->pos.y + 6;
 	this->rot.x = 0; // X is vertical axis
 	this->rot.y = 0; // Y is horizontal axis
@@ -265,14 +259,14 @@ int daFuzzyBear_c::onCreate() {
 	this->direction = 0; // Heading left.
 
 	pos.z = 3000.0f;
-
+	
 	this->speed.x = 0;
 	this->LaunchSpeedShort = ((this->settings >> 20) & 0xF) * 10.0;
 	this->LaunchSpeedHigh = ((this->settings >> 24) & 0xF) * 10.0;
-
+	
 	this->AreaWidthRight = this->settings & 0xFF;
 	this->AreaWidthLeft = (this->settings >> 8) & 0xFF;
-
+	
 	this->initialPos = this->pos;
 	this->storeSpeed = 0;
 	this->falldown = 0;
@@ -284,7 +278,7 @@ int daFuzzyBear_c::onCreate() {
 
 
 	bindAnimChr_and_setUpdateRate("run", 1, 0.0, 1.0);
-
+		
 	doStateChange(&StateID_Grow);
 
 	this->onExecute();
@@ -301,7 +295,7 @@ int daFuzzyBear_c::onExecute() {
 
 	if(this->animationChr.isAnimationDone())
 		this->animationChr.setCurrentFrame(0.0);
-
+	
 	return true;
 }
 
@@ -326,17 +320,17 @@ void daFuzzyBear_c::updateModelMatrices() {
 
 // Grow State
 
-void daFuzzyBear_c::beginState_Grow() {
+void daFuzzyBear_c::beginState_Grow() { 
 	this->timer = 0;
 
 	SetupKameck(this, Kameck);
 	this->scale = (Vec){1.0, 1.0, 1.0};
 }
 
-void daFuzzyBear_c::executeState_Grow() {
+void daFuzzyBear_c::executeState_Grow() { 
 
 	this->timer += 1;
-
+	
 	bool ret;
 	if (BigBossFuzzyBear == 1) {
 		ret = GrowBoss(this, Kameck, 1.0, 3.0, 25, this->timer); }
@@ -346,7 +340,7 @@ void daFuzzyBear_c::executeState_Grow() {
 	if (ret) { doStateChange(&StateID_Bounce);	}
 
 }
-void daFuzzyBear_c::endState_Grow() {
+void daFuzzyBear_c::endState_Grow() { 
 	this->Baseline = this->pos.y;
 
 	CleanupKameck(this, Kameck);
@@ -356,16 +350,16 @@ void daFuzzyBear_c::endState_Grow() {
 
 // Bounce State
 
-void daFuzzyBear_c::beginState_Bounce() {
+void daFuzzyBear_c::beginState_Bounce() { 
 
 	if (this->direction == 0) { this->speed.x = 1.0; }
 	else 					 { this->speed.x = -1.0; }
-
+	
 	if (this->storeSpeed != 0) { this->speed.x = this->storeSpeed; }
-
+	
 	this->timer = 20;
 }
-void daFuzzyBear_c::executeState_Bounce() {
+void daFuzzyBear_c::executeState_Bounce() { 
 
 	float wallDistance, scaleDown, scaleUp, scaleBase;
 
@@ -383,80 +377,78 @@ void daFuzzyBear_c::executeState_Bounce() {
 	}
 
 
-	if (this->falldown == 1) { this->speed.x = 0; this->timer = 0; }
+	if (this->falldown == 1) { this->speed.x = 0; this->timer = 0; }	
 
-
+	
 	// Check for walls
-
+	
 	if (this->pos.x <= this->initialPos.x - ((17 * 16.0) + wallDistance))  { // Hit left wall, head right.
 		this->speed.x = -this->speed.x;
 		this->direction = 1;
 		this->pos.x = this->pos.x + 1.0; }
-
+		
 	if (this->pos.x >= this->initialPos.x + ((7.5 * 16.0) - wallDistance))  { // Hit right wall, head left.
 		this->speed.x = -this->speed.x;
 		this->direction = 0;
 		this->pos.x = this->pos.x - 1.0; }
-
-
+	
+	
 	// Check if we're on the ground.
-
+	
 	if (this->pos.y < this->Baseline) {
 
 		this->falldown = 0;
-
+		
 		this->timer = this->timer + 1;
 		if (this->speed.x != 0) {
 			this->storeSpeed = this->speed.x; }
 		this->speed.x = 0;
 		this->speed.y = 0;
-
-
+		
+		
 		if (this->timer < 10) {
 			float modifier;
 			modifier = scaleBase - (this->timer * 0.1);
-
+			
 			this->scale.y = modifier;
 			this->pos.y = this->pos.y + (scaleDown/10.0);
 			if (this->pos.y > this->Baseline) { this->pos.y = this->Baseline - 1.0; }
 		}
-		else if (this->timer == 10) {
+		else if (this->timer == 10) { 
 			Vec tempPos = (Vec){this->pos.x, this->pos.y - wallDistance, 5500.0};
-			S16Vec nullRot = {0,0,0};
-			Vec oneVec = {1.0f, 1.0f, 1.0f};
-			SpawnEffect("Wm_mr_beachlandsmk", 0, &tempPos, &nullRot, &oneVec);
+			SpawnEffect("Wm_mr_beachlandsmk", 0, &tempPos, &(S16Vec){0,0,0}, &(Vec){1.0, 1.0, 1.0});
 		}
 		else {
 			float modifier;
 			modifier = (scaleBase - 1.0) + ((this->timer - 10) * 0.1);
-
+			
 			this->scale.y = modifier;
 			this->pos.y = this->pos.y + (scaleUp/10.0);
 			if (this->pos.y > this->Baseline) { this->pos.y = this->Baseline - 1.0; }
 			PlaySound(this, SE_PLY_JUMPDAI);
 		}
-
-		if (this->timer > 20) {
-
+			
+		if (this->timer > 20) { 
+			
 			int randChoice;
-
+			
 			randChoice = GenerateRandomNumber(5);
 			if (randChoice == 0) { doStateChange(&StateID_Wait); }
 
 			randChoice = GenerateRandomNumber(4);
 			if (randChoice == 0) { this->speed.y = 8.0; }
 			else { this->speed.y = 6.0; }
-
+		
 			this->timer = 0;
 			this->pos.y = this->Baseline + 1;
-
+			
 			this->speed.x = this->storeSpeed;
 		 }
 	}
+	
+	else { this->speed.y = this->speed.y - 0.1; } // Gravity 
 
-	else { this->speed.y = this->speed.y - 0.1; } // Gravity
-
-
+		
 	this->HandleXSpeed();
 	this->HandleYSpeed();
 
@@ -474,14 +466,14 @@ void daFuzzyBear_c::endState_Bounce() { }
 
 // void daFuzzyBear_c::beginState_Needles() {
 // 	this->timer = 0;
-// 	this->speed.y = 0;
+// 	this->speed.y = 0;	
 // 	this->speed.x = 0;
-// 	OSReport("Fuzzy Needle State Begin");
+// 	OSReport("Fuzzy Needle State Begin"); 
 // }
-// void daFuzzyBear_c::executeState_Needles() {
+// void daFuzzyBear_c::executeState_Needles() { 
 // 	float origScale;
 
-// 	this->speed.y = 0;
+// 	this->speed.y = 0;	
 // 	this->speed.x = 0;
 
 // 	if (BigBossFuzzyBear == 0) {
@@ -492,12 +484,12 @@ void daFuzzyBear_c::endState_Bounce() { }
 // 	}
 
 // 	this->timer = this->timer + 1;
-// 	OSReport("Needle Timer: %d", this->timer);
+// 	OSReport("Needle Timer: %d", this->timer); 
 
 // 	if (this->timer <= 120) {
 // 		this->scale.y = (sin(this->timer * 3.14 / 5.0) / 2.0) + origScale; // 3 shakes per second, exactly 24 shakes overall
 // 		this->scale.x = (sin(this->timer * 3.14 / 5.0) / 2.0) + origScale; // 3 shakes per second, exactly 24 shakes overall
-
+	
 // 		if (this->timer == 30) {
 // 			dStageActor_c *spawner = CreateActor(339, 0, this->pos, 0, 0);
 // 			spawner->speed.x = -6.0;
@@ -545,45 +537,45 @@ void daFuzzyBear_c::endState_Bounce() { }
 
 // Spray State - jumps in the air and shakes out some small fuzzies
 
-/*void daFuzzyBear_c::beginState_Spray() {
-	this->timer = 0;
+/*void daFuzzyBear_c::beginState_Spray() { 
+	this->timer = 0; 
 	this->speed.y = 7.0;
 	this->speed.x = 0.0;
 }
-void daFuzzyBear_c::executeState_Spray() {
-
+void daFuzzyBear_c::executeState_Spray() { 
+		
 	this->speed.x = 0.0;
 
 	if (this->speed.y < 1.0) {
 		this->speed.y = 0;
-
+		
 		if (this->timer < 120) {
-
+			
 			this->rot.y = sin(this->timer * 3.14 / 5) * 4000; // 3 shakes per second, exactly 24 shakes overall
 
 			int randChoice;
 			randChoice = GenerateRandomNumber(18); // 1.3 Fuzzies per second, 6 fuzzies overall
-
-			if (randChoice == 0) {
+		
+			if (randChoice == 0) { 
 				int randChoiceX, randChoiceY;
 				randChoiceX = GenerateRandomNumber(92);
 				randChoiceY = GenerateRandomNumber(48);
-
+				
 				float xa, ya;
 				xa = randChoiceX - 48.0;
 				ya = randChoiceY - 24.0;
-
+				
 				CreateActor(144, 0, (Vec){this->pos.x + xa, this->pos.y + ya, this->pos.z}, 0, 0);
-			}
+			} 
 		}
 
 		else { doStateChange(&StateID_Bounce); }
 
 		this->timer = this->timer + 1;
-
+		
 	}
-
-	else { this->speed.y = this->speed.y - 0.1; } // Gravity
+	
+	else { this->speed.y = this->speed.y - 0.1; } // Gravity 
 
 
 	this->HandleXSpeed();
@@ -592,26 +584,26 @@ void daFuzzyBear_c::executeState_Spray() {
 	this->UpdateObjectPosBasedOnSpeedValuesReal();
 
 }
-void daFuzzyBear_c::endState_Spray() {
+void daFuzzyBear_c::endState_Spray() { 
 	this->rot.y = 0;
 	this->timer = 20;
-	this->falldown = 1;
+	this->falldown = 1;	
 }*/
 
 
 // Roly Poly State - Rolls from left to right, bounces off both walls, and returns to original position.
 
-void daFuzzyBear_c::beginState_RolyPoly() {
-
+void daFuzzyBear_c::beginState_RolyPoly() { 
+	
 	this->isInvulnerable = 1;
-
-	if (this->roly == 1) {
+	
+	if (this->roly == 1) { 
 		this->direction = 1;
 		this->speed.x = 12.0; }
-	else 				 {
+	else 				 { 
 		this->direction = 0;
 		this->speed.x = -12.0; }
-
+	
 	this->speed.y = 0;
 	this->RolyBounces = 0;
 	this->RolyPos = this->pos;
@@ -625,24 +617,22 @@ void daFuzzyBear_c::beginState_RolyPoly() {
 
 	this->timer = 0;
 }
-void daFuzzyBear_c::executeState_RolyPoly() {
+void daFuzzyBear_c::executeState_RolyPoly() { 
 	float wallDistance, scaleDown, scaleUp;
 
 	PlaySound(this, SE_OBJ_TEKKYU_G_CRASH);
-
+	
 	if (this->pos.y > this->Baseline) { this->pos.y -= 2.0; }
-	else {
+	else { 
 		this->pos.y = this->Baseline - 1.0;
-
-		Vec tempPos = (Vec){this->pos.x, this->pos.y - 34.0f, 5500.0f};
-
-		if (this->timer & 0x1) {
-			S16Vec nullRot = {0,0,0};
-			Vec efScale = {0.4f, 0.4f, 0.4f};
-			SpawnEffect("Wm_ob_icehitsmk", 0, &tempPos, &nullRot, &efScale);
+		
+		Vec tempPos = (Vec){this->pos.x, this->pos.y - 34.0, 5500.0};
+		
+		if (this->timer & 0x1) { 
+			SpawnEffect("Wm_ob_icehitsmk", 0, &tempPos, &(S16Vec){0,0,0}, &(Vec){0.4, 0.4, 0.4}); 
 		}
 	 }
-
+	
 	if (this->direction == 0) { // is even
 		this->pos.x = this->pos.x - 3.0; }
 	else { // is odd
@@ -654,31 +644,31 @@ void daFuzzyBear_c::executeState_RolyPoly() {
 	else {
 		wallDistance = 50.0;
 	}
-
+	
 	this->timer += 1;
 
 	if (this->pos.x <= this->initialPos.x - ((17 * 16.0) + wallDistance))  { // Hit left wall, head right.
 		this->speed.x = -this->speed.x;
 		this->direction = 1;
-		this->pos.x = this->pos.x + 1.0;
+		this->pos.x = this->pos.x + 1.0; 
 		this->RolyBounces = this->RolyBounces + 1;
 		}
-
+		
 	if (this->pos.x >= this->initialPos.x + ((7.5 * 16.0) - wallDistance))  { // Hit right wall, head left.
 		this->speed.x = -this->speed.x;
 		this->direction = 0;
-		this->pos.x = this->pos.x - 1.0;
+		this->pos.x = this->pos.x - 1.0; 
 		this->RolyBounces = this->RolyBounces + 1;
 		}
 
-
-	if (this->direction == 1) { this->rot.z = this->rot.z - 0x400; }
-	else 					  { this->rot.z = this->rot.z + 0x400; }
-
+	
+	if (this->direction == 1) { this->rot.z = this->rot.z - 0x400; } 
+	else 					  { this->rot.z = this->rot.z + 0x400; } 
+		
 	if (this->RolyBounces == 2) {
 		if ((this->pos.x > this->RolyPos.x -20.0) && (this->pos.x < this->RolyPos.x + 20.0)) {
 			this->speed.x = 0;
-			if (this->rot.z == 0) { doStateChange(&StateID_Bounce); } }
+			if (this->rot.z == 0) { doStateChange(&StateID_Bounce); } } 
 	}
 
 
@@ -688,10 +678,10 @@ void daFuzzyBear_c::executeState_RolyPoly() {
 
 //	this->doSpriteMovement();
 //	this->UpdateObjectPosBasedOnSpeedValuesReal();
-
+	
  }
-void daFuzzyBear_c::endState_RolyPoly() {
-	this->rot.z = 0;
+void daFuzzyBear_c::endState_RolyPoly() { 
+	this->rot.z = 0; 
 	this->isInvulnerable = 0;
 	this->timer = 0;
 }
@@ -701,44 +691,44 @@ void daFuzzyBear_c::endState_RolyPoly() {
 
 
 void daFuzzyBear_c::beginState_Wait() { this->timer = 0;}
-void daFuzzyBear_c::executeState_Wait() {
-
+void daFuzzyBear_c::executeState_Wait() { 
+	
 	this->timer = this->timer + 1;
 
-	if (this->timer > 60) {
+	if (this->timer > 60) {	
 		doStateChange(&StateID_Bounce);
 		//int randChoice;
-
+		
 		//if (BigBossFuzzyBear == 1) { doStateChange(&StateID_Spray); }
 		//else 					   { doStateChange(&StateID_Bounce); }
-	}
-}
+	}	
+} 
 void daFuzzyBear_c::endState_Wait() { }
 
 
 
-void daFuzzyBear_c::beginState_Outro() {
+void daFuzzyBear_c::beginState_Outro() { 
 	OutroSetup(this);
 }
 void daFuzzyBear_c::executeState_Outro() {
 
-	if (this->dying == 1) {
-		if (this->timer > 180) {
-			ExitStage(WORLD_MAP, 0, BEAT_LEVEL, MARIO_WIPE);
+	if (this->dying == 1) { 
+		if (this->timer > 180) { 
+			ExitStage(WORLD_MAP, 0, BEAT_LEVEL, MARIO_WIPE); 
 		}
-		if (this->timer == 60) { PlayerVictoryCries(this); }
-
+		if (this->timer == 60) { PlayerVictoryCries(this); }	
+		
 		this->timer += 1;
-		return;
-	}
+		return; 
+	}	
 
 	bool ret;
 	ret = ShrinkBoss(this, &this->pos, 2.75, this->timer);
 
-	if (ret == true) 	{
-		BossExplode(this, &this->pos);
+	if (ret == true) 	{ 
+		BossExplode(this, &this->pos); 
 		this->dying = 1;
-		this->timer = 0;
+		this->timer = 0;	
 	}
 
 	this->timer += 1;

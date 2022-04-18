@@ -47,9 +47,9 @@ typedef int BOOL;
 #define NULL 0
 
 /* Structures */
-typedef struct { f32 x, y; } VEC2, Vec2;
-typedef struct { f32 x, y, z; } VEC3, Vec, Vec3;
-typedef struct { s16 x; s16 y; s16 z; } S16Vec, *S16VecPtr;
+typedef struct { f32 x, y; } VEC2, Vec2, *Vec2Ptr, Point2d, *Point2dPtr;
+typedef struct { f32 x, y, z; } VEC3, Vec, Vec3, *VecPtr, Point3d, *Point3dPtr;
+typedef struct { s16 x; s16 y; s16 z; }S16Vec, *S16VecPtr;
 
 typedef struct { f32 frame, value, slope; } HermiteKey;
 
@@ -59,9 +59,22 @@ extern "C" int strcmp ( const char * str1, const char * str2 );
 #include "sdk/mtx.h"
 
 
-inline void *operator new(size_t size, void *ptr) { return ptr; }
+// Stop the auto completion from whining
+#ifdef __CLANG
+inline void *operator new(unsigned int size, void *ptr) { return ptr; }
 float abs(float value);
 double abs(double value);
+#endif
+#ifndef __CLANG
+inline void *operator new(size_t size, void *ptr) { return ptr; }
+
+inline float abs(float value) {
+	return __fabs(value);
+}
+inline double abs(double value) {
+	return __fabs(value);
+}
+#endif
 
 
 struct tree_node {
@@ -114,18 +127,23 @@ char *RetrieveFileFromArcAlt(void *table, char *name, char *path);*/
 extern void *ArchiveHeap; // PAL 0x8042A72C, NTSC 0x8042A44C
 
 namespace nw4r { namespace math { float FrSqrt(float); }}
-inline float sqrtf(float x) {
+float sqrtf(float x) {
     return (x <= 0) ? 0.0f : x * nw4r::math::FrSqrt(x);
 }
 
-#define InfiniteLoop for (;;) { asm("nop"); }
+#ifdef __MWERKS__
+	#define InfiniteLoop for (;;) { asm { nop } }
+#else
+	#define InfiniteLoop for (;;) { asm("nop"); }
+#endif
 
-extern "C" u32 CXGetUncompressedSize(const void *input);
-extern "C" void CXUncompressLZ(const void *input, void *output);
+extern "C" u32 CXGetUncompressedSize( const void *srcp );
+extern "C" void CXUncompressLZ( const void *srcp, void *destp );
 
 namespace nw4r { namespace db {
     void Exception_Printf_(const char *msg, ...);
+	void* sException();
 }}
 
-typedef __builtin_va_list va_list;
+
 #endif

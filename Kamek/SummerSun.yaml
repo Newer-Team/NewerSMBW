@@ -1,6 +1,10 @@
-output_dir: "NewerASM"
+output_dir: "SummerASM"
 code_address: 0x808D9000
+defines:
+  - SUMMER_SUN
 modules:
   - processed/prolog.yaml
   - processed/summerhax.yaml
   - processed/effectVideo.yaml
+  - processed/exceptionHandler.yaml
+  - processed/actors.yaml

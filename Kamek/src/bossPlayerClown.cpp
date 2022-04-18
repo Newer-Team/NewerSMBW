@@ -44,8 +44,7 @@ int CConDraw(dEn_c *clown) {
 	clown->matrix.applyRotationYXZ(&clown->rot.x, &newroty, &newrotz);
 
 	cModel->setDrawMatrix(clown->matrix);
-	Vec sc = {0.25f, 0.5f, 0.25f};
-	cModel->setScale(&sc);
+	cModel->setScale(&(Vec){0.25, 0.5, 0.25});
 	cModel->calcWorld(false);
 
 	cModel->scheduleForDrawing();
@@ -72,7 +71,6 @@ int CConExecute(dEn_c *clown) {
 		clown->speed.x = 0.0f;
 		clown->speed.y = 0.0f;
 	}
-	return ret;
 }
 
 void CCafterCreate(dEn_c *clown, u32 param) {
@@ -115,25 +113,23 @@ void CConExecuteMove(dEn_c *clown) {
 	// OSReport("Clown = %x, %x, %x", (clown)->rot.y, (clown)->rot.x, (clown)->rot.z);
 
 	Vec tempPos;
-
+	
 	u32 buttonPushed = Remocon_GetPressed(GetRemoconMng()->controllers[cPlayerOccupying->which_player]);
 	if (buttonPushed & 0x0100) {
 
 		if (cTimer > 90) {
 			if (clown->direction == 0) { // Going right
-				tempPos = (Vec){clown->pos.x + 32.0f, clown->pos.y + 32.0f, 3564.0f};
+				tempPos = (Vec){clown->pos.x + 32.0, clown->pos.y + 32.0, 3564.0};
 				dStageActor_c *spawned = CreateActor(657, 0, tempPos, 0, 0);
 				spawned->speed.x = 5.0;
 			}
 			else {
-				tempPos = (Vec){clown->pos.x - 32.0f, clown->pos.y + 32.0f, 3564.0f};
+				tempPos = (Vec){clown->pos.x - 32.0, clown->pos.y + 32.0, 3564.0};
 				dStageActor_c *spawned = CreateActor(657, 0, tempPos, 0, 0);
 				spawned->speed.x = -5.0;
 			}
 
-			S16Vec nullRot = {0,0,0};
-			Vec efScale = {0.1f, 0.1f, 0.1f};
-			SpawnEffect("Wm_en_killervanish", 0, &tempPos, &nullRot, &efScale);
+			SpawnEffect("Wm_en_killervanish", 0, &tempPos, &(S16Vec){0,0,0}, &(Vec){0.1, 0.1, 0.1});
 			nw4r::snd::SoundHandle handle;
 			PlaySoundWithFunctionB4(SoundRelatedClass, &handle, SE_OBJ_HOUDAI_S_SHOT, 1);
 
@@ -230,12 +226,12 @@ int daClownShot::onCreate() {
 	allocator.unlink();
 
 	ActivePhysics::Info GreatBalls;
-
+	
 	GreatBalls.xDistToCenter = 0.0;
 	GreatBalls.yDistToCenter = 0.0;
 	GreatBalls.xDistToEdge = 8.0;
 	GreatBalls.yDistToEdge = 7.0;
-
+	
 	GreatBalls.category1 = 0x3;
 	GreatBalls.category2 = 0x0;
 	GreatBalls.bitfield1 = 0x6F;
@@ -264,7 +260,7 @@ int daClownShot::onCreate() {
 
 	this->speed.y = 4.0;
 	this->y_speed_inc = -0.1875;
-
+	
 	this->onExecute();
 	return true;
 }
@@ -292,18 +288,14 @@ int daClownShot::onExecute() {
 	collMgr.calculateAboveCollision(0);
 	collMgr.calculateAdjacentCollision();
 	if (collMgr.outputMaybe) {
-		S16Vec nullRot = {0,0,0};
-		Vec oneVec = {1.0f, 1.0f, 1.0f};
-		SpawnEffect("Wm_en_burst_m", 0, &pos, &nullRot, &oneVec);
+		SpawnEffect("Wm_en_burst_m", 0, &pos, &(S16Vec){0,0,0}, &(Vec){1.0, 1.0, 1.0});
 		nw4r::snd::SoundHandle handle;
 		PlaySoundWithFunctionB4(SoundRelatedClass, &handle, SE_OBJ_TARU_BREAK, 1);
 		Delete(1);
 		return true;
 	}
 
-	S16Vec nullRot = {0,0,0};
-	Vec efScale = {0.7f, 0.7f, 0.7f};
-	effect.spawn("Wm_en_killersmoke", 0, &pos, &nullRot, &efScale);
+	effect.spawn("Wm_en_killersmoke", 0, &(Vec){pos.x, pos.y, pos.z}, &(S16Vec){0,0,0}, &(Vec){0.7, 0.7, 0.7});
 
 	float rect[] = {0.0, 0.0, 8.0, 8.0};
 	int ret = this->outOfZone(this->pos, (float*)&rect, this->currentZoneID);

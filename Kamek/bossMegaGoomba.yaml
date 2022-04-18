@@ -6,7 +6,7 @@ hooks:
   - name: MegaGoombaBuild
     type: add_func_pointer
     src_addr_pal: 0x80952e10
-    target_func: 'daMegaGoomba_c::build()'
+    target_func: 'daMegaGoomba_c::build(void)'
 
   - name: MegaGoombaSpriteFileInfo
     type: add_func_pointer

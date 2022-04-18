@@ -6,12 +6,12 @@ hooks:
   - name: LevelSpecial_Create
     type: add_func_pointer
     src_addr_pal: 0x8097CD3C
-    target_func: 'LevelSpecial_Create(LevelSpecial*)'
+    target_func: 'LevelSpecial_Create(LevelSpecial *)'
     
   - name: LevelSpecial_Execute
     type: add_func_pointer
     src_addr_pal: 0x8097CD54
-    target_func: 'LevelSpecial_Execute(LevelSpecial*)'
+    target_func: 'LevelSpecial_Execute(LevelSpecial *)'
         
   - name: ResetAfterLevel
     type: branch_insn
@@ -27,10 +27,10 @@ hooks:
   - name: MarioStateChanger
     type: add_func_pointer
     src_addr_pal: 0x803259FC
-    target_func: 'MarioStateChanger(void*, dStateBase_c*, unsigned int)'
+    target_func: 'MarioStateChanger(void *, dStateBase_c *, unsigned int)'
 
   - name: FuckinBubbles
     type: branch_insn
     branch_type: b
     src_addr_pal: 0x80926200
-    target_func: 'FuckinBubbles()'
+    target_func: 'FuckinBubbles(void)'

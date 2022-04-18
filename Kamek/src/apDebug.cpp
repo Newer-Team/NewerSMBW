@@ -17,7 +17,7 @@ class APDebugDrawer : public m3d::proc_c {
 
 
 static APDebugDrawer defaultInstance;
-bool enableDebugMode = false;
+static bool enableDebugMode = false;
 
 int APDebugDraw() {
 	if (enableDebugMode)

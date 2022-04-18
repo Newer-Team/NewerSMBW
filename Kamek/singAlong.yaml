@@ -13,7 +13,7 @@ hooks:
   - name: SingAlongBuild
     type: add_func_pointer
     src_addr_pal: 0x8098369C
-    target_func: 'dSingAlong::build()'
+    target_func: 'dSingAlong::build(void)'
 
   - name: UpdateSingAlongSpriteInfo
     type: patch
@@ -37,7 +37,7 @@ hooks:
   - name: SongBlockBuild
     type: add_func_pointer
     src_addr_pal: 0x809834F0
-    target_func: 'dSongBlock::build()'
+    target_func: 'dSongBlock::build(void)'
 
   - name: UpdateSingAlongSpriteInfo
     type: patch
@@ -60,4 +60,4 @@ hooks:
   - name: SongPrizeBuild
     type: add_func_pointer
     src_addr_pal: 0x80985434
-    target_func: 'dSongPrize::build()'
+    target_func: 'dSongPrize::build(void)'

@@ -189,5 +189,3 @@ extern "C" u8 after_course_getMusicForZone(u8 realThemeID) {
 	bool usesDrums = (realThemeID >= 200);
 	return hijackMusicWithSongName(SongNameList[realThemeID-100], realThemeID, true, usesDrums?4:2, usesDrums?2:1, 0);
 }
-
-

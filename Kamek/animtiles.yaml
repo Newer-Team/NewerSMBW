@@ -6,14 +6,14 @@ hooks:
     branch_type: bl
     src_addr_ntsc: 0x80087698
     src_addr_pal: 0x80087698
-    target_func: 'DoTiles(void*)'
+    target_func: 'DoTiles(void *)'
     
   - name: AnimatedTilesDestroy
     type: branch_insn
     branch_type: b
     src_addr_ntsc: 0x80087508
     src_addr_pal: 0x80087508
-    target_func: 'DestroyTiles(void*)'
+    target_func: 'DestroyTiles(void *)'
     
   - name: AnimTileFrameHeapPatch
     type: patch

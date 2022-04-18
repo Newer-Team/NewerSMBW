@@ -45,8 +45,8 @@ enum Direction {
 bool DVD_Start();
 bool DVD_End();
 bool DVD_StillLoading(void *dvdclass2);
-void DVD_LoadFile(void *dvdclass, const char *folder, const char *file, void *callbackData);
-void DVD_FreeFile(void *dvdclass2, const char *file);
+void DVD_LoadFile(void *dvdclass, char *folder, char *file, void *callbackData);
+void DVD_FreeFile(void *dvdclass2, char *file);
 
 extern void *DVDClass;
 
@@ -793,8 +793,6 @@ namespace lyt {
 
 		Vec2 GetVtxPos() const;
 
-		u16 GetExtUserDataNum() const; // 802AC5A0
-
 
 		ut::LinkListNode parentLink;
 		Pane *parent;
@@ -965,7 +963,7 @@ namespace G3DState {
 }
 
 
-u64 GetSomeSizeRelatedBULLSHIT();
+VEC2 GetSomeSizeRelatedBULLSHIT();
 Vec CalculateSomethingAboutRatio(float, float, float, float);
 float CalculateSomethingElseAboutRatio();
 
@@ -1013,7 +1011,7 @@ extern "C" u32 VIGetNextField();
 
 
 namespace m2d {
-	class __attribute__((move_vtable(8))) Base_c /*: public nw4r::ut::Link what's this? */ {
+	class Base_c /*: public nw4r::ut::Link what's this? */ {
 	public:
 		u32 _00;
 		u32 _04;
@@ -1050,7 +1048,7 @@ namespace m2d {
 
 
 namespace EGG {
-	class __attribute__((move_vtable(0x38))) Frustum {
+	class Frustum {
 	public:
 		int projType; // 0 = ortho, 1 = perspective.. who needs GXEnum.h anyway
 		int isCentered;
@@ -1066,7 +1064,6 @@ namespace EGG {
 		float verticalMultiplier;
 		float unk3;
 		short some_flag_bit;
-		short _padding;
 
 
 		// isCentered might actually be isNotCentered, dunno
@@ -1123,7 +1120,7 @@ namespace EGG {
 			Screen(Screen *pParent, bool isCentered, float m40, float m44, float width, float height); // 802D1080
 			Screen(Screen &s); // 802D1140
 
-			~Screen(); // not called by the retail game..
+			~Screen(); // not called by the retail game.. dunno how to make CodeWarrior do this, who gives a fuck
 
 			void loadDirectly();
 			void loadIntoCamera(nw4r::g3d::Camera cam);
@@ -1412,10 +1409,10 @@ template <class TOwner>
 class dStateWrapperBase_c {
 public:
 	dStateWrapperBase_c(TOwner *pOwner) :
-		executor(pOwner), manager(&pointless, &executor, &dStateBase_c::mNoState) { }
+		manager(&pointless, &executor, &dStateBase_c::mNoState), executor(pOwner) { }
 
 	dStateWrapperBase_c(TOwner *pOwner, dState_c<TOwner> *pInitState) :
-		executor(pOwner), manager(&pointless, &executor, pInitState) { }
+		manager(&pointless, &executor, pInitState), executor(pOwner) { }
 
 	virtual ~dStateWrapperBase_c() { }
 
@@ -1925,7 +1922,7 @@ public:
 };
 
 
-class __attribute__((move_vtable(0x60))) fBase_c {
+class fBase_c {
 public:
 	u32 id;
 	u32 settings;
@@ -2405,7 +2402,7 @@ public:
 	void eatIn();
 	void disableEatIn();
 	bool _vf8C(void *other); // AcPy/PlBase?
-	void _vfAC(void *other);
+	void _vfAC();
 	void _vfCC(Vec2 *p, float f);
 	void _vfD0(Vec2 *p, float f);
 
@@ -2899,7 +2896,7 @@ public:
 
 	int loadModel(u8 player_id, int powerup_id, int unk);	// 800D6EE0
 	void update();											// 800D6F80
-	void setMatrix(Mtx *matrix);							// 800D6FA0
+	void setMatrix(Mtx *matrix);								// 800D6FA0
 	void setSRT(Vec position, S16Vec rotation, Vec scale);	// 800D7030
 	void callVF20();										// 800D70F0
 	void draw();											// 800D7110
@@ -3601,7 +3598,7 @@ void WriteNumberToTextBox(int *number, const int *fieldLength, nw4r::lyt::TextBo
 void WriteNumberToTextBox(int *number, nw4r::lyt::TextBox *textBox, bool unk); // 800B3BE0
 
 namespace EGG {
-	class __attribute__((move_vtable(0x1C))) MsgRes {
+	class MsgRes {
 		private:
 			const u8 *bmg, *INF1, *DAT1, *STR1, *MID1, *FLW1, *FLI1;
 		public:
@@ -3649,15 +3646,6 @@ class MessageClass {
 
 dScript::Res_c *GetBMG(); // 800CDD50
 void WriteBMGToTextBox(nw4r::lyt::TextBox *textBox, dScript::Res_c *res, int category, int message, int argCount, ...); // 0x800C9B50
-
-// My version ignores the Font and Font Scale fields in BMG
-void Newer_WriteBMGToTextBox_VAList(nw4r::lyt::TextBox *textBox, dScript::Res_c *res, int category, int message, int argCount, va_list *args);
-void Newer_WriteBMGToTextBox(nw4r::lyt::TextBox *textBox, dScript::Res_c *res, int category, int message, int argCount, ...);
-
-// support functions needed for it
-void CheckForUSD1ShadowEntry(nw4r::lyt::TextBox *textBox); // 800C9BF0
-void WriteParsedStringToTextBox(nw4r::lyt::TextBox *textBox, const wchar_t *str, int vaCount, va_list *args, dScript::Res_c *res);
-
 
 extern "C" dAc_Py_c* GetSpecificPlayerActor(int number);
 extern "C" dStageActor_c *CreateActor(u16 classID, int settings, Vec pos, char rot, char layer);
@@ -3873,7 +3861,7 @@ inline int Player_VF3D4(void *self) {
 }
 
 extern "C" void PlaySoundWithFunctionB4(void *src, nw4r::snd::SoundHandle *handle, int id, int unk);
-extern "C" void CheckIfPlayingSound(void *src, int id);
+extern "C" bool CheckIfPlayingSound(void *src, int id);
 extern void *SoundRelatedClass;
 
 void GetPosForLayoutEffect(VEC3 *pos, bool quack);

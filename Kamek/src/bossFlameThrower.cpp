@@ -57,9 +57,7 @@ int daKoopaBreath::onExecute() {
 
 	PlaySound(this, SE_BOSS_JR_FIRE_BURNING);
 
-	S16Vec nullRot = {0,0,0};
-	Vec threeVec = {3.0f, 3.0f, 3.0f};
-	effect.spawn("Wm_ko_fireattack", 0, &pos, &nullRot, &threeVec);
+	effect.spawn("Wm_ko_fireattack", 0, &(Vec){pos.x, pos.y, pos.z}, &(S16Vec){0,0,0}, &(Vec){3.0, 3.0, 3.0});
 
 	float rect[] = {0.0, 0.0, 38.0, 38.0};
 	int ret = this->outOfZone(this->pos, (float*)&rect, this->currentZoneID);

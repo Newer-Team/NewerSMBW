@@ -1,6 +1,6 @@
 .text
 .align 4
-#include <asm_setup.S>
+.set sp, 1
 
 .extern __ctor_loc
 .extern __ctor_end
@@ -61,7 +61,7 @@ startLoop:
 
 .data
 PMsg:
-	.string "Newer Super Mario Bros. Wii - Hacks by Treeki and Tempus 2009-2013\nNewer v1.0.2\n.ctors: %p - %p\n"
+	.string "Newer Super Mario Bros. Wii - Hacks by Newer Team 2009-2013\nNewer v1.30\n.ctors: %p - %p\n"
 
 PMsg2:
 	.string "%d inits called\n"

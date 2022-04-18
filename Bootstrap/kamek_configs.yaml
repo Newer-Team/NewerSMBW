@@ -1,0 +1,8 @@
+---
+- friendly_name: "Newer SMB Wii Bootstrap"
+  short_name: 'newerbs'
+  defines: []
+  include_dirs: []
+  linker_script: bootstrap.x
+  rel_area_start: 0xDEADBEEF
+  rel_area_end: 0xDEADBEEF

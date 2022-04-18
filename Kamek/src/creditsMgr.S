@@ -1,5 +1,4 @@
 .text
-#include <asm_setup.S>
 .extern StaffCreditsAddCoin
 .extern CreditsModeActive
 .extern continueAddToCoinCount

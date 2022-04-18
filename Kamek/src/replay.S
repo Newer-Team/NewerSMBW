@@ -1,5 +1,4 @@
 # Fucking Nintendo, how do they work
-#include <asm_setup.S>
 
 .extern isReplayEnabled
 
@@ -39,6 +38,8 @@
 .extern RandomSeed
 .extern dontSkipReplayPrepare
 .extern doSkipReplayPrepare
+
+.set sp, 1
 
 # mode 1 = read, 2 = write?
 

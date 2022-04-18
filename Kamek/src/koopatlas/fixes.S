@@ -1,5 +1,4 @@
 .text
-#include <asm_setup.S>
 .global ClearLastPowerupStoreTypeAfterGameOver
 .extern LastPowerupStoreType
 ClearLastPowerupStoreTypeAfterGameOver:

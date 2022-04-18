@@ -27,7 +27,7 @@ int dSpriteSpawner_c::onCreate() {
 	char classicEventNum = (settings >> 28) & 0xF;
 	classicEventOverride = (classicEventNum == 0) ? 0 : ((u64)1 << (classicEventNum - 1));
 
-	profileID = (Actors)((settings >> 16) & 0x7FF);
+	profileID = translateActorID( (Actors)((settings >> 16) & 0x7FF) );
 	respawn = (settings >> 27) & 1;
 
 	u16 tempSet = settings & 0xFFFF;

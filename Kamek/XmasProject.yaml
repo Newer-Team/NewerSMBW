@@ -1,0 +1,7 @@
+---
+output_dir: "XmasASM"
+code_address: 0x808D9000
+modules:
+  - processed/xmashax.yaml
+  - processed/exceptionHandler.yaml
+  - processed/actors.yaml

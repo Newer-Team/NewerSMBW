@@ -6,5 +6,5 @@ hooks:
   - name: FakeStarCoinAdd
     type: add_func_pointer
     src_addr_pal: 0x80969438
-    target_func: 'daFakeStarCoin::build()'
+    target_func: 'daFakeStarCoin::build(void)'
 

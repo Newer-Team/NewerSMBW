@@ -1,12 +1,28 @@
 .extern LayoutHelper_Link
 
-#include <asm_setup.S>
-
+#ifndef __MWERKS__
+.extern _Z8LoadFileP10FileHandlePc
+.extern _Z8FreeFileP10FileHandle
+#define LoadFileFunc _Z8LoadFileP10FileHandlePc
+#define FreeFileFunc _Z8FreeFileP10FileHandle
+.set r0,0;   .set r1,1;   .set r2,2; .set r3,3;   .set r4,4
+.set r5,5;   .set r6,6;   .set r7,7;   .set r8,8;   .set r9,9
+.set r10,10; .set r11,11; .set r12,12; .set r13,13; .set r14,14
+.set r15,15; .set r16,16; .set r17,17; .set r18,18; .set r19,19
+.set r20,20; .set r21,21; .set r22,22; .set r23,23; .set r24,24
+.set r25,25; .set r26,26; .set r27,27; .set r28,28; .set r29,29
+.set r30,30; .set r31,31; .set f0,0; .set f2,2; .set f3,3
+#else
 .extern LoadFile__FP10FileHandlePCc
 .extern FreeFile__FP10FileHandle
+#define LoadFileFunc LoadFile__FP10FileHandlePCc
+#define FreeFileFunc FreeFile__FP10FileHandle
+#endif
 
 .text
 
+.set sp,1
+.set rtoc,2
 .set this,31
 
 
@@ -36,7 +52,7 @@ EmbeddedLayout_LoadArc:
 	# don't know if this will work but it's worth a try
 	addi r3, r31, 0xC0
 	mr r4, r30
-	bl LoadFile__FP10FileHandlePCc
+	bl LoadFileFunc
 
 	# check retval
 	cmpwi r3, 0
@@ -92,7 +108,7 @@ EmbeddedLayout_FreeArc:
 
 	# no, so free it
 	addi r3, r31, 0xC0
-	bl FreeFile__FP10FileHandle
+	bl FreeFileFunc
 
 	li r3, 0
 	stw r3, 0xBC(r31)

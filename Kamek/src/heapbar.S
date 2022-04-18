@@ -16,7 +16,8 @@
 .extern dSys_c__RootHeapMEM1
 .extern dSys_c__RootHeapMEM2
 
-#include <asm_setup.S>
+.set sp,1
+.set rtoc,2
 .set this,31
 
 .text

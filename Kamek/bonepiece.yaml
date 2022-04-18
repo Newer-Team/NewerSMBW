@@ -5,7 +5,7 @@ hooks:
   - name: BuildBonePiece
     type: add_func_pointer
     src_addr_pal: 0x80986B48
-    target_func: 'daBonePiece_c::build()'
+    target_func: 'daBonePiece_c::build(void)'
 
   - name: UpdateBonePieceSpriteInfo
     type: patch

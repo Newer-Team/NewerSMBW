@@ -6,7 +6,7 @@ hooks:
   - name: TopmanBuild
     type: add_func_pointer
     src_addr_pal: 0x8097CFC8
-    target_func: 'daTopman::build()'
+    target_func: 'daTopman::build(void)'
 
   - name: TopmanSpriteFileInfo
     type: add_func_pointer

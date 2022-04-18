@@ -1,4 +1,4 @@
-#include <asm_setup.S>
+.set sp, 1
 
 .extern continueFromFlagObjCheck
 .extern returnFromFlagObjCheck

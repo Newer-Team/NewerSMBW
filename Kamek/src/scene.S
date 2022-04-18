@@ -12,7 +12,8 @@
 
 .text
 
-#include <asm_setup.S>
+.set sp,1
+.set rtoc,2
 
 .global LoadMapScene
 LoadMapScene:
@@ -143,7 +144,6 @@ LoadMapScene:
 EnvWorld:	.string "Env_world"
 SceneBrres:	.string "scene/scene.brres"
 MainSelect:	.string "MainSelect"
-.align 4
 Zero:		.float 0.0
 BlightW1:	.string "light/W8.blight"
 BlmapW1:	.string "light/W8.blmap"

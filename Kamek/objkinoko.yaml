@@ -4,11 +4,11 @@ hooks:
   - name: ObjKinoko_Create
     type: add_func_pointer
     src_addr_pal: 0x80974224
-    target_func: 'daObjKinoko_c::creationHook()'
+    target_func: 'daObjKinoko_c::creationHook(void)'
 
   - name: ObjKinoko_Hook
     type: add_func_pointer
     src_addr_pal: 0x80974248
-    target_func: 'daObjKinoko_c::drawHook()'
+    target_func: 'daObjKinoko_c::drawHook(void)'
 
 

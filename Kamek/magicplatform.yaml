@@ -4,7 +4,7 @@ hooks:
   - name: BuildMagicPlatform
     type: add_func_pointer
     src_addr_pal: 0x80B08630
-    target_func: 'daEnMagicPlatform_c::build()'
+    target_func: 'daEnMagicPlatform_c::build(void)'
 
   - name: UpdateMagicPlatformSpriteInfo
     type: patch

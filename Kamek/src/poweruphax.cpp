@@ -31,8 +31,8 @@ dHammerSuitRenderer_c *dHammerSuitRenderer_c::build() {
 	return new dHammerSuitRenderer_c;
 }
 
-dHammerSuitRenderer_c::dHammerSuitRenderer_c() { } dHammerSuitRenderer_c::~dHammerSuitRenderer_c() {
-}
+dHammerSuitRenderer_c::dHammerSuitRenderer_c() { }
+dHammerSuitRenderer_c::~dHammerSuitRenderer_c() { }
 
 void dHammerSuitRenderer_c::setup(dPlayerModelHandler_c *handler) {
 	setup(handler, 0);
@@ -46,8 +46,7 @@ void dHammerSuitRenderer_c::setup(dPlayerModelHandler_c *handler, int sceneID) {
 	nw4r::g3d::ResFile rf(getResource("hammerM", "g3d/suit.brres"));
 
 	if (victim->player_id_2 <= 1) {
-		nw4r::g3d::ResMdl rm = rf.GetResMdl((victim->player_id_2 == 0) ? "marioHelmet" : "luigiHelmet");
-		helmet.setup(rm, &allocator, 0, 1, 0);
+		helmet.setup(rf.GetResMdl((victim->player_id_2 == 0) ? "marioHelmet" : "luigiHelmet"), &allocator, 0, 1, 0);
 		SetupTextures_MapObj(&helmet, sceneID);
 	}
 

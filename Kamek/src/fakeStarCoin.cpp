@@ -43,13 +43,11 @@ class daFakeStarCoin : public dEn_c {
 };
 
 
-void daFakeStarCoin::playerCollision(ActivePhysics *apThis, ActivePhysics *apOther) {
+void daFakeStarCoin::playerCollision(ActivePhysics *apThis, ActivePhysics *apOther) { 
 
 	PlaySound(this, SE_EMY_CS_TERESA_BEAT_YOU);
-	S16Vec nullRot = {0,0,0};
-	Vec oneVec = {1.0f, 1.0f, 1.0f};
-	SpawnEffect("Wm_en_obakedoor", 0, &this->pos, &nullRot, &oneVec);
-
+	SpawnEffect("Wm_en_obakedoor", 0, &this->pos, &(S16Vec){0,0,0}, &(Vec){1.0, 1.0, 1.0});
+	
 	//FIXME changed to dStageActor_c::Delete(u8) from fBase_c::Delete(void)
 	this->Delete(1);
 }
@@ -67,36 +65,28 @@ bool daFakeStarCoin::collisionCatA_PenguinMario(ActivePhysics *apThis, ActivePhy
 	return collisionCat9_RollingObject(apThis, apOther);
 }
 
-bool daFakeStarCoin::collisionCat1_Fireball_E_Explosion(ActivePhysics *apThis, ActivePhysics *apOther) {
-	S16Vec nullRot = {0,0,0};
-	Vec oneVec = {1.0f, 1.0f, 1.0f};
-	SpawnEffect("Wm_en_explosion", 0, &this->pos, &nullRot, &oneVec);
-	Vec smokeScale = {3.0f, 3.0f, 3.0f};
-	SpawnEffect("Wm_en_explosion_smk", 0, &this->pos, &nullRot, &smokeScale);
+bool daFakeStarCoin::collisionCat1_Fireball_E_Explosion(ActivePhysics *apThis, ActivePhysics *apOther) { 
+	SpawnEffect("Wm_en_explosion", 0, &this->pos, &(S16Vec){0,0,0}, &(Vec){1.0, 1.0, 1.0});
+	SpawnEffect("Wm_en_explosion_smk", 0, &this->pos, &(S16Vec){0,0,0}, &(Vec){3.0, 3.0, 3.0});
 
 	PlaySound(this, SE_OBJ_EMY_FIRE_DISAPP);
 	this->Delete(1);
 
 	return true;
 }
-bool daFakeStarCoin::collisionCat2_IceBall_15_YoshiIce(ActivePhysics *apThis, ActivePhysics *apOther) {
-	S16Vec nullRot = {0,0,0};
-	Vec scale15 = {1.5f, 1.5f, 1.5f};
-	SpawnEffect("Wm_ob_cmnicekira", 0, &this->pos, &nullRot, &scale15);
-	Vec oneVec = {1.0f, 1.0f, 1.0f};
-	SpawnEffect("Wm_ob_icebreakwt", 0, &this->pos, &nullRot, &oneVec);
-	SpawnEffect("Wm_ob_iceattack", 0, &this->pos, &nullRot, &scale15);
+bool daFakeStarCoin::collisionCat2_IceBall_15_YoshiIce(ActivePhysics *apThis, ActivePhysics *apOther) { 
+	SpawnEffect("Wm_ob_cmnicekira", 0, &this->pos, &(S16Vec){0,0,0}, &(Vec){1.5, 1.5, 1.5});
+	SpawnEffect("Wm_ob_icebreakwt", 0, &this->pos, &(S16Vec){0,0,0}, &(Vec){1.0, 1.0, 1.0});
+	SpawnEffect("Wm_ob_iceattack", 0, &this->pos, &(S16Vec){0,0,0}, &(Vec){1.5, 1.5, 1.5});
 
 	PlaySound(this, SE_OBJ_PNGN_ICE_BREAK);
 
 	this->Delete(1);
-	return true;
+	return true; 
 }
 bool daFakeStarCoin::collisionCat9_RollingObject(ActivePhysics *apThis, ActivePhysics *apOther) {
-	S16Vec nullRot = {0,0,0};
-	Vec oneVec = {1.0f, 1.0f, 1.0f};
-	SpawnEffect("Wm_ob_cmnboxgrain", 0, &this->pos, &nullRot, &oneVec);
-	SpawnEffect("Wm_en_obakedoor_sm", 0, &this->pos, &nullRot, &oneVec);
+	SpawnEffect("Wm_ob_cmnboxgrain", 0, &this->pos, &(S16Vec){0,0,0}, &(Vec){1.0, 1.0, 1.0});
+	SpawnEffect("Wm_en_obakedoor_sm", 0, &this->pos, &(S16Vec){0,0,0}, &(Vec){1.0, 1.0, 1.0});
 
 	PlaySound(this, SE_BOSS_JR_FLOOR_BREAK);
 
@@ -124,7 +114,7 @@ daFakeStarCoin *daFakeStarCoin::build() {
 
 
 int daFakeStarCoin::onCreate() {
-
+	
 	allocator.link(-1, GameHeaps[0], 0, 0x20);
 
 	nw4r::g3d::ResFile rf(getResource("star_coin", "g3d/star_coin.brres"));
@@ -132,7 +122,7 @@ int daFakeStarCoin::onCreate() {
 	SetupTextures_MapObj(&bodyModel, 0);
 
 	allocator.unlink();
-
+	
 	ActivePhysics::Info HitMeBaby;
 	HitMeBaby.xDistToCenter = 0.0;
 	HitMeBaby.yDistToCenter = -3.0;
@@ -154,7 +144,7 @@ int daFakeStarCoin::onCreate() {
 
 	this->pos.x -= 120.0;
 	this->pos.z = 3300.0;
-
+	
 	this->onExecute();
 	return true;
 }

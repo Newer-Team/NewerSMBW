@@ -1,0 +1,49 @@
+source_files: [../src/fix38.S]
+hooks:
+- name: NoTitleScreenMovie
+  type: nop_insn
+  area_pal: 0x80781FB8
+
+- name: SkipReplays
+  type: patch
+  addr_pal: 0x80781FBC
+  data: '38600000'
+
+# There was originally a pre-made save file to skip this, but we can just code hax it which is better
+- name: RemoveOpeningCS
+  type: nop_insn
+  area_pal: [0x809191C8, 0x809191D8]
+
+# The default save file also started you out with 3 lives instead of 5, so let's recreate that too
+- name: SetDefaultLivesTo3
+  type: patch
+  addr_pal: 0x800CE05C
+  data: '38A00003'
+
+# Also, let's make continues give you 3 lives instead of 5 to be consistent
+- name: Show3LivesOnContinue
+  type: patch
+  addr_pal: 0x807785CC
+  data: '2C000003'
+
+- name: Give3LivesOnContinue
+  type: patch
+  addr_pal: 0x807786DC
+  data: '3B800003'
+
+- name: 1-1 BG Fix
+  type: patch
+  addr_pal: 0x801180AC
+  data: '38000003'
+
+- name: MusicNukeBahpsNormal
+  type: patch
+  addr_pal: 0x802F6BD8
+  #      BGM_WATER         BGM_ATHLETIC
+  data: '00000000 00000000 00000000 00000000'
+
+- name: MusicNukeBahpsFast
+  type: patch
+  addr_pal: 0x802F6CC8
+  #      BGM_WATER_FAST    BGM_ATHLETIC_FAST
+  data: '00000000 00000000 00000000 00000000'

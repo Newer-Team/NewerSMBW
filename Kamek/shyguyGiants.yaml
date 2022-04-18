@@ -6,7 +6,7 @@ hooks:
   - name: ShyGuyGiantBuild
     type: add_func_pointer
     src_addr_pal: 0x8098640C
-    target_func: 'daShyGuyGiant::build()'
+    target_func: 'daShyGuyGiant::build(void)'
 
   - name: UpdateShyGuyGiantSpriteInfo
     type: patch

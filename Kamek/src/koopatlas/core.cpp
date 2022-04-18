@@ -4,7 +4,6 @@
 #include "music.h"
 
 extern "C" void LoadMapScene();
-extern u8 MaybeFinishingLevel[2];
 
 dScKoopatlas_c *dScKoopatlas_c::instance = 0;
 
@@ -130,7 +129,7 @@ bool WMInit_LoadStaticFiles(void *ptr) {
 
 bool WMInit_LoadSIAnims(void *ptr) {
 	SpammyReport("WMInit_LoadSIAnims called\n");
-
+	
 	DVD_LoadFile(GetDVDClass(), "WorldMap", "SI_kinoko", 0);
 	DVD_LoadFile(GetDVDClass(), "WorldMap", "SI_fireflower", 0);
 	DVD_LoadFile(GetDVDClass(), "WorldMap", "SI_iceflower", 0);
@@ -250,7 +249,7 @@ bool WMInit_SetupExtra(void *ptr) {
 
 	// and put the player into position
 	dKPNode_s *cNode = wm->pathManager.currentNode;
-	wm->player->pos = (Vec){float(cNode->x), float(-cNode->y), wm->player->pos.z};
+	wm->player->pos = (Vec){cNode->x, -cNode->y, wm->player->pos.z};
 
 	// is last param correct? must check :/
 	SpammyReport("creating MAP\n");
@@ -335,6 +334,11 @@ int dScKoopatlas_c::onCreate() {
 
 	SpammyReport("onCreate() called\n");
 
+	SpammyReport("Freeing effects\n"); // Opening cutscene loads vs effects for some reason and segments RAM too much for some maps
+	FreeEffects(0);
+	FreeBreff(0);
+	FreeBreft(0);
+
 	SpammyReport("LoadMapScene()\n");
 	LoadMapScene();
 
@@ -350,26 +354,35 @@ int dScKoopatlas_c::onCreate() {
 	}
 
 	SpammyReport("select cursor\n");
-	this->selectCursor = CreateParentedObject(SELECT_CURSOR, this, 0, 0);
+	Actors aSelectCursor = translateActorID(SELECT_CURSOR);
+	this->selectCursor = CreateParentedObject(aSelectCursor, this, 0, 0);
 
 	SpammyReport("cs menu\n");
 	this->csMenu = CreateParentedObject(COURSE_SELECT_MENU, this, 0, 0);
 
 	SpammyReport("yes no window\n");
-	this->yesNoWindow = (dYesNoWindow_c*)CreateParentedObject(YES_NO_WINDOW, this, 0, 0);
+	Actors aYesNoWindow = translateActorID(YES_NO_WINDOW);
+	this->yesNoWindow = (dYesNoWindow_c*)CreateParentedObject(aYesNoWindow, this, 0, 0);
 
 	SpammyReport("number of people change\n");
 	this->numPeopleChange = CreateParentedObject(NUMBER_OF_PEOPLE_CHANGE, this, 0, 0);
 
 	for (int i = 0; i < 4; i++) {
 		SpammyReport("ccsb %d\n", i);
-		void *ccsb = CreateParentedObject(CHARACTER_CHANGE_SELECT_BASE, this, i, 0);
+		Actors aCharacterChangeSelectBase = translateActorID(CHARACTER_CHANGE_SELECT_BASE);
+		void *ccsb = CreateParentedObject(aCharacterChangeSelectBase, this, i, 0);
+		
 		SpammyReport("ccsc %d\n", i);
-		void *ccsc = CreateParentedObject(CHARACTER_CHANGE_SELECT_CONTENTS, this, i, 0);
+		Actors aCharacterChangeSelectContents = translateActorID(CHARACTER_CHANGE_SELECT_CONTENTS);
+		void *ccsc = CreateParentedObject(aCharacterChangeSelectContents, this, i, 0);
+		
 		SpammyReport("ccsa %d\n", i);
-		void *ccsa = CreateParentedObject(CHARACTER_CHANGE_SELECT_ARROW, this, i, 0);
+		Actors aCharacterChangeSelectArrow = translateActorID(CHARACTER_CHANGE_SELECT_ARROW);
+		void *ccsa = CreateParentedObject(aCharacterChangeSelectArrow, this, i, 0);
+		
 		SpammyReport("ccsi %d\n", i);
-		void *cci = CreateParentedObject(CHARACTER_CHANGE_INDICATOR, this, i, 0);
+		Actors aCharacterChangeSelectIndicator = translateActorID(CHARACTER_CHANGE_INDICATOR);
+		void *cci = CreateParentedObject(aCharacterChangeSelectIndicator, this, i, 0);
 
 		NPCHG_CCSB(this->numPeopleChange, i) = ccsb;
 		NPCHG_CCSC(this->numPeopleChange, i) = ccsc;
@@ -378,7 +391,8 @@ int dScKoopatlas_c::onCreate() {
 	}
 
 	SpammyReport("continue\n");
-	this->continueObj = CreateParentedObject(CONTINUE, this, 0, 0);
+	Actors aContinue = translateActorID(CONTINUE);
+	this->continueObj = CreateParentedObject(aContinue, this, 0, 0);
 
 	SpammyReport("stock item\n");
 	this->stockItem = (dStockItem_c*)CreateParentedObject(STOCK_ITEM, this, 0, 0);
@@ -519,7 +533,6 @@ void dScKoopatlas_c::endState_ContinueWait() {
 
 
 void dScKoopatlas_c::executeState_Normal() {
-	// ghb
 	if (pathManager.completionMessagePending) {
 		OSReport("Going to set CompletionMsg\n");
 		state.setState(&StateID_CompletionMsg);
@@ -541,14 +554,14 @@ void dScKoopatlas_c::executeState_Normal() {
 		state.setState(&StateID_CSMenu);
 		hud->hideAll();
 #ifdef NEWER_DEBUG
-	// } else if (nowPressed & WPAD_MINUS) {
-	// 	pathManager.unlockAllPaths(2);
-	// } else if (nowPressed & WPAD_A) {
-	// 	pathManager.unlockAllPaths(0);
-	// 	SaveBlock *save = GetSaveFile()->GetBlock(-1);
-	// 	for (int w = 0; w < 6; w++)
-	// 		for (int l = 0; l < 6; l++)
-	// 			save->SetLevelCondition(w, l, COND_COIN_ALL);
+	 } else if (nowPressed & WPAD_MINUS) {
+	 	pathManager.unlockAllPaths(2);
+	 } else if (nowPressed & WPAD_A) {
+	 	pathManager.unlockAllPaths(0);
+	 	SaveBlock *save = GetSaveFile()->GetBlock(-1);
+	 	for (int w = 0; w < 6; w++)
+	 		for (int l = 0; l < 6; l++)
+	 			save->SetLevelCondition(w, l, COND_COIN_ALL);
 #endif
 	} 
 }
@@ -1086,17 +1099,20 @@ void dScKoopatlas_c::showSaveWindow() {
 static const wchar_t *completionMsgs[] = {
 	L"The most erudite of Buttocks",
 	L"You've collected all of\nthe \x0B\x014F\xBEEF Star Coins in\n",
+#ifdef FALLING_LEAF
+	L"You've gotten all of the\nexits in Newer Falling Leaf!",
+	L"You've done everything there\nis to do in the game!\nYou're a super player!\nThanks for playing!",
+#else
 	L"You have gotten every \x0B\x013B\xBEEF exit\nin",
 	L"You have gotten everything\nin",
+#endif
 	L"You have collected all the\nnecessary \x0B\x014F\xBEEF coins to enter\nthe Special World!",
 	L"You have collected all the \x0B\x014F\xBEEF Star\nCoins in the game!",
 	L"You've found every \x0B\x013B\xBEEF exit in the\ngame!",
-	L"You've completed everything in\nNEWER SUPER MARIO BROS. Wii!\n\nWe present you a new quest.\nTry pressing \x0B\x0122\xBEEF, \x0B\x0123\xBEEF and \x0B\x0125\xBEEF\n on the Star Coin menu."
+	L"You've completed everything in\nNEWER SUPER MARIO BROS. Wii!\n\nWe present to you a new quest.\nTry pressing \x0B\x0122\xBEEF and \x0B\x0125\xBEEF\n on the Star Coin menu."
 };
 
 void dScKoopatlas_c::beginState_CompletionMsg() {
-	if (pathManager.completionMessageType == 0)
-		pathManager.completionMessageType = 1;
 	OSReport("CompletionMsg beginning with type %d\n", pathManager.completionMessageType);
 	static const int ynTypes[8] = {
 		/*NULL*/ -1,
@@ -1114,11 +1130,8 @@ void dScKoopatlas_c::beginState_CompletionMsg() {
 }
 
 void dScKoopatlas_c::endState_CompletionMsg() {
-	// ghb
 	pathManager.completionMessagePending = false;
 	pathManager.completionMessageType = 0;
-	//pathManager.completionMessagePending = true;
-	//pathManager.completionMessageType ++;
 }
 
 void dScKoopatlas_c::executeState_CompletionMsg() {
@@ -1129,7 +1142,6 @@ void dScKoopatlas_c::executeState_CompletionMsg() {
 		int type = pathManager.completionMessageType;
 
 		const wchar_t *baseText = completionMsgs[type];
-
 		// Used when we assemble a dynamic message
 		wchar_t text[512];
 

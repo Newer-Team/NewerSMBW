@@ -37,7 +37,7 @@ void *EGG__Heap__alloc(unsigned long size, int unk, void *heap);
 void EGG__Heap__free(void *ptr, void *heap);
 
 void *LoadFile(FileHandle *handle, const char *name);
-//void *LoadCompressedFile(FileHandle *handle, const char *name);
+// void *LoadCompressedFile(FileHandle *handle, const char *name);
 bool FreeFile(FileHandle *handle);
 
 void inline *GetArchiveHeap() {

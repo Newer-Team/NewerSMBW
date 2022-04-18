@@ -1,4 +1,5 @@
-#include <asm_setup.S>
+.set sp,1
+.set rtoc,2
 
 .text
 .extern OSReport
@@ -159,10 +160,10 @@ chosenWName:
 	li r5, 0
 	bl InsertIntIntoTextBox1
 
-.extern _Z28ResetAllCompletionCandidatesv
-.extern _Z28ClearOldPathAvailabilityDatav
-	bl _Z28ResetAllCompletionCandidatesv
-	bl _Z28ClearOldPathAvailabilityDatav
+.extern ResetAllCompletionCandidates__Fv
+.extern ClearOldPathAvailabilityData__Fv
+	bl ResetAllCompletionCandidates__Fv
+	bl ClearOldPathAvailabilityData__Fv
 
 	lwz r22, 0x24(r1)
 	lwz r21, 0x28(r1)
@@ -280,7 +281,7 @@ dontFixThisOne2:
 	blr
 
 
-.section .ctors
+.section .ctors,4
 .long FixUpExistingSavefile
 
 .data

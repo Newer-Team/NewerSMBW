@@ -21,37 +21,37 @@ hooks:
   - name: BuildWorldMap # WORLD_MAP
     type: add_func_pointer
     src_addr_pal: 0x8098DCF0
-    target_func: 'dScKoopatlas_c::build()'
+    target_func: 'dScKoopatlas_c::build(void)'
 
   - name: BuildWMPlayer # WM_PLAYER
     type: add_func_pointer
     src_addr_pal: 0x80988DDC
-    target_func: 'daWMPlayer_c::build()'
+    target_func: 'daWMPlayer_c::build(void)'
 
   - name: BuildWMHud # WM_DANCE_PAKKUN
     type: add_func_pointer
     src_addr_pal: 0x80982844
-    target_func: 'dWMHud_c::build()'
+    target_func: 'dWMHud_c::build(void)'
 
   - name: BuildWorldCamera # WORLD_CAMERA
     type: add_func_pointer
     src_addr_pal: 0x8098EEC8
-    target_func: 'dWorldCamera_c::build()'
+    target_func: 'dWorldCamera_c::build(void)'
 
   - name: BuildWMMap # WM_MAP
     type: add_func_pointer
     src_addr_pal: 0x80984710
-    target_func: 'dWMMap_c::build()'
+    target_func: 'dWMMap_c::build(void)'
 
   - name: BuildWMShop # WM_TOGEZO
     type: add_func_pointer
     src_addr_pal: 0x80986074
-    target_func: 'dWMShop_c::build()'
+    target_func: 'dWMShop_c::build(void)'
 
   - name: BuildWMdStarCoin # WM_GHOST
     type: add_func_pointer
     src_addr_pal: 0x80982D1C
-    target_func: 'dWMStarCoin_c::build()'
+    target_func: 'dWMStarCoin_c::build(void)'
 
 
 # fix the STOCK_ITEM references
@@ -106,13 +106,13 @@ hooks:
     type: branch_insn
     branch_type: b
     src_addr_pal: 0x800B2FF0
-    target_func: 'ResetAllCompletionCandidates()'
+    target_func: 'ResetAllCompletionCandidates(void)'
 
   - name: UpdateFSStars
     type: branch_insn
     branch_type: b
     src_addr_pal: 0x801028D0
-    target_func: 'UpdateFSStars()'
+    target_func: 'UpdateFSStars(void)'
 
   - name: DisableExitStageWorldMapOverride
     type: patch

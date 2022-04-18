@@ -4,7 +4,7 @@ hooks:
   - name: BuildFlipBlock
     type: add_func_pointer
     src_addr_pal: 0x80982F34
-    target_func: 'daEnFlipBlock_c::build()'
+    target_func: 'daEnFlipBlock_c::build(void)'
   - name: UpdateFlipBlockSpriteInfo
     type: patch
     addr_pal: 0x8030D518

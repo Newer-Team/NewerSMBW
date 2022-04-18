@@ -2,7 +2,7 @@
 #include <sfx.h>
 #include <dCourse.h>
 #include <stage.h>
-#include <playerAnim.h>
+#include <playeranim.h>
 #include <newer.h>
 void *EGG__Heap__alloc(unsigned long size, int unk, void *heap);
 void EGG__Heap__free(void *ptr, void *heap);
@@ -655,7 +655,12 @@ void dCreditsMgr_c::exitStage() {
 }
 
 Vec2 dCreditsMgr_c::_vf70() {
-	return (const Vec2){10454.0f,-320.0f};
+	// HACK OF THE MILLENIUM
+	// DON'T TRY THIS AT HOME.
+	Vec2 *v = (Vec2*)this;
+	v->x = 10454.0f;
+	v->y = -320.0f;
+	return (const Vec2){12345.0f, 67890.f};
 }
 
 
@@ -985,8 +990,10 @@ void LoadDanceValues() {
 
 	dCreditsMgr_c *cred = dCreditsMgr_c::instance;
 
-	if (!cred)
+	if (!cred) {
+		replayRecord();
 		return;
+	}
 	danceInfo_s *cmd = cred->danceCommand;
 	if (!cmd)
 		return;
@@ -1006,8 +1013,6 @@ void LoadDanceValues() {
 		DanceValues_Bahps = 0;
 		DanceValues_CreditsControl = 0;
 	}
-
-	replayRecord();
 }
 
 

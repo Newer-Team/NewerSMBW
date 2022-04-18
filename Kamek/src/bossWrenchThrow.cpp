@@ -52,16 +52,14 @@ void daWrench::playerCollision(ActivePhysics *apThis, ActivePhysics *apOther) { 
 bool daWrench::collisionCat1_Fireball_E_Explosion(ActivePhysics *apThis, ActivePhysics *apOther) {
 	return true;
 }
-bool daWrench::collisionCat2_IceBall_15_YoshiIce(ActivePhysics *apThis, ActivePhysics *apOther) {
-	return false;
+bool daWrench::collisionCat2_IceBall_15_YoshiIce(ActivePhysics *apThis, ActivePhysics *apOther) { 
+	return false; 
 }
 bool daWrench::collisionCat9_RollingObject(ActivePhysics *apThis, ActivePhysics *apOther) {
 	return true;
 }
 bool daWrench::collisionCat13_Hammer(ActivePhysics *apThis, ActivePhysics *apOther) {
-	S16Vec nullRot = {0,0,0};
-	Vec efScale = {0.5f, 0.5f, 0.5f};
-	SpawnEffect("Wm_ob_cmnboxgrain", 0, &this->pos, &nullRot, &efScale);
+	SpawnEffect("Wm_ob_cmnboxgrain", 0, &this->pos, &(S16Vec){0,0,0}, &(Vec){0.5, 0.5, 0.5});
 
 	PlaySoundAsync(this, SE_BOSS_JR_FLOOR_BREAK);
 	this->Delete(1);
@@ -70,12 +68,10 @@ bool daWrench::collisionCat13_Hammer(ActivePhysics *apThis, ActivePhysics *apOth
 bool daWrench::collisionCat14_YoshiFire(ActivePhysics *apThis, ActivePhysics *apOther) {
 	return true;
 }
-bool daWrench::collisionCat7_GroundPound(ActivePhysics *apThis, ActivePhysics *apOther) {
+bool daWrench::collisionCat7_GroundPound(ActivePhysics *apThis, ActivePhysics *apOther) { 
 	this->_vf220(apOther->owner);
 
-	S16Vec nullRot = {0,0,0};
-	Vec efScale = {0.5f, 0.5f, 0.5f};
-	SpawnEffect("Wm_ob_cmnboxgrain", 0, &this->pos, &nullRot, &efScale);
+	SpawnEffect("Wm_ob_cmnboxgrain", 0, &this->pos, &(S16Vec){0,0,0}, &(Vec){0.5, 0.5, 0.5});
 
 	PlaySoundAsync(this, SE_BOSS_JR_FLOOR_BREAK);
 	this->Delete(1);
@@ -91,7 +87,7 @@ daWrench *daWrench::build() {
 
 
 int daWrench::onCreate() {
-
+	
 	allocator.link(-1, GameHeaps[0], 0, 0x20);
 
 	nw4r::g3d::ResFile rf(getResource("choropoo", "g3d/choropoo.brres"));
@@ -99,36 +95,36 @@ int daWrench::onCreate() {
 	SetupTextures_Enemy(&bodyModel, 0);
 
 	allocator.unlink();
-
-
+	
+	
 	this->direction = this->settings & 0xF;
 	this->Kaboom = (this->settings >> 4) & 0xF;
 	this->front = (this->settings >> 8) & 0xF;
-
+	
 	ActivePhysics::Info HitMeBaby;
-
+	
 	if (this->Kaboom == 0) {
 		HitMeBaby.xDistToCenter = 0.0;
 		HitMeBaby.yDistToCenter = 0.0;
 		HitMeBaby.xDistToEdge = 5.0;
 		HitMeBaby.yDistToEdge = 5.0;
-
+	
 		this->scale.x = 1.25;
 		this->scale.y = 1.25;
 		this->scale.z = 1.25;
 	}
-
+	
 	else {
 		HitMeBaby.xDistToCenter = 0.0;
 		HitMeBaby.yDistToCenter = 0.0;
 		HitMeBaby.xDistToEdge = 8.0;
 		HitMeBaby.yDistToEdge = 8.0;
-
+	
 		this->scale.x = 2.0;
 		this->scale.y = 2.0;
 		this->scale.z = 2.0;
 	}
-
+	
 	HitMeBaby.category1 = 0x3;
 	HitMeBaby.category2 = 0x0;
 	HitMeBaby.bitfield1 = 0x47;
@@ -169,12 +165,12 @@ int daWrench::onCreate() {
 	if (this->front == 1) { this->pos.z = -1804.0; }
 	else 				  { this->pos.z =  3300.0; }
 
-
+	
 	if (this->Kaboom) {
 		doStateChange(&StateID_Kaboom); }
 	else {
 		doStateChange(&StateID_Straight); }
-
+	
 	this->onExecute();
 	return true;
 }
@@ -214,19 +210,19 @@ int daWrench::onExecute() {
 }
 
 
-void daWrench::beginState_Kaboom() {
+void daWrench::beginState_Kaboom() { 
 	float rand = (float)GenerateRandomNumber(10) * 0.4;
 
 	if (this->direction == 0) { // directions 1 spins clockwise, fly rightwards
-		speed.x = 1.0 + rand;
+		speed.x = 1.0 + rand; 
 	}
 	else {						// directions 0 spins anti-clockwise, fly leftwards
-		speed.x = -1.0 - rand;
+		speed.x = -1.0 - rand; 
 	}
 
 	speed.y = 6.0;
 }
-void daWrench::executeState_Kaboom() {
+void daWrench::executeState_Kaboom() { 
 
 	speed.y = speed.y - 0.01875;
 
@@ -241,31 +237,21 @@ void daWrench::executeState_Kaboom() {
 		// hit the ground
 		PlaySoundAsync(this, SE_BOSS_JR_BOMB_BURST);
 
-		S16Vec efRot = {0,0,0};
-		Vec efScale1 = {0.75f, 0.75f, 0.75f};
-		Vec efScale2 = {1.25f, 1.25f, 1.25f};
-
-		SpawnEffect("Wm_en_burst_s", 0, &this->pos, &efRot, &efScale1);
-		SpawnEffect("Wm_mr_wirehit", 0, &this->pos, &efRot, &efScale2);
+		SpawnEffect("Wm_en_burst_s", 0, &this->pos, &(S16Vec){0,0,0}, &(Vec){0.75, 0.75, 0.75});
+		SpawnEffect("Wm_mr_wirehit", 0, &this->pos, &(S16Vec){0,0,0}, &(Vec){1.25, 1.25, 1.25});
 		this->Delete(1);
 	}
 	if (collMgr.outputMaybe & (0x15 << direction)) {
 		// hit the wall
 		PlaySoundAsync(this, SE_BOSS_JR_BOMB_BURST);
-
+ 
 		if (this->direction == 0) { // directions 1 spins clockwise, fly rightwards
-			S16Vec efRot = {0,0x4000,0};
-			Vec efScale1 = {0.75f, 0.75f, 0.75f};
-			Vec efScale2 = {1.25f, 1.25f, 1.25f};
-			SpawnEffect("Wm_en_burst_s", 0, &this->pos, &efRot, &efScale1);
-			SpawnEffect("Wm_mr_wirehit", 0, &this->pos, &efRot, &efScale2);
+			SpawnEffect("Wm_en_burst_s", 0, &this->pos, &(S16Vec){0,0x4000,0}, &(Vec){0.75, 0.75, 0.75});
+			SpawnEffect("Wm_mr_wirehit", 0, &this->pos, &(S16Vec){0,0x4000,0}, &(Vec){1.25, 1.25, 1.25});
 		}
 		else {						// directions 0 spins anti-clockwise, fly leftwards
-			S16Vec efRot = {0,-0x2000,0};
-			Vec efScale1 = {0.75f, 0.75f, 0.75f};
-			Vec efScale2 = {1.25f, 1.25f, 1.25f};
-			SpawnEffect("Wm_en_burst_s", 0, &this->pos, &efRot, &efScale1);
-			SpawnEffect("Wm_mr_wirehit", 0, &this->pos, &efRot, &efScale2);
+			SpawnEffect("Wm_en_burst_s", 0, &this->pos, &(S16Vec){0,0xE000,0}, &(Vec){0.75, 0.75, 0.75});
+			SpawnEffect("Wm_mr_wirehit", 0, &this->pos, &(S16Vec){0,0xE000,0}, &(Vec){1.25, 1.25, 1.25});
 		}
 
 		this->Delete(1);
@@ -274,8 +260,8 @@ void daWrench::executeState_Kaboom() {
 	if (this->direction == 1) { // directions 1 spins clockwise, fly rightwards
 		this->rot.z -= 0x1000; }
 	else {						// directions 0 spins anti-clockwise, fly leftwards
-		this->rot.z += 0x1000; }
-
+		this->rot.z += 0x1000; }	
+	
 	PlayWrenchSound(this);
 
 }
@@ -283,19 +269,19 @@ void daWrench::endState_Kaboom() { }
 
 
 
-void daWrench::beginState_Straight() {
+void daWrench::beginState_Straight() { 
 	float rand = (float)GenerateRandomNumber(10) * 0.4;
 
 	if (this->direction == 0) { // directions 1 spins clockwise, fly rightwards
-		speed.x = 1.0 + rand;
+		speed.x = 1.0 + rand; 
 	}
 	else {						// directions 0 spins anti-clockwise, fly leftwards
-		speed.x = -1.0 - rand;
+		speed.x = -1.0 - rand; 
 	}
 
 	speed.y = 6.0;
 }
-void daWrench::executeState_Straight() {
+void daWrench::executeState_Straight() { 
 
 	speed.y = speed.y - 0.01875;
 
@@ -310,26 +296,22 @@ void daWrench::executeState_Straight() {
 		// hit the ground
 		PlaySoundAsync(this, SE_BOSS_JR_FLOOR_BREAK);
 
-		S16Vec nullRot = {0,0,0};
-		Vec efScale = {0.75f, 0.75f, 0.75f};
-		SpawnEffect("Wm_en_burst_s", 0, &this->pos, &nullRot, &efScale);
+		SpawnEffect("Wm_en_burst_s", 0, &this->pos, &(S16Vec){0,0,0}, &(Vec){0.75, 0.75, 0.75});
 		this->Delete(1);
 	}
 	if (collMgr.outputMaybe & (0x15 << direction)) {
 		// hit the wall
 		PlaySoundAsync(this, SE_BOSS_JR_FLOOR_BREAK);
 
-		S16Vec nullRot = {0,0,0};
-		Vec efScale = {0.75f, 0.75f, 0.75f};
-		SpawnEffect("Wm_en_burst_s", 0, &this->pos, &nullRot, &efScale);
+		SpawnEffect("Wm_en_burst_s", 0, &this->pos, &(S16Vec){0,0,0}, &(Vec){0.75, 0.75, 0.75});
 		this->Delete(1);
 	}
 
 	if (this->direction == 1) { // directions 1 spins clockwise, fly rightwards
 		this->rot.z -= 0x1000; }
 	else {						// directions 0 spins anti-clockwise, fly leftwards
-		this->rot.z += 0x1000; }
-
+		this->rot.z += 0x1000; }	
+	
 	PlayWrenchSound(this);
 
 }

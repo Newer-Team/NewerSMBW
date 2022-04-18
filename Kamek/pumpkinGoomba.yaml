@@ -7,7 +7,7 @@ hooks:
   - name: BuildGoombaPie
     type: add_func_pointer
     src_addr_pal: 0x80983E3C
-    target_func: 'dGoombaPie::build()'
+    target_func: 'dGoombaPie::build(void)'
 
   - name: UpdateGoombaPieSpriteInfo
     type: patch

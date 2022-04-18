@@ -6,7 +6,7 @@ hooks:
   - name: ThwompaDompBuild
     type: add_func_pointer
     src_addr_pal: 0x80aebda0
-    target_func: 'daEnMegaDosun_c::build()'
+    target_func: 'daEnMegaDosun_c::build(void)'
 
 
   - name: UpdateThwompBossSpriteInfo
