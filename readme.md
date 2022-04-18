@@ -38,7 +38,7 @@ Copyright (c) 2010-2022 Newer Team
     [available on the Internet Archive][cwIA].
   - The installer does not work with Wine; you may use `extractCW.sh`
     from the root of the repo in the same directory as the installer to
-    extract the necessary files instead.
+    extract the necessary files instead (requires cabextract).
   - You only need the Command Line Tools component in the custom
     install configuration.
   - After installing it, you need `license.dat` from the installation root,
@@ -141,7 +141,8 @@ or send your query to the email [admin@newerteam.com](mailto:admin@newerteam.com
 
   - NOTE: the installer is known to fail with Wine.
     You may extract the files from it with ``extractCW.sh``
-	on the root of the repo.
+    on the root of the repo (which requires cabextract,
+    available from most package managers).
 
   - CodeWarrior's tools are by default installed to:
   
