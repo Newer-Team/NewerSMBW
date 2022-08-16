@@ -151,7 +151,7 @@ start:
 	cmpwi r3, 0x6AB1
 	beq is_JPN
 
-	#cmpwi r3, 0x0014 # i don't understand this check; TODO ask ninji
+	#cmpwi r3, 0x0014 # This would end checking early if it wasn't v2, until we added KR and TW support
 	#bne ERROR_UnknownRegion
     
     # v2
@@ -179,7 +179,7 @@ start:
 	beq is_KOR
 	
 	# v4
-	li r6, '4' # version (Just Taiwan/Hong Kong)
+	li r6, '4' # version (Just Taiwan)
 	
 	cmpwi r3, 0x5528
 	beq is_TWN
