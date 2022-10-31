@@ -3312,6 +3312,19 @@ struct BGRender {
 	u16 tileNumberWithinBlock, areaID;
 };
 
+void randomiseNormalTerrain(TilemapClass*, BGRender*, int);
+void randomiseSubTerrain(TilemapClass*, BGRender*, int);
+void randomiseNohara(TilemapClass*, BGRender*, int);
+void randomiseSabaku(TilemapClass*, BGRender*, int);
+void randomiseGake(TilemapClass*, BGRender*, int);
+void randomiseKaigan(TilemapClass*, BGRender*, int);
+void randomiseDoukutu(TilemapClass*, BGRender*, int);
+void randomiseShiroBoss1(TilemapClass*, BGRender*, int);
+void randomiseObake(TilemapClass*, BGRender*, int);
+void randomiseObakeSoto(TilemapClass*, BGRender*, int);
+void randomiseKoriChika(TilemapClass*, BGRender*, int);
+void randomisePa2Kori(TilemapClass*, BGRender*, int);
+
 // A HACK
 extern void *DVDClass;
 extern "C" u8 *GetRes(void *Something, const char *arcname, const char *filename);

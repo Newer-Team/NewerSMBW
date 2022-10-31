@@ -1075,6 +1075,19 @@ SECTIONS {
 	getTilesetName__10BGDatClassFii = 0x800813F0;
 
 	getPointerToTile__12TilemapClassFiiPUib = 0x80083B40;
+	
+	randomiseNormalTerrain__FP12TilemapClassP8BGRenderi = 0x80085E80;
+	randomiseSubTerrain__FP12TilemapClassP8BGRenderi = 0x80085FF0;
+	randomiseNohara__FP12TilemapClassP8BGRenderi = 0x80086160;
+	randomiseSabaku__FP12TilemapClassP8BGRenderi = 0x800861C0;
+	randomiseGake__FP12TilemapClassP8BGRenderi = 0x800861D0;
+	randomiseKaigan__FP12TilemapClassP8BGRenderi = 0x80086370;
+	randomiseDoukutu__FP12TilemapClassP8BGRenderi = 0x800866B0;
+	randomiseShiroBoss1__FP12TilemapClassP8BGRenderi = 0x800866C0;
+	randomiseObake__FP12TilemapClassP8BGRenderi = 0x80086760;
+	randomiseObakeSoto__FP12TilemapClassP8BGRenderi = 0x80086760;
+	randomiseKoriChika__FP12TilemapClassP8BGRenderi = 0x800868E0;
+	randomisePa2Kori__FP12TilemapClassP8BGRenderi = 0x80086A60;
 
 	IsWideScreen__Fv = 0x800B5500;
 

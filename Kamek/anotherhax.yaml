@@ -1,4 +1,4 @@
-source_files: [../src/fix38.S, ../src/spritetex.S]
+source_files: [../src/fix38.S, ../src/spritetex.S, ../src/randtilesAnother.cpp, ../src/randtilesAnother.S]
 hooks:
 - {addr_pal: 0x8000D064, data: '280000FF', name: Fix1, type: patch}
 - {addr_pal: 0x80079BD0, data: '280000FF', name: Fix2, type: patch}
@@ -21,3 +21,12 @@ hooks:
 - {name: NewSaveFilename, addr_pal: 0x802F148C, type: patch, data: '616E6F746865722E'}
 - {name: NoteBlockTex, src_addr_pal: 0x80AC8664, type: branch_insn, branch_type: bl, target_func: 'NoteBlockTex'}
 - {name: NoteBlockTex2, addr_pal: 0x80AC8668, type: patch, data: '60000000'}
+- {name: ReplacePa1Table, src_addr_pal: 0x80083C1C, type: branch_insn, branch_type: bl, target_func: 'ReplacePa1Table'}
+- {name: ReplacePa2Table, src_addr_pal: 0x80083C64, type: branch_insn, branch_type: bl, target_func: 'ReplacePa2Table'}
+- {name: ReplacePa3Table, src_addr_pal: 0x80083CAC, type: branch_insn, branch_type: bl, target_func: 'ReplacePa3Table'}
+- {name: ReplacePa1PTMFs, src_addr_pal: 0x80086B90, type: branch_insn, branch_type: bl, target_func: 'ReplacePa1PTMFs'}
+- {name: ReplacePa2PTMFs, src_addr_pal: 0x80086BD4, type: branch_insn, branch_type: bl, target_func: 'ReplacePa2PTMFs'}
+- {name: ReplacePa3PTMFs, src_addr_pal: 0x80086C18, type: branch_insn, branch_type: bl, target_func: 'ReplacePa3PTMFs'}
+- {name: Pa1Count, addr_pal: 0x80083C48, type: patch, data: '281b002B'} # cmplwi r27, 0x2B
+- {name: Pa2Count, addr_pal: 0x80083C90, type: patch, data: '281b0017'} # cmplwi r27, 0x17
+- {name: Pa3Count, addr_pal: 0x80083CD8, type: patch, data: '281b000A'} # cmplwi r27, 0x0A
