@@ -3,7 +3,7 @@
 #include "nsmbwVer.h"
 
 #if defined(ANOTHER_WII)
-#define GAME_NAME "Another 2.10"
+#define GAME_NAME "Another v3.0"
 #elif defined(HOLIDAY_SPECIAL)
 #define GAME_NAME "NerXMAS v1.10"
 #elif defined(SUMMER_SUN)
