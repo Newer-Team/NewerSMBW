@@ -1145,6 +1145,7 @@ void dScKoopatlas_c::executeState_CompletionMsg() {
 		// Used when we assemble a dynamic message
 		wchar_t text[512];
 
+#ifndef FALLING_LEAF
 		if (type >= CMP_MSG_COINS && type <= CMP_MSG_WORLD) {
 			// title
 			int w = pathManager.completionMessageWorldNum;
@@ -1169,6 +1170,7 @@ void dScKoopatlas_c::executeState_CompletionMsg() {
 			text[pos++] = 0;
 			baseText = text;
 		}
+#endif
 
 		yesNoWindow->T_question_00->SetString(baseText);
 		yesNoWindow->T_questionS_00->SetString(baseText);

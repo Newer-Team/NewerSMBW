@@ -1084,7 +1084,7 @@ SECTIONS {
 	randomiseKaigan__FP12TilemapClassP8BGRenderi = 0x80086370;
 	randomiseDoukutu__FP12TilemapClassP8BGRenderi = 0x800866B0;
 	randomiseShiroBoss1__FP12TilemapClassP8BGRenderi = 0x800866C0;
-	randomiseObake__FP12TilemapClassP8BGRenderi = 0x80086760;
+	randomiseObake__FP12TilemapClassP8BGRenderi = 0x80086750;
 	randomiseObakeSoto__FP12TilemapClassP8BGRenderi = 0x80086760;
 	randomiseKoriChika__FP12TilemapClassP8BGRenderi = 0x800868E0;
 	randomisePa2Kori__FP12TilemapClassP8BGRenderi = 0x80086A60;

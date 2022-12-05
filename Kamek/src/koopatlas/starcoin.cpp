@@ -322,6 +322,9 @@ void dWMStarCoin_c::loadSectionInfo() {
 
 	// work out the names
 	WriteAsciiToTextBox(LeftTitle, linfo->getNameForLevel(names[0]));
+#ifdef FALLING_LEAF
+	LeftTitle->SetVisible(false);
+#endif
 	if (names[1])
 		WriteAsciiToTextBox(RightTitle, linfo->getNameForLevel(names[1]));
 	RightTitle->SetVisible(names[1] != 0);

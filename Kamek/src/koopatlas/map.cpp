@@ -553,7 +553,7 @@ void dWMMap_c::doEffects() {
 	// Note: effect::spawn() takes name, unk, pos, rot, scale
 	const S16Vec efRot = {0x1800, 0, 0};
 
-#if defined(FALLING_LEAF)
+#ifdef FALLING_LEAF
 	if (mapID == 0) {
 		// Torches
 		static const VEC3 torchPos[6] = {

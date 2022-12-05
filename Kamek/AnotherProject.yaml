@@ -6,3 +6,4 @@ defines:
 modules:
   - processed/anotherhax.yaml
 #  - processed/replay.yaml
+  - processed/exceptionHandler.yaml

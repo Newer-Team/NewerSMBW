@@ -425,11 +425,19 @@ void dWMShop_c::endState_HideWait() {
 // Possible 8 coin combos =  1,1,2,3,3  /  1,2,2,3,3  /  1,2,3,3,3  /  2,2,2,3,3  /  2,2,3,3,3  /  1,3,3,3,3  /  2,3,3,3,3  /  3,3,3,3,3
 
 const dWMShop_c::ItemTypes dWMShop_c::Inventory[10][12] = { 
+#if defined(FALLING_LEAF)
+	{
+		MUSHROOM, FIRE_FLOWER, ICE_FLOWER, PROPELLER,
+		FIRE_FLOWER, HAMMER, PROPELLER,
+		PENGUIN, MUSHROOM, MINI_SHROOM, FIRE_FLOWER, PROPELLER
+	},
+#else
 	{ // Yoshi's Island
 		MUSHROOM, FIRE_FLOWER, ICE_FLOWER, PROPELLER,
 		FIRE_FLOWER, ICE_FLOWER, FIRE_FLOWER,
 		MUSHROOM, MUSHROOM, ONE_UP, PROPELLER, PROPELLER
 	},
+#endif
 	{ // Desert
 		MUSHROOM, FIRE_FLOWER, ICE_FLOWER, PROPELLER,
 		FIRE_FLOWER, STARMAN, FIRE_FLOWER,
