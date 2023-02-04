@@ -239,6 +239,9 @@ SECTIONS {
 	NoFreezie = 0x800A0B08;
 	GameTimer = 0x8042A350;
 	GameTimerB = 0x80D25BF8;
+	
+	EightyPointZero = 0x8042BA68;
+	OneHundredPointZero = 0x8042CD40;
 
 	DoSceneChange__FUsUiUi = 0x800E1F50;
 

@@ -21,6 +21,7 @@ hooks:
 - {name: NewSaveFilename, addr_pal: 0x802F148C, type: patch, data: '616E6F746865722E'}
 - {name: NoteBlockTex, src_addr_pal: 0x80AC8664, type: branch_insn, branch_type: bl, target_func: 'NoteBlockTex'}
 - {name: NoteBlockTex2, addr_pal: 0x80AC8668, type: patch, data: '60000000'}
+- {name: IceAshibaRail_ZOrder, src_addr_pal: 0x80042740, type: branch_insn, branch_type: bl, target_func: 'IceAshibaRail_ZOrder'}
 - {name: ReplacePa1Table, src_addr_pal: 0x80083C1C, type: branch_insn, branch_type: bl, target_func: 'ReplacePa1Table'}
 - {name: ReplacePa2Table, src_addr_pal: 0x80083C64, type: branch_insn, branch_type: bl, target_func: 'ReplacePa2Table'}
 - {name: ReplacePa3Table, src_addr_pal: 0x80083CAC, type: branch_insn, branch_type: bl, target_func: 'ReplacePa3Table'}

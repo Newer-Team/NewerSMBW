@@ -1645,6 +1645,25 @@ NoteBlockTex:
 	stb r0, 0xA(r4) # store result back into string
 	blr
 
+# Add a flag on nybble 10 to sprite 475 which changes its z-pos, to prevent z-fighting
+.extern float EightyPointZero;	# 0x8042ba68
+.extern float OneHundredPointZero;	# 0x8042cd40
+.global IceAshibaRail_ZOrder
+IceAshibaRail_ZOrder:
+	lwz r5, 4(r3)						# r5 = this->settings;
+	andi. r5, r5, 0x100					# r5 &= 0x100;
+	cmpwi r5, 0x100						# if (r5 == 0x100) {
+	bne ELSE							#
+	lis r5, OneHundredPointZero@ha		#     r5 = 100.0;
+	addi r5, r5, OneHundredPointZero@l	#
+	b ENDIF								# }
+ELSE:									# else {
+	lis r5, EightyPointZero@ha			#     r5 = 80.0;  // original value from retail
+	addi r5, r5, EightyPointZero@l		#
+ENDIF:									# }
+	lfs f0, 0(r5)						# f0 = *((float*)r5);
+	blr
+
 .data
 BomombDir:
 	.word 0x0400FC00
