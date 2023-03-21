@@ -116,8 +116,7 @@ The setup procedures are included below this section.
 
 As for the game engine APIs - I'd love to document these, but it would simply
 take way, way too long. Let us know if you have any technical questions
-involving these: you can ask in the [NSMBW Hacking Depot][nhd] Discord server
-or send your query to the email [admin@newerteam.com](mailto:admin@newerteam.com)
+involving these: you can send your query to the email [admin@newerteam.com](mailto:admin@newerteam.com)
 
 ## Installation
 
@@ -188,5 +187,3 @@ in the Riivolution patch).
 https://devkitpro.org/wiki/Getting_Started
 [Wine]:
 https://www.winehq.org/
-[nhd]:
-https://newerteam.com/nhd
