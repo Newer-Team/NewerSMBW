@@ -334,7 +334,7 @@ int dScKoopatlas_c::onCreate() {
 
 	SpammyReport("onCreate() called\n");
 
-	SpammyReport("Freeing effects\n"); // Opening cutscene loads vs effects for some reason and segments RAM too much for some maps
+	SpammyReport("Freeing effects\n"); // Opening cutscene loads vs effects for some reason and fragments RAM too much for some maps
 	FreeEffects(0);
 	FreeBreff(0);
 	FreeBreft(0);
