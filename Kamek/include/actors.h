@@ -631,7 +631,7 @@ enum Actors {
 	// NV_SCREEN = 621,
 	// ANTI_ADDICTION_SCREEN = 622,
 	
-	// Yes, this does shift the entire table by two (WM_CS_SEQ_MNG becomes 623 and so on).
+	// Yes, this does shift the entire table by three (WM_CS_SEQ_MNG becomes 623 and so on).
 	// translateActorID() will need to be modified to support this, and more vigorously applied
 	// if/when support for the Shield version is implemented.
 	WII_STRAP = 620,
