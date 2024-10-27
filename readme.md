@@ -155,7 +155,7 @@ involving these: you can send your query to the email [admin@newerteam.com](mail
 
   `C:\Program Files (x86)\Freescale\CW for MPC55xx and MPC56xx 2.10\license.dat`
 
-  - The ``license.dat`` file may alernatively be copied to
+  - The ``license.dat`` file may alternatively be copied to
     `Kamek/tools/cw`.
 
 ### Usage
