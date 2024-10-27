@@ -150,13 +150,13 @@ involving these: you can send your query to the email [admin@newerteam.com](mail
   - Copy the files inside to `Kamek/tools/cw` - Kamek assumes they
     are there.
 
-  - Also, on Windows, make sure the following system variable is added
+  - Also make sure the following system variable is added
     to your environment variables, with the name `LM_LICENSE_FILE`:
 
   `C:\Program Files (x86)\Freescale\CW for MPC55xx and MPC56xx 2.10\license.dat`
 
   - The ``license.dat`` file may alernatively be copied to
-    `Kamek/tools/cw` if you are using Wine.
+    `Kamek/tools/cw`.
 
 ### Usage
 
