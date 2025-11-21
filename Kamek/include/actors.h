@@ -72,7 +72,7 @@ enum Actors {
 	AC_4SWICHAND = 65,
 	AC_4SWICHOR = 66,
 	AC_RANDSWICH = 67,
-	AC_chnGESWICH = 68,
+	AC_CHNGESWICH = 68,
 	AC_IFSWICH = 69,
 	AC_RNSWICH = 70,
 	EN_BKBLOCK = 71,
@@ -830,3 +830,4 @@ Actors translateActorID(Actors id);
 Actors adjustID(Actors id);
 
 #endif
+
