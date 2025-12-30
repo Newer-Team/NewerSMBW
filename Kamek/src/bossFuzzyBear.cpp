@@ -95,20 +95,8 @@ bool daFuzzyBear_c::collisionCat1_Fireball_E_Explosion(ActivePhysics *apThis, Ac
 	return true;
 }
 bool daFuzzyBear_c::collisionCat7_GroundPound(ActivePhysics *apThis, ActivePhysics *apOther) { 
-	apOther->someFlagByte |= 2;
-
-	dActor_c *block = apOther->owner;
-	dEn_c *mario = (dEn_c*)block;
-
-	mario->speed.y = -mario->speed.y;
-	mario->pos.y += mario->speed.y;
-
-	if (mario->direction == 0) { mario->speed.x = 4.0; }
-	else					  { mario->speed.x = -4.0; }
-	
-	mario->doSpriteMovement();
-	mario->doSpriteMovement();
-	return true;
+	this->counter_504[apOther->owner->which_player] = 0;
+	return this->collisionCat9_RollingObject(apThis, apOther);
 }
 bool daFuzzyBear_c::collisionCat7_GroundPoundYoshi(ActivePhysics *apThis, ActivePhysics *apOther) { 
 	this->counter_504[apOther->owner->which_player] = 0;
