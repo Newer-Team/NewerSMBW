@@ -52,7 +52,6 @@ extern char isLockPlayerRotation;
 
 #define time *(u32*)((GameTimer) + 0x4)
 
-
 static const float GlobalSizeFloatModifications [] = {1, 0.25, 0.5, 0.75, 1.25, 1.5, 1.75, 2, 2.5, 3, 4, 5, 6, 7, 8, 10 };
 static const float GlobalRiderFloatModifications [] = {1, 0.6, 0.7, 0.9, 1, 1, 1, 1.1, 1.25, 1.5, 2, 2.5, 3, 3.5, 4, 5};
 static const float BGScaleChoices[] = {0.1f, 0.15f, 0.25f, 0.375f, 0.5f, 0.625f, 0.75f, 0.9f, 1.0f, 1.125f, 1.25f, 1.5f, 1.75f, 2.0f, 2.25f, 2.5f};
@@ -302,3 +301,5 @@ void LevelSpecial_Update(LevelSpecial *self) {
 	
 	self->lastEvState = newEvState;
 }
+
+#undef time

@@ -3,6 +3,7 @@
 #include <g3dhax.h>
 #include <sfx.h>
 
+extern void shyCollisionCallback(ActivePhysics *apThis, ActivePhysics *apOther);	
 
 const char* SGGarcNameList [] = {
 	"shyguy",

@@ -4,6 +4,7 @@
 #include "music.h"
 
 extern "C" void LoadMapScene();
+extern u8 MaybeFinishingLevel[2];
 
 dScKoopatlas_c *dScKoopatlas_c::instance = 0;
 

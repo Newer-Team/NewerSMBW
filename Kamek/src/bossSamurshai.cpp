@@ -6,6 +6,7 @@
 
 extern "C" void *SoundRelatedClass;
 extern "C" void *MapSoundPlayer(void *SoundRelatedClass, int soundID, int unk);
+extern "C" void dAcPy_vf3F8(void* player, dEn_c* monster, int t);
 
 
 const char* SSarcNameList [] = {
