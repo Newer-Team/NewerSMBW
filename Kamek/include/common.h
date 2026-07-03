@@ -127,7 +127,7 @@ char *RetrieveFileFromArcAlt(void *table, char *name, char *path);*/
 extern void *ArchiveHeap; // PAL 0x8042A72C, NTSC 0x8042A44C
 
 namespace nw4r { namespace math { float FrSqrt(float); }}
-float sqrtf(float x) {
+inline float sqrtf(float x) {
     return (x <= 0) ? 0.0f : x * nw4r::math::FrSqrt(x);
 }
 

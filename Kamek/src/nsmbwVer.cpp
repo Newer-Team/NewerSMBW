@@ -1,3 +1,4 @@
+#include <common.h>
 #include "nsmbwVer.h"
 
 NSMBWVer getNsmbwVer()
