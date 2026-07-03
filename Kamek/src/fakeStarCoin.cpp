@@ -131,7 +131,7 @@ int daFakeStarCoin::onCreate() {
 	HitMeBaby.category1 = 0x5;
 	HitMeBaby.category2 = 0x0;
 	HitMeBaby.bitfield1 = 0x4F;
-	HitMeBaby.bitfield2 = 0xFFFFFFFF;
+	HitMeBaby.bitfield2 = 0xFFBAFFFE;
 	HitMeBaby.unkShort1C = 0;
 	HitMeBaby.callback = &dEn_c::collisionCallback;
 
