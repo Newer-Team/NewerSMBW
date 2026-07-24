@@ -39,7 +39,10 @@ class dWMPathManager_c {
 		}
 
 		void startMovementTo(dKPPath_s *path);
-		void moveThroughPath(int pressedDir);
+		// carryOver: distance to advance this call instead of a full moveSpeed step.
+		// Negative means "use moveSpeed". Used to spend the distance left over after
+		// crossing a node on the path we continue onto.
+		void moveThroughPath(int pressedDir, float carryOver = -1.0f);
 		void activatePoint();
 		void unlockAllPaths(char type);
 
