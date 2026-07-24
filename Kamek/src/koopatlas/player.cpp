@@ -68,13 +68,13 @@ int daWMPlayer_c::onExecute() {
 		dKPMusic::playStarMusic();
 	}
 
+	if (dScKoopatlas_c::instance->mapIsRunning())
+		dScKoopatlas_c::instance->pathManager.execute();
+
 	if (spinning)
 		rot.y += 0xC00;
 	else
 		SmoothRotation(&rot.y, targetRotY, 0xC00);
-
-	if (dScKoopatlas_c::instance->mapIsRunning())
-		dScKoopatlas_c::instance->pathManager.execute();
 
 	this->modelHandler->update();
 	pats[((dPlayerModel_c*)modelHandler->mdlClass)->currentPlayerModelID].process();

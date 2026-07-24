@@ -1026,6 +1026,14 @@ void dWMPathManager_c::startMovementTo(dKPPath_s *path) {
 	// calculate direction of the path
 	short deltaX = path->end->x - path->start->x;
 	short deltaY = path->end->y - path->start->y;
+
+	// Maps chain several nodes onto a single spot, leaving zero length paths between them.
+	// Such a path has no direction: atan2(0, 0) has no meaningful answer and returns 0,
+	// and the reverseThroughPath flip below then turns that 0 into a hard 180, so the player
+	// snaps to a garbage facing for the one frame the path is alive. Detect it here and
+	// keep the facing we already have.
+	const bool hasNoDirection = deltaX == 0 && deltaY == 0;
+
 	u16 direction = (u16)(atan2(deltaX, deltaY) / ((M_PI * 2) / 65536.0));
 
 	if (reverseThroughPath) {
@@ -1034,6 +1042,15 @@ void dWMPathManager_c::startMovementTo(dKPPath_s *path) {
 
 	daWMPlayer_c *player = daWMPlayer_c::instance;
 
+	// OSReport(
+	// 	"startMovementTo: path=%08X start=(%d,%d) end=(%d,%d) curNode=%08X (%d,%d) "
+	// 	"rev=%d dir=%d deg | player=(%f,%f,%f) targetRot=%d deg\n",
+	// 	(u32)path, (s32)path->start->x, (s32)path->start->y,
+	// 	(s32)path->end->x, (s32)path->end->y,
+	// 	(u32)currentNode, (s32)currentNode->x, (s32)currentNode->y,
+	// 	(s32)reverseThroughPath, (s32)((s16)direction * 180.0f / 32768.0f),
+	// 	player->pos.x, player->pos.y, player->pos.z,
+	// 	(s32)((s16)player->targetRotY * 180.0f / 32768.0f));
 
 	// Consider adding these as options
 	// wall_walk_l = 60,
@@ -1138,7 +1155,9 @@ void dWMPathManager_c::startMovementTo(dKPPath_s *path) {
 		dWMMap_c::instance->spinLaunchStar();
 	} else {
 		forcedRotation = false;
-		player->setTargetRotY(direction);
+		// A path with no length has no direction to face along, so leave the player as he is.
+		if (!hasNoDirection)
+			player->setTargetRotY(direction);
 	}
 
 	player->startAnimation(whichAnim, updateRate, Animations[id].animParam2, 0.0f);
@@ -1204,16 +1223,19 @@ void dWMPathManager_c::startMovementTo(dKPPath_s *path) {
 	}
 }
 
-void dWMPathManager_c::moveThroughPath(int pressedDir) {
+void dWMPathManager_c::moveThroughPath(int pressedDir, float carryOver) {
 	dKPNode_s *from, *to;
 
 	from = reverseThroughPath ? currentPath->end : currentPath->start;
 	to = reverseThroughPath ? currentPath->start : currentPath->end;
 
+	short deltaX = to->x - from->x;
+	short deltaY = to->y - from->y;
+
 	daWMPlayer_c *player = daWMPlayer_c::instance;
 
 	if (pressedDir >= 0 && !calledEnteredNode) {
-		int whatDirDegrees = ((int)(atan2(to->x-from->x, to->y-from->y) / ((M_PI * 2) / 360.0)) + 360) % 360;
+		int whatDirDegrees = ((int)(atan2(deltaX, deltaY) / ((M_PI * 2) / 360.0)) + 360) % 360;
 		// dirs are: left, right, up, down
 		int whatDir;
 		if (whatDirDegrees >= 225 && whatDirDegrees <= 315)
@@ -1224,7 +1246,7 @@ void dWMPathManager_c::moveThroughPath(int pressedDir) {
 			whatDir = 3; // moving Up, so reversing requires Down
 		else if (whatDirDegrees > 315 || whatDirDegrees < 45)
 			whatDir = 2; // moving Down, so reversing requires Up
-		OSReport("Delta: %d, %d; Degrees: %d (Atan result is %f); Calced dir is %d; Pressed dir is %d\n", to->x-from->x, to->y-from->y, whatDirDegrees, atan2(to->x-from->x,to->y-from->y), whatDir, pressedDir);
+		OSReport("Delta: %d, %d; Degrees: %d (Atan result is %f); Calced dir is %d; Pressed dir is %d\n", deltaX, deltaY, whatDirDegrees, atan2(deltaX, deltaY), whatDir, pressedDir);
 
 		if (whatDir == pressedDir) {
 			// are we using a forbidden animation?
@@ -1264,14 +1286,17 @@ void dWMPathManager_c::moveThroughPath(int pressedDir) {
 	}
 
 
-	Vec move = (Vec){to->x - from->x, to->y - from->y, 0};
+	Vec move = (Vec){deltaX, deltaY, 0};
 	VECNormalize(&move, &move);
-	VECScale(&move, &move, moveSpeed);
+	// How much ground this call may cover: normally a full step, or whatever was left of the
+	// step when we crossed a node partway through it.
+	const float stepSize = carryOver >= 0.0f ? carryOver : moveSpeed;
+	VECScale(&move, &move, stepSize);
 
 	if (isJumping) {
 		bool isFalling;
 		if (from->y == to->y) {
-			float xDistance = to->x - from->x;
+			float xDistance = deltaX;
 			if (xDistance < 0)
 				xDistance = -xDistance;
 			float currentPoint = max(to->x, from->x) - player->pos.x;
@@ -1330,8 +1355,18 @@ void dWMPathManager_c::moveThroughPath(int pressedDir) {
 			(((move.x > 0) ? (player->pos.x >= to->x) : (player->pos.x <= to->x)) &&
 			 ((move.y > 0) ? (-player->pos.y >= to->y) : (-player->pos.y <= to->y)))
 			||
-			(from->x == to->x && from->y == to->y)
+			(deltaX == 0 && deltaY == 0)
 	   ) {
+		// We almost never land exactly on the node: this frame's step usually carries us
+		// some way past it. Measure that leftover distance before snapping onto the node,
+		// so it can be spent on the path we continue onto instead of being thrown away.
+		float leftover;
+		if (deltaX == 0 && deltaY == 0)
+			leftover = stepSize;
+		else {
+			Vec past = {player->pos.x - to->x, -player->pos.y - to->y, 0};
+			leftover = VECMag(&past);
+		}
 
 		currentNode = to;
 		player->pos.x = to->x;
@@ -1482,10 +1517,14 @@ void dWMPathManager_c::moveThroughPath(int pressedDir) {
 
 			if (!movingAgain)
 				player->startAnimation(wait_select, 1.2, 10.0, 0.0);
+			else if (isMoving && leftover > 0.0f)
+				moveThroughPath(-1, leftover);
 
 		} else {
 			startMovementTo(to->getOppositeAvailableExitTo(currentPath));
 			SpammyReport("passthrough node, continuing to next path\n");
+			if (isMoving && leftover > 0.0f)
+				moveThroughPath(-1, leftover);
 		}
 	}
 
