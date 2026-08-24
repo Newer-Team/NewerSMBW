@@ -6,7 +6,7 @@ hooks:
     branch_type: bl
     src_addr_ntsc: 0x80087698
     src_addr_pal: 0x80087698
-    target_func: 'DoTiles(void *)'
+    target_func: 'DoTiles(void *, int, short, char *, char *, char)'
     
   - name: AnimatedTilesDestroy
     type: branch_insn

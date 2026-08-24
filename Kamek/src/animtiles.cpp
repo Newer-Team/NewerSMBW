@@ -17,7 +17,9 @@ struct AnimDef_Entry {
 
 FileHandle fh;
 
-void DoTiles(void* self) {
+void DoTiles(void* self, int originalTileset, short originalTile, char* originalName, char* originalDelays, char originalReverse) {
+	BgTexMng__LoadAnimTile(self, originalTileset, originalTile, originalName, originalDelays, originalReverse); // Restore the call overriden by this function
+	
 	AnimDef_Header *header;
 	
 	header = (AnimDef_Header*)LoadFile(&fh, "/NewerRes/AnimTiles.bin");
